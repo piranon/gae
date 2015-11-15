@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="{{ base_ngservices_url() }}popupbox/popupbox.css" />
+<div ng-controller="popupBoxController" style=" height:0px;" >  
+	<div class="popupBox-frame " ng-if="popupBoxData.show">
+	    <div class="popupBox-body" ng-if="popupBoxData.type.normal">
+	    	<div  style="min-height: 10px ">
+	    		<button type="button" class="btn btn-default popup-closeBtn pull-right" style="margin-left:20px;" ng-click="popupBoxData.closeBtnClicked()">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+	     	</div>
+	    	<div compile="popupBoxData.contentHTML"></div>
+	    </div>
+	    <div class="popupBox-body" ng-if="popupBoxData.type.confirm==1">
+	     	<div  style="min-height: 10px;">
+	     		<button type="button" class="btn btn-default popup-closeBtn pull-right" style="margin-left:20px;" ng-click="popupBoxData.closeBtnClicked()">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+				<div class="clear"></div>
+	     	</div>
+	     	<div class="form-group" style="min-height: 50px;">
+	    		<div compile="popupBoxData.contentHTML"></div>
+	    	</div>
+		    <div class="form-group">
+		    	<button type="button" class="btn btn-default pull-right" style="margin-left:20px;" ng-click="popupBoxData.cancelBtnClicked()">
+					<span class="glyphicon glyphicon-ban-circle"></span> Cancel
+				</button>
+				<button type="button" class="btn btn-default pull-right"   ng-click="popupBoxData.confirmBtnClicked()">
+					<span class="glyphicon glyphicon-ok-circle"></span> Confirm
+				</button>
+				<div class="clear"></div>
+        	</div>
+	    </div>
+	    <div class="popupBox-body" ng-if="popupBoxData.type.iframe" style="{{ popupBoxData.bodyStyle }} ">
+	    	<div  style="min-height: 10px ">
+	    		 {{ popupBoxData.currentSize.height }} : {{windowHeight}}
+	    		<button type="button" class="btn btn-default popup-closeBtn pull-right" style="margin-left:20px;" ng-click="popupBoxData.closeBtnClicked()">
+					<span class="glyphicon glyphicon-remove"></span>
+				</button>
+	     	</div>
+	    	<iframe class="popupBox-body-iframe" src="{{ popupBoxData.iframeData.content }}" onLoad="popupBoxData.iframeData.onReady()" style=" height:{{ popupBoxData.currentSize.height }}px; " ></iframe>
+	    </div>
+	</div>
+</div>

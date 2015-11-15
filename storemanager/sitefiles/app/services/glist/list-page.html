@@ -1,0 +1,140 @@
+<style type="text/css">
+    .clear{ clear: both;}
+    #listController{ }
+    .list_wrap, .list_header{ max-width: 760px; min-width: 420px; margin: 20px auto; }
+    .list_wrap .createNewBtn{ background:#5cb85c; color: #FFF; border: 1px solid #5cb85c; }
+    .list-group{ margin: 0px auto;}
+    .list_wrap .list_body{ margin: 10px auto;}
+    .list_wrap .list_body.noResult{ margin: 20px auto; text-align: center; }
+    .list_wrap_row_element{ padding: 00px 0px; margin: 10px 0px; }
+    .list_wrap_row_element.search{ padding: 0px 0px; margin: 20px 0px; }
+    .list_wrap_row_element-pagination{ text-align: center; padding: 0px 0px; }
+    .list_wrap_row_element.actionBar{ text-align: left;  }
+    .list_wrap_row_element.actionBar .deleteSelectedRowBtn{ color: #ce4844; }
+    .list_wrap_row_element .input-group.search_div{ min-width: 280px; max-width: 320px; float: right;}
+    .row.section{ float:left; }
+    .list-group-item-body{  word-wrap: break-word;  }
+    .list-group-item-body-section{ float: left;}
+    .list-group-item-body-section.checkbox{ padding: 0px 20px; width: 4%;}
+    .list-group-item-body-section.content{  padding: 0px; width: 60%;}
+    .list-group-item-body-section.actionButton{ float: right; width: 30%; min-width: 140px; text-align: right;}
+    .list-group-item-body-section.actionButton .viewRowBtn{}
+    .list-group-item-body-section.actionButton .editRowBtn{}
+    .list-group-item-body-section.actionButton .deleteRowBtn, .glist-cell .deleteRowBtn{ color: #ce4844; }
+    input[type="checkbox"]:focus { outline:0; }
+    .margin_h10{ margin: 0px 10px;}
+    .margin_left10{ margin-left: 10px; }
+    .margin_right10{ margin-right: 10px; }
+
+    .list-page-nav-btns { min-height: 10px; }
+    .list-page-nav-btns .btn{ padding: 0px;}
+    .list-page-nav-btns .btn a,.list-page-nav-btns .btn .span{ display:block; padding:6px 10px; margin: 0px; }
+    .list-page-nav-btns .pageNavBtn{ margin-top: 10px; margin-bottom: 10px; border-color: #ddd; min-width: 34px;  }
+    .list-page-nav-btns .pageNavBtn:focus{ outline:0;}
+    .list-page-nav-btns .pageNavBtn a{ text-decoration: none; }
+    .list-page-nav-btns .pageNavBtn a:hover{ text-decoration: none;}
+    
+    .list-page-nav-btns .pageNavBtn.active{ border: 1px solid #ddd; box-shadow: 0px 0px 0px #fff; }
+    .list-page-nav-btns .pageNavBtn.active a{ background: #337ab7;  color: #FFF; box-shadow: 0px 0px 0px #fff; }
+    
+</style>
+<div ng-controller="listController" id="listController">
+<div class="list_wrap" ng-if="listViewDisplay.listIsVisible == 1" >
+
+    <div class="glist-toolbar header" ng-if="( listViewDisplay.toolbarDisplay.headerEnable == 1 )">
+         <div class="list_wrap_row_element search" ng-if="listViewDisplay.searchEnable == 1"  >    
+            <div class="input-group search_div pull-right" >
+                <input type="text" class="form-control" placeholder="Search for..." ng-model="listViewDisplay.txt_search">
+                    <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="listViewDisplay.searchClicked()">Search</button>
+                </span>
+            </div><!-- /input-group -->
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="list_wrap_row_element content"  > 
+            <div class="createNewBtn btn btn-default pull-left " ng-click="listViewDisplay.createNewBtnClicked()" ng-if="listViewDisplay.createEnable == 1" >
+                <span class="glyphicon glyphicon-plus-sign"></span> <span> Create</span>
+            </div>   
+            <div class="dropdown pull-right" ng-if="listViewDisplay.sortbyEnable == 1">
+                <div compile="listViewDisplay.sortbyDropdownRenderHTML"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+
+        <div class="list_wrap_row_element-pagination" ng-if="( listViewDisplay.navBarDisplay.headerEnable == 1 )">
+            <ui-list-nav></ui-list-nav>
+        </div><!--pagination-->
+    
+        <div class="list_wrap_row_element actionBar " ng-if="( listViewDisplay.actionBarDisplay.headerEnable == 1 && listViewDisplay.pageNavData.total_page> 0 )" >
+            <div class="btn btn-default pull-left margin_right10" ng-click="listViewDisplay.checkboxSelectAll()" >
+                <span class="glyphicon glyphicon-check"></span> <span> Select All</span>
+            </div>
+            <div class="btn btn-default pull-left" ng-click="listViewDisplay.checkboxUnselectAll()" >
+                <span class="glyphicon glyphicon-unchecked"></span> <span> Clear All</span>
+            </div>
+            <div class="deleteSelectedRowBtn btn btn-default pull-right" ng-class="{disabled: listViewDisplay.getSelectedIdsCount() == 0 }" ng-click="listViewDisplay.deleteSelectedIds()" ng-if="( listViewDisplay.actionBarDisplay.deleteAllBtnEnable == 1 )" >
+                <span class="glyphicon glyphicon-trash "></span> <span> Delete </span>
+            </div>
+            <div class="clear"></div>
+        </div><!--actionBar-->
+
+    </div><!--glist-toolbar header-->
+
+    <div class="list_body" ng-if="listViewDisplay.pageNavData.total_page>0" >
+        <ul class="list-group" style="margin-bottom:0px;">
+            <li class="list-group-item {{ ( index == 0 && listViewDisplay.pageNavData.total_page>1 ) ? 'firstrow' :  ( ( index == (listViewDisplay.itemsList.length-1)  ) ? 'lastrow' : '')  }}" ng-repeat="(index, itemData)  in listViewDisplay.itemsList">
+                <div class="list-group-item-body " >
+                    <div  class="list-group-item-body-section checkbox" style=" width:{{listViewDisplay.sectionSize.checkbox}}%; " ng-if="listViewDisplay.checkbox == 1">
+                         <input type="checkbox" value="{{ itemData.fieldId }}" ng-model="listViewDisplay.itemsList[index].checkboxIsSelected" >
+                    </div>
+                    <div class="list-group-item-body-section content" style=" width:{{listViewDisplay.sectionSize.contentBox}}%; " ng-if="listViewDisplay.contentBox == 1" >
+                        <div compile="listViewDisplay.itemCellRenderhtml"></div>
+                    </div>
+                    <div  class="list-group-item-body-section actionButton" style=" width:{{listViewDisplay.sectionSize.actionButton}}%; " ng-if="listViewDisplay.actionBox == 1" >
+                        <div class="viewRowBtn btn btn-default" ng-if="listViewDisplay.actionBoxDisplay.viewButton == 1" ng-click="listViewDisplay.viewById(itemData.fieldId)">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                        </div>
+                        <div class="editRowBtn btn btn-default" ng-if="listViewDisplay.actionBoxDisplay.editButton == 1" ng-click="listViewDisplay.editById(itemData.fieldId)">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </div>
+                        <div class="deleteRowBtn btn btn-default" ng-if="listViewDisplay.actionBoxDisplay.deleteButton == 1" ng-click="listViewDisplay.deleteById(itemData.fieldId)">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                <div>
+            </li>
+        </ul>
+    </div><!--list_body-->
+    
+    <div class="list_body noResult"  ng-if="( listViewDisplay.pageNavData.total_page<=0 && listViewDisplay.noResultEnable == 1 ) " >
+        <div class="panel panel-default">
+          <div class="panel-body" >
+             {{ listViewDisplay.msgNoResult }}
+          </div>
+        </div>      
+    </div><!--list_body-->
+
+    <div class="glist-toolbar footer" ng-if="( listViewDisplay.toolbarDisplay.footerEnable == 1 )">
+        <div class="list_wrap_row_element actionBar " ng-if="( listViewDisplay.actionBarDisplay.footerEnable == 1 && listViewDisplay.pageNavData.total_page> 0 )" >
+            <div class="btn btn-default pull-left margin_right10" ng-click="listViewDisplay.checkboxSelectAll()" >
+                <span class="glyphicon glyphicon-check"></span> <span> Select All</span>
+            </div>
+            <div class="btn btn-default pull-left" ng-click="listViewDisplay.checkboxUnselectAll()" >
+                <span class="glyphicon glyphicon-unchecked"></span> <span> Clear All</span>
+            </div>
+            <div class="deleteSelectedRowBtn btn btn-default pull-right" ng-class="{disabled: listViewDisplay.getSelectedIdsCount() == 0 }" ng-click="listViewDisplay.deleteSelectedIds()" >
+                <span class="glyphicon glyphicon-trash "></span> <span> Delete </span>
+            </div>
+            <div class="clear"></div>
+        </div><!--actionBar-->
+
+        <div class="list_wrap_row_element-pagination" ng-if="( listViewDisplay.navBarDisplay.footerEnable == 1  )" >
+            <ui-list-nav></ui-list-nav>
+        </div><!--pagination-->
+    </div><!--glist-toolbar footer-->
+</div>
+</div>

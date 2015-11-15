@@ -1,0 +1,3 @@
+<a href="<?=$this->curModule->app_url;?>start/index">Back to home</a>
+<hr>
+This is car index view...

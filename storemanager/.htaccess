@@ -1,0 +1,45 @@
+## EXPIRES CACHING ##
+#<IfModule mod_expires.c>
+#ExpiresActive On
+#ExpiresByType image/jpg "access 1 week"
+#ExpiresByType image/jpeg "access 1 week"
+#ExpiresByType image/gif "access 1 week"
+#ExpiresByType image/png "access 1 week"
+#ExpiresByType text/css "access 1 week"
+#ExpiresByType text/html "access 1 week"
+#ExpiresByType application/pdf "access 1 week"
+#ExpiresByType text/x-javascript "access 1 week"
+#ExpiresByType application/x-shockwave-flash "access 1 week"
+#ExpiresByType image/x-icon "access 1 year"
+#ExpiresDefault "access 1 week"
+#</IfModule>
+## EXPIRES CACHING ##
+
+RewriteEngine On
+#RewriteCond %{HTTPS} off
+#RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+RewriteRule ^index.php/(.*)$ /$1 [R=302,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond $1 !^(index\.php|images|robots\.txt)
+RewriteRule ^(.*)$ index.php?/$1 [L]
+
+
+#<IfModule mod_headers.c>
+#    # WEEK
+#   <FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
+#        Header set Cache-Control "max-age=60480, public"
+#    </FilesMatch>
+#    # 3 Days
+#    <FilesMatch "\.(js|css|html)$">
+#        Header set Cache-Control "max-age=25920"
+#    </FilesMatch>
+#</IfModule>
+
+# Add Server to support SVG
+AddType image/svg+xml svg svgz
+AddEncoding gzip svgz
+
+#<IfModule mod_headers.c>
+#   Header set Access-Control-Allow-Origin "*"
+#</IfModule>

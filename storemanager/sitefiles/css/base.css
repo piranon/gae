@@ -1,0 +1,30 @@
+/*  Animate  */
+body {
+  margin: 0px;
+  background: #222;
+  color: #fff;
+  /*font-family: 'Lato', 'ThaiSans Neue', sans-serif;*/
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 1.6em;
+  -webkit-font-smoothing: antialiased;
+}
+.clear {
+  clear: both;
+}
+#pageHeader { color: #222; }
+#pageContent {
+  padding: 20px; margin:20px auto; background: #fff; min-width: 720px; max-width: 1100px; min-height: 200px; color: #222;
+}
+#pageFooter { color: #222; }
+
+.btn{
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none; 
+	outline: 0;
+}
+.btn:focus{
+	 outline: 0;
+}
+.pre-complile{ visibility: hidden; position: absolute; width: 0px; height: 0px;}

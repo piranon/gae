@@ -1,0 +1,65 @@
+<!--
+<nav>
+  <ul class="pagination" ng-if="listViewDisplay.pageNavData.total_page>1"  >
+    <li ng-class="{disabled: listViewDisplay.pageNavData.allowPrevBtn == 0 }" ng-if="listViewDisplay.pageNavData.total_page > listViewDisplay.pageNavNumber">
+      <a href="#/page/{{ listViewDisplay.pageNavData.frist_page }}{{ listViewDisplay.pageNavData.url_after_cur_page }}" aria-label="Previous" ng-if="listViewDisplay.pageNavData.allowPrevBtn==1">
+        <span aria-hidden="true">First</span>
+      </a>
+      <span aria-hidden="true" ng-if="listViewDisplay.pageNavData.allowPrevBtn==0" >First</span>
+    </li>
+    <li ng-class="{disabled: listViewDisplay.pageNavData.allowPrevBtn == 0 }" >
+      <a href="#/page/{{ listViewDisplay.pageNavData.prev_page }}{{ listViewDisplay.pageNavData.url_after_cur_page }}" aria-label="Previous" ng-if="listViewDisplay.pageNavData.allowPrevBtn==1">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+      <span aria-hidden="true" ng-if="listViewDisplay.pageNavData.allowPrevBtn==0" >&laquo;</span>
+    </li>
+    <li ng-class="{active: pageData.pageNum == listViewDisplay.pageNavData.cur_page }"  ng-repeat="pageData in listViewDisplay.pageNavData.pageBtn_array"><a href="#/page/{{ pageData.pageNum }}{{ listViewDisplay.pageNavData.url_after_cur_page }}">{{ pageData.pageNum }}</a></li>
+    <li ng-class="{disabled: listViewDisplay.pageNavData.allowNextBtn == 0 }">
+      <a href="#/page/{{  listViewDisplay.pageNavData.next_page   }}{{ listViewDisplay.pageNavData.url_after_cur_page }}" aria-label="Previous" ng-if="listViewDisplay.pageNavData.allowNextBtn==1">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+      <span aria-hidden="true" ng-if="listViewDisplay.pageNavData.allowNextBtn==0" >&raquo;</span>
+    </li>
+    <li ng-class="{disabled: listViewDisplay.pageNavData.allowNextBtn == 0 }" ng-if="listViewDisplay.pageNavData.total_page > listViewDisplay.pageNavNumber">
+      <a href="#/page/{{  listViewDisplay.pageNavData.last_page   }}{{ listViewDisplay.pageNavData.url_after_cur_page }}" aria-label="Previous" ng-if="listViewDisplay.pageNavData.allowNextBtn==1">
+        <span aria-hidden="true">Last</span>
+      </a>
+      <span aria-hidden="true" ng-if="listViewDisplay.pageNavData.allowNextBtn==0" >Last</span>
+    </li>
+  </ul>
+</nav>
+-->
+
+<div class="list-page-nav-btns" ng-if="listViewDisplay.pageNavData.total_page>0">
+  <button class="pageNavBtn btn btn-default" ng-class="{disabled: listViewDisplay.pageNavData.allowPrevBtn == 0 }" ng-if="listViewDisplay.pageNavData.total_page > listViewDisplay.pageNavNumber">
+        <a href="#/page/{{ listViewDisplay.pageNavData.frist_page }}{{ listViewDisplay.pageNavData.url_after_cur_page }}" aria-label="Previous" ng-if="listViewDisplay.pageNavData.allowPrevBtn==1">
+          <span aria-hidden="true">First</span>
+        </a>
+        <span class="span" aria-hidden="true" ng-if="listViewDisplay.pageNavData.allowPrevBtn==0" >First</span>
+  </button>
+  <div class="btn-group" role="group" aria-label="...">
+      <button class="pageNavBtn btn btn-default" ng-class="{disabled: listViewDisplay.pageNavData.allowPrevBtn == 0 }" >
+        <a href="#/page/{{ listViewDisplay.pageNavData.prev_page }}{{ listViewDisplay.pageNavData.url_after_cur_page }}" aria-label="Previous" ng-if="listViewDisplay.pageNavData.allowPrevBtn==1">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+        <span class="span" aria-hidden="true" ng-if="listViewDisplay.pageNavData.allowPrevBtn==0" >&laquo;</span>
+      </button>
+      <button class="pageNavBtn btn btn-default" ng-class="{active: pageData.pageNum == listViewDisplay.pageNavData.cur_page }"  ng-repeat="pageData in listViewDisplay.pageNavData.pageBtn_array">
+        <a  href="#/page/{{ pageData.pageNum }}{{ listViewDisplay.pageNavData.url_after_cur_page }}">
+          <span aria-hidden="true">{{ pageData.pageNum }}</span>
+        </a>
+      </button>
+      <button class="pageNavBtn btn btn-default" ng-class="{disabled: listViewDisplay.pageNavData.allowNextBtn == 0 }">
+        <a href="#/page/{{  listViewDisplay.pageNavData.next_page   }}{{ listViewDisplay.pageNavData.url_after_cur_page }}" aria-label="Previous" ng-if="listViewDisplay.pageNavData.allowNextBtn==1">
+          <span  aria-hidden="true">&raquo;</span>
+        </a>
+        <span class="span" aria-hidden="true" ng-if="listViewDisplay.pageNavData.allowNextBtn==0" >&raquo;</span>
+      </button>
+  </div>
+   <button class="pageNavBtn btn btn-default" ng-class="{disabled: listViewDisplay.pageNavData.allowNextBtn == 0 }" ng-if="listViewDisplay.pageNavData.total_page > listViewDisplay.pageNavNumber">
+        <a href="#/page/{{  listViewDisplay.pageNavData.last_page   }}{{ listViewDisplay.pageNavData.url_after_cur_page }}" aria-label="Previous" ng-if="listViewDisplay.pageNavData.allowNextBtn==1">
+          <span aria-hidden="true">Last</span>
+        </a>
+        <span class="span" aria-hidden="true" ng-if="listViewDisplay.pageNavData.allowNextBtn==0" >Last</span>
+      </button>
+</div><!--list-page-nav-btns-->

@@ -1,0 +1,17 @@
+<style>
+	.gsublist_wrap{ border: #ddd 1px solid; padding: 10px;
+		-webkit-border-radius: 4px;
+		-moz-border-radius: 4px;
+		border-radius: 4px;
+	 }
+	 .gsublist-body-iframe{ width: 100%; border: 0px; }
+</style>
+<div class="gsublist_wrap">
+
+	<!--{{ gsublistViewDisplay.itemsList }}-->
+	<iframe class="gsublist-body-iframe" src="http://localhost/gae/storeconsole/gaestaff/sublist#/" style=" height:500px; " ></iframe>
+	<!--
+	<iframe class="popupBox-body-iframe" src="{{ gsublistData.iframeData.content }}" onLoad="gsublistData.iframeData.onReady()" style=" height:{{ gsublistData.currentSize.height }}px; " ></iframe>
+	-->
+
+</div>

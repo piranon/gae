@@ -1,0 +1,39 @@
+
+.popupBox-frame{ top: 0px; left: 0px; width: 100%; height: 100%; padding: 10px; padding-bottom:100px; margin: 0px; position: fixed; background:rgba(0,0,0,0.5); z-index: 999; overflow: scroll; }
+.popupBox-frame .popupBox-body{ margin: 10px auto; padding: 20px; top: 5%; position: relative; max-width: 500px; min-width: 320px; min-height: 140px; background: #fff;  }
+.popupBox-frame .popupBox-body .popupBox-body-iframe{ border: 0px; width: 100%;   }
+
+
+.popup-closeBtn{ border: 0px; font-size: 16px; color: #333; margin-top:-16px; margin-right: -16px;}
+.popup-closeBtn:hover{ background: none; color: #666;}
+.popup-closeBtn:focus{ outline: 0;}
+
+.popupBox-frame.ng-enter,
+.popupBox-frame.ng-leave {
+  -webkit-transition:0.2s linear all;
+  transition:0.2s linear all;
+}
+
+.popupBox-frame.ng-enter,
+.popupBox-frame.ng-leave.ng-leave-active {
+  opacity:0;
+}
+.popupBox-frame.ng-leave,
+.popupBox-frame.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+.popupBox-row.ng-enter,
+.popupBox-row.ng-leave {
+  -webkit-transition:0.2s linear all;
+  transition:0.2s linear all;
+}
+
+.popupBox-row.ng-enter,
+.popupBox-row.ng-leave.ng-leave-active {
+  opacity:0;
+}
+.popupBox-row.ng-leave,
+.popupBox-row.ng-enter.ng-enter-active {
+  opacity:1;
+}

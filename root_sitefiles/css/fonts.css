@@ -1,0 +1,145 @@
+/* --- ThaiSans Neue : START ---  */
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: normal;
+  font-weight: 100;
+  src: local('ThaiSans Neue UltraLight'), local('ThaiSans-Neue-UltraLight'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-UltraLight.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: normal;
+  font-weight: 200;
+  src: local('ThaiSans Neue ExtraLight'), local('ThaiSans-Neue-ExtraLight'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-ExtraLight.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: normal;
+  font-weight: 300;
+  src: local('ThaiSans Neue Light'), local('ThaiSans-Neue-Light'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-Light.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: normal;
+  font-weight: 400;
+  src: local('ThaiSans Neue Regular'), local('ThaiSans-Neue-Regular'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-Regular.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans SemiBold';
+  font-style: normal;
+  font-weight: 500;
+  src: local('ThaiSans Neue SemiBold'), local('ThaiSans-Neue-SemiBold'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-SemiBold.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: normal;
+  font-weight: 600;
+  src: local('ThaiSans Neue Bold'), local('ThaiSans-Neue-Bold'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-Bold.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: normal;
+  font-weight: 700;
+  src: local('ThaiSans Neue ExtraBold'), local('ThaiSans-Neue-ExtraBold'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-ExtraBold.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: normal;
+  font-weight: 800;
+  src: local('ThaiSans Neue UltraBold'), local('ThaiSans-Neue-UltraBold'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-UltraBold.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: normal;
+  font-weight: 900;
+  src: local('ThaiSans Neue Black'), local('ThaiSans-Neue-Black'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-Black.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: italic;
+  font-weight: 100;
+  src: local('ThaiSans Neue UltraLightItal'), local('ThaiSans-Neue-UltraLightItal'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-UltraLightItal.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: italic;
+  font-weight: 200;
+  src: local('ThaiSans Neue ExtraLightItal'), local('ThaiSans-Neue-ExtraLightItal'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-ExtraLightItal.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: italic;
+  font-weight: 300;
+  src: local('ThaiSans Neue LightItalic'), local('ThaiSans-Neue-LightItalic'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-LightItalic.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: italic;
+  font-weight: 400;
+  src: local('ThaiSans Neue Italic'), local('ThaiSans-Neue-Italic'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-Italic.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: italic;
+  font-weight:   500;
+  src: local('ThaiSans Neue SemiBoldItalic'), local('ThaiSans-Neue-SemiBoldItalic'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-SemiBoldItalic.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: italic;
+  font-weight: 600;
+  src: local('ThaiSans Neue BoldItalic'), local('ThaiSans-Neue-BoldItalic'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-BoldItalic.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: italic;
+  font-weight: 700;
+  src: local('ThaiSans Neue ExtraBoldItali'), local('ThaiSans-Neue-ExtraBoldItali'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-ExtraBoldItali.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: italic;
+  font-weight: 800;
+  src: local('ThaiSans Neue UltraBoldItali'), local('ThaiSans-Neue-UltraBoldItali'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-UltraBoldItali.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+
+@font-face {
+  font-family: 'ThaiSans Neue';
+  font-style: italic;
+  font-weight: 900;
+  src: local('ThaiSans Neue BlackItalic'), local('ThaiSans-Neue-BlackItalic'), url(http://128.199.139.181/gae/root_sitefiles/fonts/ThaiSans%20Neue%20v1.0/OpenType%20CFF/ThaiSansNeue-BlackItalic.otf) format('opentype');
+  unicode-range: U+0E00-U+0E7F;
+}
+

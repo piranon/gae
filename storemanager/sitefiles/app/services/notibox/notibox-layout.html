@@ -1,0 +1,8 @@
+<link rel="stylesheet" href="{{ base_ngservices_url() }}notibox/notibox.css" />
+<div ng-controller="notiBoxController" style=" height:0px;" >  
+	<div class="notiBox-frame " ng-if="notiboxData.show">
+	    <div class="notiBox-body">
+	    	<div compile="notiboxData.contentHtml"></div>
+	    </div>
+	</div>
+<div>
