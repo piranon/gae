@@ -49,7 +49,7 @@ class start extends base_module_controller{
         $this->load->model("root_image_model");
 
         $maxNumber = 1;
-        $uploadData = $this->root_image_model->upload("file_upload_single",$maxNumber); 
+        $uploadData = $this->root_image_model->upload("file_upload_single",$maxNumber);
         resOk($uploadData);
     }
 

@@ -1,94 +1,79 @@
-<?
-	//start file
-class start extends base_module_controller{
-	   
-    function index(){
+<?php
 
+class Start extends base_module_controller
+{
+    public function add()
+    {
+        // Form validation
+        $this->load->library('form_validation');
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('username', 'trim|required');
+        $this->form_validation->set_rules('password', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $customer_username = t_Post('username');
+        $customer_first_name = t_Post('first_name');
+        $customer_last_name = t_Post('last_name');
+        $customer_birthday = t_Post('birthday');
+        $customer_gender = t_Post('gender');
+        $customer_email = t_Post('email');
+        $customer_phone = t_Post('phone');
+        $customer_tag = t_Post('tag');
+        $customer_password = t_Post('password');
+
+        // Business logic
+        $dbData = array();
+        $dbData['user_name'] = $customer_username;
+        $dbData['first_name'] = $customer_first_name;
+        $dbData['last_name'] = $customer_last_name;
+        $dbData['birthday'] = $customer_birthday;
+        $dbData['gender_type_id'] = $customer_gender;
+        $dbData['email'] = $customer_email;
+        $dbData['password'] = $customer_password;
+        $dbData['phone'] = $customer_phone;
+        $dbData['tag'] = $customer_tag;
+        $dbData['status'] = 1;
+        $dbData['create_time'] = time();
+
+        $this->mLoadModel('customer_model');
+        $customer_id = $this->customer_model->insert($dbData);
+
+        if (!$customer_id) {
+            resDie("Cannot insert customer data");
+        }
+        $this->processImageProfile($customer_id);
+        $new_customer_data = $this->customer_model->get_customer_by_id($customer_id);
+
+        // Response
+        resOk($new_customer_data);
     }
 
-    function testrequest(){
-        $print_data["allheaders"] = getallheaders();
-        $print_data["REQUEST_METHOD"] = @$_SERVER['REQUEST_METHOD'];
-        $print_data["REQUEST"] = $_REQUEST;
-        $print_data["GET"] = $_GET;
-        $print_data["POST"] = $_POST;
-        $print_data["FILES"] = $_FILES;
-        $print_data["IP_ADDRESS"] = getenv("REMOTE_ADDR");
-        $print_data["timestamp"] = time();
-        resOk($print_data);
-    }
+    private function processImageProfile($customer_id)
+    {
+        $field_name = 'profile_pic';
+        if (empty($_FILES[$field_name])) {
+            return true;
+        }
 
-    function test_model(){
-        $mship_model = $this->mLoadModel("mship_model",true);
+        $this->mLoadModel('table_model');
+        $table_id = $this->table_model->get_table_id('customer');
+        if (null === $table_id) {
+            resDie("Cannot get table id");
+        }
 
-        $dataResult["msg"] = $mship_model->callSomeThing();
-        $dataResult["all_menu"] = $mship_model->getAllMenu();
-        resOk($dataResult);
-
-    }
-
-    function test_car(){
-
-        $this->mLoadModel("mcar_model");
-        $this->mcar_model->call();
-
-        $dataResult["carData"] = $this->mcar_model->getData();
-        $dataResult["relateShipData"] = $this->mcar_model->getRateShipData();
-        resOk($dataResult);
-    }
-
-    function test_lib(){
-
-        $this->mLoadLibrary("my_lib");
-        resOk();
-    }
-
-
-    function single_imageupload(){
-
-        $this->load->model("root_image_model");
-
-        $maxNumber = 1;
-        $uploadData = $this->root_image_model->upload("file_upload_single",$maxNumber); 
-        resOk($uploadData);
-    }
-
-    function multiple_imageupload(){
-
-        $this->load->model("root_image_model");
-
-        $maxNumber = 5;
-        // set to infinity : $maxNumber = -1;
-        $uploadData = $this->root_image_model->upload("file_upload_multiple",$maxNumber); 
-        resOk($uploadData);
-    }
-
-
-    function imageupload_for_category(){
-
-        $this->load->model("root_image_model");
-
-        $maxNumber = 1;
-        $object_table_id = 356; //table id : referral
-        $object_id = 100; // referral_id : category type
+        $max_number = 1;
+        $object_table_id = $table_id;
+        $object_id = $customer_id;
         $type_id = 1;
 
-        //upload and match to table that we want
-        $uploadData = $this->root_image_model->uploadImageMatchToObject("file_upload_single",$object_table_id,$object_id,$type_id,$maxNumber);
-
-        //to get image for that's object
-        $referralImageArray =  $this->root_image_model->getImageByHolder($object_table_id,$object_id,$type_id);
-            
-        $dataSend = array();
-        $dataSend["uploadData"] = $uploadData; 
-        $dataSend["referralImageArray "] = $referralImageArray; 
-        resOk($dataSend);
-
+        $this->load->model("root_image_model");
+        $this->root_image_model->uploadImageMatchToObject(
+            $field_name,
+            $object_table_id,
+            $object_id,
+            $type_id,
+            $max_number
+        );
     }
-
-
-
-
 }
-
-?>
