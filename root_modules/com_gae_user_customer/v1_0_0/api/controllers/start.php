@@ -42,14 +42,14 @@ class Start extends base_module_controller
         if (!$customer_id) {
             resDie("Cannot insert customer data");
         }
-        $this->processImageProfile($customer_id);
+        $this->process_image_profile($customer_id);
         $new_customer_data = $this->customer_model->get_customer_by_id($customer_id);
 
         // Response
         resOk($new_customer_data);
     }
 
-    private function processImageProfile($customer_id)
+    private function process_image_profile($customer_id)
     {
         $field_name = 'profile_pic';
         if (empty($_FILES[$field_name])) {
