@@ -76,4 +76,18 @@ class Start extends base_module_controller
             $max_number
         );
     }
+
+    public function listing()
+    {
+        // Business logic
+        $this->mLoadModel('customer_model');
+        $customers = $this->customer_model->get_customers();
+
+        if(!$customers){
+            resDie('No customer');
+        }
+
+        // Response
+        resOk($customers);
+    }
 }
