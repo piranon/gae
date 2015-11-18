@@ -4,14 +4,18 @@ class Start extends base_module_controller
 {
     public function index()
     {
-        $this->render('start/list');
+        $view_data = [
+            'js' => [
+                'dirPagination.js'
+            ]
+        ];
+        $this->render('start/list', $view_data);
     }
 
     public function add()
     {
         $view_data = [
             'css' => [
-                'base.css',
                 'datepicker.min.css'
             ],
             'js' => [
