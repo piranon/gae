@@ -78,6 +78,7 @@
     outline: 0px;
     font-size: 15px;
     margin-right: 5px;
+    margin-top: -4px;
 }
 
 .btn-add:hover {
@@ -118,6 +119,7 @@
     -moz-transition: all 0.5s linear;
     transition: all 0.5s linear;
 }
+
 .btn-cancle:hover {
     border: 1px solid #fff;
     color: #fff;
@@ -133,6 +135,7 @@
     font-weight: normal;
 }
 
+/* add page */
 .main-container {
     width: 340px;
     position: relative;
@@ -169,3 +172,230 @@
     margin-left: 50px;
     margin-top: 50px;
 }
+
+/* listing page */
+.col-lg-12 {
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+body {
+    margin: 0;
+    outline: 0;
+    border: 0;
+    font-size: 16px;
+    font-weight: normal;
+    color: #454547;
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: #ffffff;
+    background-size: 100%;
+    position: relative;
+    height: 100%;
+}
+
+.customer-list {
+    clear: both;
+    margin-top: 15px;
+}
+
+.customer-filter {
+    margin-top: 10px;
+}
+
+.customer-filter .col-sm-6 {
+    text-align: right;
+}
+
+.customer-filter > div + div, .customer-filter > div + div + div {
+    color: #ff7522;
+}
+
+.customer-limit {
+    margin-top: 10px;
+}
+
+.customer-table {
+    margin-top: 10px;
+}
+
+table.table {
+    clear: both;
+    margin-top: 6px !important;
+    margin-bottom: 6px !important;
+    max-width: none !important;
+}
+
+.tbl-restyled {
+    width: 100%;
+    height: auto;
+    position: relative;
+    font-size: .9em;
+    border: 0px !important;
+}
+
+.circle-small-warning {
+    background-color: inherit;
+    border: 0px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    outline: 0px;
+    border: 1px solid #c8c8c8;
+    background-color: white;
+    color: white;
+    margin: 9px 7px 0 0;
+    float: left;
+}
+
+.table > thead:first-child > tr:first-child > th {
+    color: #666;
+    font-weight: bold;
+    font-size: 13px;
+    vertical-align: middle;
+}
+
+.circle-small-warning:hover {
+    background-color: #ff3500;
+}
+
+.circle-small-warning .glyphicon {
+    font-size: .9em;
+    margin-left: -0.1em;
+}
+
+.tbl-restyled tbody tr td {
+    border: 0px solid !important;
+    padding-top: 7px;
+    background-color: white !important;
+    border-left: 0px !important;
+    border-right: 0px !important;
+    line-height: 2.5em;
+    font-size: 1.2em;
+}
+
+.tbl-restyled tbody tr td .xChoose .glyphicon {
+    position: relative;
+    top: -8px;
+    left: -1px;
+}
+
+.datatable tbody {
+    font-size: 12px;
+}
+
+.tbl-restyled tbody tr {
+    padding-bottom: 10px;
+    border: 0px !important;
+    border-bottom: 1px solid #E4E2E2 !important;
+}
+
+.tag-group-name {
+    background-color: #333333;
+    width: 70%;
+    color: white;
+    text-align: center;
+    height: 26px;
+    border-radius: 20px;
+    line-height: 2.4em;
+    font-weight: 300;
+    font-size: .8em;
+}
+
+.tag-customer {
+    clear: both;
+    color: #ff5000;
+    font-size: .85em;
+}
+
+.tag-customer .list {
+    text-decoration: underline;
+    display: inline;
+    margin-left: 5px;
+    padding-bottom: 3px;
+}
+
+.btn-circle-orange {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    outline: 0px;
+    border: 0px;
+    background-color: #f9a157;
+    color: white;
+    margin: 0 5px;
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
+
+.btn-circle-red {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    outline: 0px;
+    border: 0px;
+    background-color: #ff1d1d;
+    color: white;
+    margin: 0 5px;
+    -webkit-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    transition: all 0.5s linear;
+}
+
+.circle-size-80 img {
+    max-height: 80px;
+    height: 80px;
+    width: auto;
+    border-radius: 50%;
+}
+
+div.dataTables_info {
+    padding-top: 8px;
+}
+
+.dataTables_info {
+    clear: both;
+    float: left;
+}
+
+div.dataTables_paginate {
+    float: right;
+    margin: 0;
+    margin-right: 8px;
+}
+
+.dataTables_paginate {
+    float: right;
+    text-align: right;
+}
+
+div.dataTables_paginate ul.pagination {
+    margin: 2px;
+}
+
+.pagination {
+    font-family: sans-serif;
+    font-size: 11px;
+    font-weight: 100 !important;
+}
+
+.pagination > .active > a {
+    border-color: white;
+    background-color: #FCD4AF !important;
+    color: #490303 !important;
+}
+
+.pagination > li > a, .pagination > li > span {
+    background-color: #ff7217 !important;
+    color: white !important;
+    font-weight: 100;
+    font-family: sans-serif;
+    margin: 0 2px 02px;
+    border: 0px;
+    border-radius: 5px;
+}
+/* detail page */

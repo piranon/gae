@@ -6,7 +6,7 @@ class Start extends base_module_controller
     {
         $view_data = [
             'js' => [
-                'dirPagination.js'
+                'list/list.controller.js'
             ]
         ];
         $this->render('start/list', $view_data);
@@ -19,10 +19,10 @@ class Start extends base_module_controller
                 'datepicker.min.css'
             ],
             'js' => [
-                'bootstrap-datepicker.min.js',
-                'bootstrap-datepicker.th.js',
-                'angular-file-model-min.js',
-                'user-customer.js'
+                'third_party/bootstrap-datepicker.min.js',
+                'third_party/bootstrap-datepicker.th.js',
+                'add/add.controller.js',
+                'add/add.common.js'
             ]
         ];
         $this->render('start/add', $view_data);

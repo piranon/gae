@@ -1,5 +1,4 @@
-var userCustomer = angular.module('userCustomer', ['ngRoute', 'GAEAPI', 'file-model']);
-userCustomer.controller('CustomerAddCtrl', function ($scope, $rootScope, $timeout, $window, GAEAPI) {
+angular.module('customer').controller('CustomerAddCtrl', function ($scope, $rootScope, $timeout, $window, GAEAPI) {
   $scope.clickOnUpload = function () {
     $timeout(function () {
       angular.element('#imageCategory').trigger('click');
@@ -40,7 +39,7 @@ userCustomer.controller('CustomerAddCtrl', function ($scope, $rootScope, $timeou
     }
   };
 });
-userCustomer.directive("fileread", [function () {
+angular.module('customer').directive("fileread", [function () {
   return {
     scope: {
       fileread: "="
@@ -58,17 +57,3 @@ userCustomer.directive("fileread", [function () {
     }
   }
 }]);
-function PreviewImage() {
-  var oFReader = new FileReader();
-  oFReader.readAsDataURL(document.getElementById("imageCategory").files[0]);
-  oFReader.onload = function (oFREvent) {
-    document.getElementById("area-inner-image").src = oFREvent.target.result;
-    document.getElementById("area-inner-image").setAttribute('style', 'width:auto !important;');
-  };
-}
-$('.date').datepicker({
-  format: "yyyy-mm-dd",
-  language: "th",
-  autoclose: true,
-  todayHighlight: true
-});

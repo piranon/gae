@@ -9,9 +9,12 @@ if (!empty($viewData['css'])) {
 // Main content
 echo $viewData['content'];
 // Include js
-echo '<script src="', base_ngservices_url(), 'GAEAPI.js"></script>';
+echo '<script src="' , base_ngservices_url() , 'GAEAPI.js"></script>';
+echo '<script src="' , $curModule->file_url , 'js/third_party/angular-file-model-min.js"></script>';
+echo '<script src="' , $curModule->file_url , 'js/third_party/dirPagination.js"></script>';
+echo '<script src="' , $curModule->file_url , 'js/app.module.js"></script>';
 if (!empty($viewData['js'])) {
     foreach ($viewData['js'] as $value) {
-        echo '<script src="', $curModule->file_url, 'js/', $value, '"></script>';
+        echo '<script src="' , $curModule->file_url , 'js/' , $value , '"></script>';
     }
 }
