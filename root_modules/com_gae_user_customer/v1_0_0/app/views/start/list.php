@@ -341,9 +341,9 @@
             </div>
             <div class="row">
                 <div class="col-xs-6">
-<!--                    <div class="dataTables_info" id="DataTables_Table_0_info">-->
-<!--                        Showing {{range.lower}} to {{range.upper}} of {{total}} entries-->
-<!--                    </div>-->
+                    <dir-pagination-controls
+                        template-url="<?php echo $curModule->file_url; ?>template/summary-pagination.html">
+                    </dir-pagination-controls>
                 </div>
                 <div class="col-xs-6">
                     <div class="dataTables_paginate paging_bootstrap">
