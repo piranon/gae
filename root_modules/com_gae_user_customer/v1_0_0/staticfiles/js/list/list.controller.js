@@ -8,8 +8,6 @@ angular.module('customer').controller('listdata', function ($scope, $window, $at
     $scope.$apply(function () {
       $scope.customers = res.data;
       $scope.total = res.data.length;
-      console.log(res);
-
     });
   });
   $scope.onChangeLimit = function (limitList) {

@@ -61,7 +61,7 @@
                         <td>
                             <br>
                             <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_id}}">
-                                {{customer.first_name}} {{customer.lasname_name}}
+                                {{customer.first_name}} {{customer.last_name}}
                             </a>
 
                             <div class="tag-group-name">
@@ -100,7 +100,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row" ng-show="customer">
+            <div class="row" ng-show="customers">
                 <div class="col-xs-6">
                     <dir-pagination-controls
                         template-url="<?php echo $curModule->file_url; ?>template/summary-pagination.html">
@@ -116,7 +116,7 @@
                     </div>
                 </div>
             </div>
-            <div ng-hide="customer" class="row no-cusotmer">
+            <div ng-hide="customers" class="row no-cusotmer">
                 <div class="col-xs-12">
                     <img src="<?php echo $curModule->file_url; ?>icon/shape.png">
                     <div>ยังไม่มีรายชื่อลูกค้า ทำการเพิ่มลูกค้าสามาชิกได้เองโดยกดที่ปุ่ม Add customer</div>

@@ -2,10 +2,15 @@
 
 class Start extends base_module_controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->library('form_validation');
+    }
+
     public function add()
     {
         // Form validation
-        $this->load->library('form_validation');
         $this->form_validation->onlyPost();
         $this->form_validation->set_rules('username', 'trim|required');
         $this->form_validation->set_rules('password', 'trim|required');
@@ -37,50 +42,24 @@ class Start extends base_module_controller
         $dbData['create_time'] = time();
 
         $this->mLoadModel('customer_model');
-        $customer_id = $this->customer_model->insert($dbData);
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('image_model');
 
-        if (!$customer_id) {
-            resDie("Cannot insert customer data");
+        try {
+            $customer_id = $this->customer_model->insert($dbData);
+            $table_id = $this->table_model->get_table_id('customer');
+            $this->image_model->upload_image_profile($customer_id, $table_id);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
         }
-        $this->upload_image_profile($customer_id);
-        $new_customer_data = $this->customer_model->get_customer_by_id($customer_id);
 
         // Response
-        resOk($new_customer_data);
-    }
-
-    private function upload_image_profile($customer_id)
-    {
-        $field_name = 'profile_pic';
-        if (empty($_FILES[$field_name])) {
-            return true;
-        }
-
-        $this->mLoadModel('table_model');
-        $table_id = $this->table_model->get_table_id('customer');
-        if (null === $table_id) {
-            resDie("Cannot get table id");
-        }
-
-        $max_number = 1;
-        $object_table_id = $table_id;
-        $object_id = $customer_id;
-        $type_id = 1;
-
-        $this->load->model("root_image_model");
-        $this->root_image_model->uploadImageMatchToObject(
-            $field_name,
-            $object_table_id,
-            $object_id,
-            $type_id,
-            $max_number
-        );
+        resOk();
     }
 
     public function listing()
     {
         // Form validation
-        $this->load->library('form_validation');
         $this->form_validation->onlyGet();
         $this->form_validation->allRequest();
         $this->formCheck();
@@ -96,7 +75,6 @@ class Start extends base_module_controller
     public function detail()
     {
         // Form validation
-        $this->load->library('form_validation');
         $this->form_validation->onlyGet();
         $this->form_validation->allRequest();
         $this->formCheck();
@@ -106,7 +84,7 @@ class Start extends base_module_controller
 
         // Business logic
         if (!is_int($id) || $id <= 0) {
-            resDie('Id should be integer');
+            resDie('id should be integer');
         }
 
         $this->mLoadModel('customer_model');
@@ -116,41 +94,9 @@ class Start extends base_module_controller
         resOk($customer);
     }
 
-    public function delete()
-    {
-        // Form validation
-        $this->load->library('form_validation');
-        $this->form_validation->onlyPost();
-        $this->form_validation->set_rules('id', 'trim|required|numeric');
-        $this->formCheck();
-
-        // Receiving parameter
-        $customer_id = t_Post('id');
-
-        // Business logic
-        $this->mLoadModel('customer_model');
-        $result = $this->customer_model->delete($customer_id);
-
-        if (!$result) {
-            resDie("Cannot delete customer data");
-        }
-
-        $this->mLoadModel('table_model');
-        $table_id = $this->table_model->get_table_id('customer');
-        if (null === $table_id) {
-            resDie("Cannot get table id");
-        }
-
-        $this->delete_image_profile($table_id, $customer_id);
-
-        // Response
-        resOk();
-    }
-
     public function bulk_delete()
     {
         // Form validation
-        $this->load->library('form_validation');
         $this->form_validation->onlyPost();
         $this->form_validation->set_rules('ids', 'trim|required');
         $this->formCheck();
@@ -165,31 +111,21 @@ class Start extends base_module_controller
         }
 
         $this->mLoadModel('table_model');
-        $table_id = $this->table_model->get_table_id('customer');
-        if (null === $table_id) {
-            resDie("Cannot get table id");
-        }
-
         $this->mLoadModel('customer_model');
-        if (!$this->customer_model->batch_delete($customer_ids)) {
-            resDie("Cannot delete customer data");
-        }
+        $this->mLoadModel('image_model');
 
-        foreach ($customer_ids as $customer_id) {
-            $this->delete_image_profile($table_id, $customer_id);
+        try {
+            $table_id = $this->table_model->get_table_id('customer');
+            $this->customer_model->batch_delete($customer_ids);
+
+            foreach ($customer_ids as $customer_id) {
+                $this->image_model->delete_image_profile($customer_id, $table_id);
+            }
+        } catch (Exception $e) {
+            resDie($e->getMessage());
         }
 
         // Response
         resOk();
-    }
-
-    private function delete_image_profile($table_id, $customer_id)
-    {
-        $object_table_id = $table_id;
-        $object_id = $customer_id;
-        $type_id = 1;
-
-        $this->load->model("root_image_model");
-        $this->root_image_model->cleanImageRelationByKey($object_table_id, $object_id, $type_id);
     }
 }

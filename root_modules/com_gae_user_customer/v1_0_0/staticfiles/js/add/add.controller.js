@@ -25,7 +25,7 @@ angular.module('customer').controller('CustomerAddCtrl', function ($scope, $root
           "profile_pic": $scope.fileModel
         }
         CUR_MODULE.apiPost('start/add', dataSend).then(function (res) {
-          if (res.ok && res.data.customer_id) {
+          if (res.ok) {
             $window.location.href = CUR_MODULE.data.app_url + 'start';
           } else {
             alert("Error: Can not create customer");

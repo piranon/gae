@@ -8,6 +8,11 @@ class Table_model extends base_module_model
         $this->db->where('code_name', $code_name);
         $query = $this->db->get('table');
         $result = $query->row_array();
-        return isset($result['table_id']) ? $result['table_id'] : null;
+
+        if (!isset($result['table_id'])) {
+            throw new Exception('Cannot get table id');
+        }
+
+        return $result['table_id'];
     }
 }
