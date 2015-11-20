@@ -83,11 +83,24 @@ class Start extends base_module_controller
         $this->mLoadModel('customer_model');
         $customers = $this->customer_model->get_customers();
 
-        if(!$customers){
+        if (!$customers) {
             resDie('No customer');
         }
 
         // Response
         resOk($customers);
+    }
+
+    public function detail()
+    {
+        // Receiving parameter
+        $id = t_Request('id');
+
+        // Business logic
+        $this->mLoadModel('customer_model');
+        $customer = $this->customer_model->get_customer_by_id($id);
+
+        // Response
+        resOk($customer);
     }
 }

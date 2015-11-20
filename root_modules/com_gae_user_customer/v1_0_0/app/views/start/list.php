@@ -88,7 +88,7 @@
                         <td>0</td>
                         <td>0</td>
                         <td class="text-center">
-                            <a href="#">
+                            <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_id}}">
                                 <button type="button" class="btn-circle-orange"
                                         style="background-color: #C2A717;">
                                     <span class="glyphicon glyphicon-eye-open"></span>

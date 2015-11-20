@@ -113,7 +113,7 @@
     font-size: 14px;
     margin-right: 5px;
     border: 1px solid #888888;
-    color: #888888;
+    color: #888888 !important;
     -webkit-transition: all 0.5s linear;
     -o-transition: all 0.5s linear;
     -moz-transition: all 0.5s linear;
@@ -346,6 +346,13 @@ table.table {
     transition: all 0.5s linear;
 }
 
+.circle-size-80 {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #dadada;
+}
+
 .circle-size-80 img {
     max-height: 80px;
     height: 80px;
@@ -398,4 +405,5 @@ div.dataTables_paginate ul.pagination {
     border: 0px;
     border-radius: 5px;
 }
+
 /* detail page */

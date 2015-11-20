@@ -28,6 +28,16 @@ class Start extends base_module_controller
         $this->render('start/add', $view_data);
     }
 
+    public function detail()
+    {
+        $view_data = [
+            'js' => [
+                'detail/detail.controller.js'
+            ]
+        ];
+        $this->render('start/detail', $view_data);
+    }
+
     private function render($view_name, $view_data = [])
     {
         $content = [
