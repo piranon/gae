@@ -151,7 +151,7 @@ class Start extends base_module_controller
         resOk();
     }
 
-    public function batch_delete()
+    public function bulk_delete()
     {
         // Form validation
         $this->load->library('form_validation');
@@ -163,11 +163,24 @@ class Start extends base_module_controller
         $customer_ids = t_Post('ids');
 
         // Business logic
-        $this->mLoadModel('customer_model');
-        $result = $this->customer_model->batch_delete($customer_ids);
-
-        if (!$result) {
+        $customer_ids = explode(',', $customer_ids);
+        if (!is_array($customer_ids)) {
             resDie("Cannot delete customer data");
+        }
+
+        $this->mLoadModel('table_model');
+        $table_id = $this->table_model->get_table_id('customer');
+        if (null === $table_id) {
+            resDie("Cannot get table id");
+        }
+
+        $this->mLoadModel('customer_model');
+        if (!$this->customer_model->batch_delete($customer_ids)) {
+            resDie("Cannot delete customer data");
+        }
+
+        foreach ($customer_ids as $customer_id) {
+            $this->delete_image_profile($table_id, $customer_id);
         }
 
         // Response

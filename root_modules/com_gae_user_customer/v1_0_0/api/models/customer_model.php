@@ -20,7 +20,7 @@ class Customer_model extends base_module_model
 
     public function batch_delete($ids)
     {
-        $this->db->where_in('id', $ids);
+        $this->db->where_in('customer_id', $ids);
         $this->db->update('customer', ['status' => Customer_model::STATUS_INACTIVE]);
         return $this->db->affected_rows();
     }

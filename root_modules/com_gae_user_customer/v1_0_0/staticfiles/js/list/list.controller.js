@@ -10,10 +10,29 @@ angular.module('customer').controller('listdata', function ($scope, $window, $at
       $scope.total = res.data.length
     });
   });
-  $scope.changeLimit = function (limitList) {
+  $scope.onChangeLimit = function (limitList) {
     $scope.limit = limitList || 10;
   };
-  $scope.sort = function (keyname) {
+  $scope.onChangeBulkDelete = function (action) {
+    if (action != 1) {
+     return false;
+    }
+    if ($scope.selectedDeleteId.length === 0) {
+      alert('Please select some customer');
+    } else {
+      var dataSend = {
+        "ids": $scope.selectedDeleteId
+      };
+      CUR_MODULE.apiPost('start/bulk_delete', dataSend).then(function (res) {
+        if (res.ok) {
+          $window.location.href = CUR_MODULE.data.app_url + 'start';
+        } else {
+          alert("Error: Can not delete customer");
+        }
+      });
+    }
+  };
+  $scope.onClickSort = function (keyname) {
     $scope.sortKey = keyname || 'create_time';
     if ($scope.reverse) {
       $scope.reverse = false;
@@ -21,19 +40,7 @@ angular.module('customer').controller('listdata', function ($scope, $window, $at
       $scope.reverse = true;
     }
   };
-  $scope.clickOnDelete = function(id) {
-    var dataSend = {
-      "id": id || ''
-    };
-    CUR_MODULE.apiPost('start/delete', dataSend).then(function (res) {
-      if (res.ok) {
-        $window.location.href = CUR_MODULE.data.app_url + 'start';
-      } else {
-        alert("Error: Can not delete customer");
-      }
-    });
-  };
-  $scope.onClickBatchDeleteAll = function(){
+  $scope.onClickBulkDeleteAll = function(){
     if ($scope.deleteAll) {
       $scope.deleteAll = false;
       $scope.selectedDeleteId = [];
@@ -46,15 +53,16 @@ angular.module('customer').controller('listdata', function ($scope, $window, $at
 
     }
   };
-  $scope.onClickBatchDelete = function(id){
+  $scope.onClickBulkDelete = function(id){
     if ($scope.selectedDeleteId.indexOf(id) > -1) {
       $scope.selectedDeleteId.splice( $scope.selectedDeleteId.indexOf(id), 1 );
     } else {
       $scope.selectedDeleteId.push(id);
     }
+    console.log($scope.selectedDeleteId);
   };
   $scope.deleteSelected =  function(id){
-    return $.inArray(id, $scope.selectedDeleteId) > -1;
+    return $scope.selectedDeleteId.indexOf(id) > -1;
   }
 });
 angular.module('customer').directive('ngConfirmClick', [

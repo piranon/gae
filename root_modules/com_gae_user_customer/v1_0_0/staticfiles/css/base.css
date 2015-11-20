@@ -346,6 +346,11 @@ table.table {
     transition: all 0.5s linear;
 }
 
+.active-discount {
+    background-color: #ff3500;
+    border: 1px solid #ff3500;
+}
+
 .circle-size-80 {
     width: 80px;
     height: 80px;
