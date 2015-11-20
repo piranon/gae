@@ -21,13 +21,6 @@
                 <div class="col-sm-2">total {{total}} customers</div>
                 <div class="col-sm-3"></div>
                 <div class="col-sm-3">
-<!--                    <select ng-model="sortList" ng-change="sort(sortList)" class="form-control">-->
-<!--                        <option value="">Sort By Date Added</option>-->
-<!--                        <option value="update_time">Sort By Date Modified</option>-->
-<!--                        <option value="user_name">Sort By Name</option>-->
-<!--                        <option value="order">Sort By Order</option>-->
-<!--                        <option value="pay">Sort By Total Pay</option>-->
-<!--                    </select>-->
                     <select ng-model="limitList" ng-change="changeLimit(limitList)" class="form-control">
                         <option value="">10</option>
                         <option value="25">25</option>
@@ -36,17 +29,6 @@
                     </select>
                 </div>
             </div>
-<!--            <div class="row customer-limit">-->
-<!--                <div class="col-sm-1">-->
-<!--                    <select ng-model="limitList" ng-change="changeLimit(limitList)" class="form-control">-->
-<!--                        <option value="">10</option>-->
-<!--                        <option value="25">25</option>-->
-<!--                        <option value="50">50</option>-->
-<!--                        <option value="100">100</option>-->
-<!--                    </select>-->
-<!--                </div>-->
-<!--                <div class="col-sm-11">records per page</div>-->
-<!--            </div>-->
             <div class="row customer-table">
                 <table class="datatable table tbl-restyled">
                     <thead>
@@ -57,9 +39,9 @@
                                 <span class="glyphicon glyphicon-ok"></span>
                             </button>
                         </th>
-                        <th style="width: 137px;">Name/Group</th>
-                        <th style="width: 127px;">Username</th>
-                        <th style="width: 246px;">Email/Phone</th>
+                        <th style="width: 137px; cursor: pointer;" ng-click="sort('first_name')">Name/Group</th>
+                        <th style="width: 127px; cursor: pointer;" ng-click="sort('user_name')">Username</th>
+                        <th style="width: 246px; cursor: pointer;" ng-click="sort('email')">Email/Phone</th>
                         <th style="width: 70px;">Order</th>
                         <th style="width: 70px;">Total Pay</th>
                         <th style="width: 166px;">Action</th>
@@ -112,11 +94,11 @@
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
                             </a>
-                            <button class="btn-circle-red" type="button"
-                                    confirmed-click="clickOnDelete({{customer.customer_id}})"
-                                    ng-confirm-click="Confirm ?">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </button>
+<!--                            <button class="btn-circle-red" type="button"-->
+<!--                                    confirmed-click="clickOnDelete({{customer.customer_id}})"-->
+<!--                                    ng-confirm-click="Confirm ?">-->
+<!--                                <span class="glyphicon glyphicon-trash"></span>-->
+<!--                            </button>-->
                         </td>
                     </tr>
                     </tbody>

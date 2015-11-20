@@ -14,11 +14,12 @@ angular.module('customer').controller('listdata', function ($scope, $window, $at
     $scope.limit = limitList || 10;
   };
   $scope.sort = function (keyname) {
-    if (keyname == 'order' || keyname == 'pay') {
-      return false;
-    }
     $scope.sortKey = keyname || 'create_time';
-    $scope.reverse = true;
+    if ($scope.reverse) {
+      $scope.reverse = false;
+    } else {
+      $scope.reverse = true;
+    }
   };
   $scope.clickOnDelete = function(id) {
     var dataSend = {
