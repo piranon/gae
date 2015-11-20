@@ -31,13 +31,14 @@ class base_module_controller extends base_controller {
 	}
 
 	//new function
-	public function mLoadView($viewPath="",$viewData=array(),$return = FALSE){
+	public function mLoadView($viewPath="",$param=array(),$return = FALSE){
 		$module_path =  $this->curModule->path;
 		$view_file_path = $module_path."app/views/".$viewPath;
 	
-
+		$viewData["viewData"] = $param;	
 		$viewData["curModule"]= $this->curModule;
 		if($return==true){
+			$this->load->startByModule($this->curModule);
 			return $this->load->themeable($view_file_path,$viewData,true);
 		}else{
 			$this->moduleViewData .= $this->load->themeable($view_file_path,$viewData,true);
@@ -65,8 +66,7 @@ class base_module_controller extends base_controller {
 
 	public function mLoadLibrary($class_name,$not_overide=false){
 		$module_path =  $this->curModule->path;
-		$class_file_path = $module_path."/".$class_name;
-	
+		$class_file_path = $module_path."libraries/".$class_name;
 
 		$this->load->model("module_model");
 		$obj = $this->module_model->processModuleLibrary($class_file_path,$class_name);
