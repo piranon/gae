@@ -79,6 +79,12 @@ class Start extends base_module_controller
 
     public function listing()
     {
+        // Form validation
+        $this->load->library('form_validation');
+        $this->form_validation->onlyGet();
+        $this->form_validation->allRequest();
+        $this->formCheck();
+
         // Business logic
         $this->mLoadModel('customer_model');
         $customers = $this->customer_model->get_customers();
@@ -93,10 +99,20 @@ class Start extends base_module_controller
 
     public function detail()
     {
+        // Form validation
+        $this->load->library('form_validation');
+        $this->form_validation->onlyGet();
+        $this->form_validation->allRequest();
+        $this->formCheck();
+
         // Receiving parameter
-        $id = t_Request('id');
+        $id = (int)t_Request('id');
 
         // Business logic
+        if (!is_int($id) || $id <= 0) {
+            resDie('Id should be integer');
+        }
+
         $this->mLoadModel('customer_model');
         $customer = $this->customer_model->get_customer_by_id($id);
 
