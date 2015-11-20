@@ -239,18 +239,19 @@ class module_model extends base_model {
             return false;    
         }
 
-
-        $curModule = new stdClass();
+        require_once(root_plugins_path()."modules/cur_module.php");
+        $curModule = new cur_module();
         $curModule->id = $module_id;
         $curModule->bundle_id = $moduleData["module_bundle_id"];
         $curModule->version = $moduleData["module_version"];
         $curModule->path = $module_path;
         $curModule->url = $module_url;
-        $curModule->app_url = base_url()."module/app/".$module_id."/";
         $curModule->file_url = $module_url."staticfiles/";
+        $curModule->app_url = base_url()."module/app/".$module_id."/";
         $curModule->api_url = base_api_url()."module/api/".$module_id."/";
+        $curModule->init();
 
-        require($module_run_file);
+        require_once($module_run_file);
 
         $c_controller = new $controllerName();
     	$c_controller->startByModule($curModule);

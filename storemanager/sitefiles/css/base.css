@@ -6,6 +6,7 @@ body {
   /*font-family: 'Lato', 'ThaiSans Neue', sans-serif;*/
   font-family: 'Source Sans Pro', sans-serif;
   line-height: 1.6em;
+  line-height: 1.6em;
   -webkit-font-smoothing: antialiased;
 }
 .clear {
@@ -27,4 +28,6 @@ body {
 .btn:focus{
 	 outline: 0;
 }
-.pre-complile{ visibility: hidden; position: absolute; width: 0px; height: 0px;}
+.pre-complile{ 
+  visibility: hidden; position: absolute; width: 0px; height: 0px;
+}

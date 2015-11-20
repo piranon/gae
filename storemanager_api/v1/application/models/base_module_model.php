@@ -25,7 +25,6 @@ class base_module_model extends base_model {
 		$module_path =  $this->curModule->path;
 		$class_file_path = $module_path."libraries/".$class_name;
 	
-
 		$this->load->model("module_model");
 		$obj = $this->module_model->processModuleLibrary($class_file_path,$class_name);
 		if($not_overide==false){

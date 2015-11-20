@@ -58,7 +58,16 @@
     }
 
     function get_base_api_url($project_name){
-        return $project_name."_api/v1/";
+
+        $project_name= trim(strtolower($project_name));
+        
+        if($project_name=="storecenter"){
+            $url_string =  $project_name."_api/v2/";
+        }else{
+            $url_string =  $project_name."_api/v1/";
+        }
+
+        return $url_string; 
     }
 
     function generate_siteurl_data(){
@@ -92,7 +101,7 @@
         }
 
         if(@$GLOBALS['base_api_url']==""){
-            @$GLOBALS['base_api_url'] = $root_site_url.get_base_api_url($project_name);
+            @$GLOBALS['base_api_url'] = get_base_api_url($project_name);
         }
 
     }
@@ -139,7 +148,10 @@
     }
    
     function base_api_url(){
-        return @$GLOBALS['base_api_url'];
+
+        $root_url = root_url();
+        //$root_url = "http://128.199.139.181/gae/";
+        return $root_url.@$GLOBALS['base_api_url'];
     }
 
     function base_sitefiles_url(){
@@ -446,5 +458,18 @@
         }
         return $newArray;
     }
+
+    // password generator
+
+    function generate_hash_salt($salt_str){
+        $salt_md5 = md5($salt_str);
+        $salt_hash = md5($salt_md5.$salt_md5);
+        return $salt_hash;
+    }
+    function generate_hash_password($password_str,$salt_str){
+        $salt_hash = generate_hash_salt($salt_str);
+        return md5($password_str.$salt_hash);
+    }
+
 
 ?>

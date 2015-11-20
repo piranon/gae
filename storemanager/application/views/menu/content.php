@@ -19,8 +19,9 @@
 ?>
 <div class="card_info_list">
 	<? 
-	foreach ($mainmenu_addon as $index => $row) {
-		$itemData = $row["addon_card_info"];
+	if(is_array($mainmenu_addon)&&(sizeof($mainmenu_addon)>0)){
+		foreach ($mainmenu_addon as $index => $row) {
+			$itemData = $row["addon_card_info"];
 	?>
 		<div class="item">
 	        <a href="<?=base_url()."module/app/".$row['module_id']; ?>">
@@ -36,7 +37,13 @@
 	        </a>
 	    </div>
 	<?
-	} 
+		} 
+	}else{
+
+	?>
+	 <div style="text-align:center; "><h3>No module installed!</h3></div>
+	<?
+	}
 	?>
 	<div class="clear"></div>
 </div>
