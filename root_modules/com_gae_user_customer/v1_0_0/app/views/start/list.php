@@ -59,7 +59,9 @@
                         </td>
                         <td>
                             <br>
-                            {{customer.first_name}} {{customer.lasname_name}}
+                            <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_id}}">
+                                {{customer.first_name}} {{customer.lasname_name}}
+                            </a>
                             <div class="tag-group-name">
                                 No Group
                             </div>
@@ -83,12 +85,9 @@
                         <td>0</td>
                         <td>0</td>
                         <td class="text-center">
-                            <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_id}}">
-                                <button type="button" class="btn-circle-orange"
-                                        style="background-color: #C2A717;">
-                                    <span class="glyphicon glyphicon-eye-open"></span>
-                                </button>
-                            </a>
+                            <button type="button" class="btn-circle-red">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
                             <a href="">
                                 <button type="button" class="btn-circle-orange">
                                     <span class="glyphicon glyphicon-pencil"></span>
