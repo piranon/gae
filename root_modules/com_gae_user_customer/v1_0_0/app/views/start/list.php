@@ -100,7 +100,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row">
+            <div class="row" ng-show="customer">
                 <div class="col-xs-6">
                     <dir-pagination-controls
                         template-url="<?php echo $curModule->file_url; ?>template/summary-pagination.html">
@@ -114,6 +114,12 @@
                             boundary-links="true">
                         </dir-pagination-controls>
                     </div>
+                </div>
+            </div>
+            <div ng-hide="customer" class="row no-cusotmer">
+                <div class="col-xs-12">
+                    <img src="<?php echo $curModule->file_url; ?>icon/shape.png">
+                    <div>ยังไม่มีรายชื่อลูกค้า ทำการเพิ่มลูกค้าสามาชิกได้เองโดยกดที่ปุ่ม Add customer</div>
                 </div>
             </div>
         </div>

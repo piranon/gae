@@ -7,7 +7,9 @@ angular.module('customer').controller('listdata', function ($scope, $window, $at
   CUR_MODULE.apiGet("start/listing").then(function (res) {
     $scope.$apply(function () {
       $scope.customers = res.data;
-      $scope.total = res.data.length
+      $scope.total = res.data.length;
+      console.log(res);
+
     });
   });
   $scope.onChangeLimit = function (limitList) {
