@@ -42,14 +42,14 @@ class Start extends base_module_controller
         if (!$customer_id) {
             resDie("Cannot insert customer data");
         }
-        $this->process_image_profile($customer_id);
+        $this->upload_image_profile($customer_id);
         $new_customer_data = $this->customer_model->get_customer_by_id($customer_id);
 
         // Response
         resOk($new_customer_data);
     }
 
-    private function process_image_profile($customer_id)
+    private function upload_image_profile($customer_id)
     {
         $field_name = 'profile_pic';
         if (empty($_FILES[$field_name])) {
@@ -118,5 +118,69 @@ class Start extends base_module_controller
 
         // Response
         resOk($customer);
+    }
+
+    public function delete()
+    {
+        // Form validation
+        $this->load->library('form_validation');
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('id', 'trim|required|numeric');
+        $this->formCheck();
+
+        // Receiving parameter
+        $customer_id = t_Post('id');
+
+        // Business logic
+        $this->mLoadModel('customer_model');
+        $result = $this->customer_model->delete($customer_id);
+
+        if (!$result) {
+            resDie("Cannot delete customer data");
+        }
+
+        $this->mLoadModel('table_model');
+        $table_id = $this->table_model->get_table_id('customer');
+        if (null === $table_id) {
+            resDie("Cannot get table id");
+        }
+
+        $this->delete_image_profile($table_id, $customer_id);
+
+        // Response
+        resOk();
+    }
+
+    public function batch_delete()
+    {
+        // Form validation
+        $this->load->library('form_validation');
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('ids', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $customer_ids = t_Post('ids');
+
+        // Business logic
+        $this->mLoadModel('customer_model');
+        $result = $this->customer_model->batch_delete($customer_ids);
+
+        if (!$result) {
+            resDie("Cannot delete customer data");
+        }
+
+        // Response
+        resOk();
+    }
+
+    private function delete_image_profile($table_id, $customer_id)
+    {
+        $object_table_id = $table_id;
+        $object_id = $customer_id;
+        $type_id = 1;
+
+        $this->load->model("root_image_model");
+        $this->root_image_model->cleanImageRelationByKey($object_table_id, $object_id, $type_id);
     }
 }

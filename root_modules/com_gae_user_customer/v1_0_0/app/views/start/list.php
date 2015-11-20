@@ -79,7 +79,8 @@
                         </td>
                         <td>
                             <div ng-show="customer.image_id" class="circle-size-80">
-                                <img src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
+                                <img
+                                    src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
                             </div>
                             <div ng-hide="customer.image_id" class="circle-size-80"></div>
                             {{customer.user_name}}
@@ -94,16 +95,16 @@
                                     <span class="glyphicon glyphicon-eye-open"></span>
                                 </button>
                             </a>
-                            <a href="#">
+                            <a href="">
                                 <button type="button" class="btn-circle-orange">
                                     <span class="glyphicon glyphicon-pencil"></span>
                                 </button>
                             </a>
-                            <a href="#">
-                                <button class="btn-circle-red" type="button">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                                </button>
-                            </a>
+                            <button class="btn-circle-red" type="button"
+                                    confirmed-click="clickOnDelete({{customer.customer_id}})"
+                                    ng-confirm-click="Confirm ?">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
                         </td>
                     </tr>
                     </tbody>
