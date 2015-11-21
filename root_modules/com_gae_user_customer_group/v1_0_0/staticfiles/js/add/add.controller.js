@@ -1,4 +1,4 @@
-angular.module('customerGroup').controller('AddController', function ($scope, $rootScope, $timeout, $window, GAEAPI) {
+angular.module('customerGroup').controller('AddController', function ($scope, $rootScope, $timeout, $window) {
 
   $scope.response = [];
   $scope.customers = [];
@@ -23,7 +23,22 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
   };
 
   $scope.clickOnSubmit = function () {
-    $scope.customersSelected = [];
+    if ($scope.name && $scope.customersSelectedId.length > 0) {
+      var dataSend = {
+        "name": $scope.name || '',
+        "description": $scope.description || '',
+        "customer_ids": $scope.customersSelectedId || ''
+      };
+      CUR_MODULE.apiPost('start/add', dataSend).then(function (res) {
+        if (res.ok) {
+          $window.location.href = CUR_MODULE.data.app_url + 'start';
+        } else {
+          alert('Can not create customer group');
+        }
+      });
+    } else {
+      alert('Please fill-in required field');
+    }
   };
 
   $scope.removeCustomer = function (id) {

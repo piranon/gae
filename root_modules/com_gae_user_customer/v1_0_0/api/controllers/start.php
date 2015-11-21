@@ -41,7 +41,7 @@ class Start extends base_module_controller
         $dbData['password'] = $customer_password;
         $dbData['phone'] = $customer_phone;
         $dbData['tag'] = $customer_tag;
-        $dbData['status'] = Customer_model::STATUS_ACTIVE;
+        $dbData['status'] = 1;
         $dbData['create_time'] = time();
 
         $this->mLoadModel('customer_model');

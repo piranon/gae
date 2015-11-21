@@ -8,6 +8,45 @@ class start extends base_module_controller
         $this->load->library('form_validation');
     }
 
+    public function add()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('name', 'trim|required');
+        $this->form_validation->set_rules('customer_ids', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $group_name = t_Post('name');
+        $group_description = t_Post('description');
+        $group_customer_ids = t_Post('customer_ids');
+
+        // Business logic
+        $dbData = array();
+        $dbData['name'] = $group_name;
+        $dbData['description'] = $group_description;
+        $dbData['status'] = 1;
+        $dbData['create_time'] = time();
+
+        $this->mLoadModel('customer_group_model');
+        $this->mLoadModel('customer_mathto_customer_group_model');
+
+        try {
+            $customer_group_id = $this->customer_group_model->insert($dbData);
+            $mathTo = $this->customer_mathto_customer_group_model->createInsertData(
+                $customer_group_id,
+                $group_customer_ids
+            );
+            $this->customer_mathto_customer_group_model->insert_batch($mathTo);
+
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
+        // Response
+        resOk();
+    }
+
     function customer_list()
     {
         // Form validation
