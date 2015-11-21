@@ -28,9 +28,9 @@
                     <div class="cover-container">
                         <div ng-click="clickOnUpload(); $event.stopPropagation();">
                             <div class="area-inner-container">
-                                <img id="area-inner-image">
+                                <img id="area-inner-image" src="{{imageProfile}}">
                             </div>
-                            <span class="glyphicon glyphicon-picture" id="pic-icon"></span>
+                            <span ng-hide="imageProfile" class="glyphicon glyphicon-picture" id="pic-icon"></span>
                         </div>
                         <div class="hide">
                             <input type="file" file-model='fileModel' id="imageCategory" onchange="PreviewImage();">
@@ -108,10 +108,8 @@
                     <div class="form-group">
                         <div class="text-left non-require-field">Gender</div>
                         <div class="text-left desc-field">เพศ</div>
-                        <select ng-model="gender" name="Gender" class="form-control">
-                            <option value="">เลือกเพศ</option>
-                            <option value="1">male</option>
-                            <option value="2">female</option>
+                        <select ng-model="gender" name="gender" class="form-control"
+                                ng-options="s.name for s in sexOption">
                         </select>
                     </div>
                 </div>
@@ -164,7 +162,7 @@
                     </div>
                 </div>
             </div>
-            <input type="submit" id="submit" class="hide" />
+            <input type="submit" id="submit" class="hide"/>
         </form>
     </div>
 </div>

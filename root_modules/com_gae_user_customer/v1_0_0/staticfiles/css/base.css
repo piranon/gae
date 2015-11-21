@@ -356,10 +356,7 @@ table.table {
     background-color: #f9a157;
     color: white;
     margin: 0 5px;
-    -webkit-transition: all 0.5s linear;
-    -o-transition: all 0.5s linear;
-    -moz-transition: all 0.5s linear;
-    transition: all 0.5s linear;
+    padding: 3px;
 }
 
 .btn-circle-red {

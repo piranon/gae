@@ -90,10 +90,9 @@
                             <button type="button" class="btn-circle-red">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
-                            <a href="">
-                                <button type="button" class="btn-circle-orange">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
+                            <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.customer_id}}"
+                               class="btn-circle-orange">
+                                <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
                     </tr>
@@ -119,6 +118,7 @@
             <div ng-hide="customers" class="row no-cusotmer">
                 <div class="col-xs-12">
                     <img src="<?php echo $curModule->file_url; ?>icon/shape.png">
+
                     <div>ยังไม่มีรายชื่อลูกค้า ทำการเพิ่มลูกค้าสามาชิกได้เองโดยกดที่ปุ่ม Add customer</div>
                 </div>
             </div>

@@ -2,7 +2,11 @@
  
 class Table_model extends base_module_model
 {
-
+    /**
+     * @param sting $code_name
+     * @return int
+     * @throws Exception
+     */
     public function get_table_id($code_name)
     {
         $this->db->where('code_name', $code_name);

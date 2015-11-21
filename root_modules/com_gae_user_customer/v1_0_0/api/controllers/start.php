@@ -13,6 +13,9 @@ class Start extends base_module_controller
         // Form validation
         $this->form_validation->onlyPost();
         $this->form_validation->set_rules('username', 'trim|required');
+        $this->form_validation->set_rules('email', 'trim|required');
+        $this->form_validation->set_rules('first_name', 'trim|required');
+        $this->form_validation->set_rules('last_name', 'trim|required');
         $this->form_validation->set_rules('password', 'trim|required');
         $this->formCheck();
 
@@ -38,7 +41,7 @@ class Start extends base_module_controller
         $dbData['password'] = $customer_password;
         $dbData['phone'] = $customer_phone;
         $dbData['tag'] = $customer_tag;
-        $dbData['status'] = 1;
+        $dbData['status'] = Customer_model::STATUS_ACTIVE;
         $dbData['create_time'] = time();
 
         $this->mLoadModel('customer_model');
@@ -55,6 +58,59 @@ class Start extends base_module_controller
 
         // Response
         resOk();
+    }
+
+    public function update()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('username', 'trim|required');
+        $this->form_validation->set_rules('email', 'trim|required');
+        $this->form_validation->set_rules('first_name', 'trim|required');
+        $this->form_validation->set_rules('last_name', 'trim|required');
+        $this->form_validation->set_rules('password', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $customer_username = t_Post('username');
+        $customer_first_name = t_Post('first_name');
+        $customer_last_name = t_Post('last_name');
+        $customer_birthday = t_Post('birthday');
+        $customer_gender = t_Post('gender');
+        $customer_email = t_Post('email');
+        $customer_phone = t_Post('phone');
+        $customer_tag = t_Post('tag');
+        $customer_password = t_Post('password');
+        $customer_id = t_Post('id');
+
+        // Business logic
+        $dbData = array();
+        $dbData['user_name'] = $customer_username;
+        $dbData['first_name'] = $customer_first_name;
+        $dbData['last_name'] = $customer_last_name;
+        $dbData['birthday'] = $customer_birthday;
+        $dbData['gender_type_id'] = $customer_gender;
+        $dbData['email'] = $customer_email;
+        $dbData['password'] = $customer_password;
+        $dbData['phone'] = $customer_phone;
+        $dbData['tag'] = $customer_tag;
+        $dbData['update_time'] = time();
+
+        $this->mLoadModel('customer_model');
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('image_model');
+
+        try {
+            $this->customer_model->update($dbData, $customer_id);
+            $table_id = $this->table_model->get_table_id('customer');
+            $this->image_model->upload_image_profile($customer_id, $table_id);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
+        // Response
+        resOk();
+
     }
 
     public function listing()

@@ -8,12 +8,19 @@ class Image_model extends base_module_model
         $this->load->model("root_image_model");
     }
 
+    /**
+     * @param int $customer_id
+     * @param int $table_id
+     * @return mixed
+    */
     public function upload_image_profile($customer_id, $table_id)
     {
         $field_name = 'profile_pic';
         if (empty($_FILES[$field_name])) {
             return true;
         }
+
+        $this->delete_image_profile($customer_id, $table_id);
 
         $max_number = 1;
         $object_table_id = $table_id;
@@ -29,6 +36,10 @@ class Image_model extends base_module_model
         );
     }
 
+    /**
+     * @param int $customer_id
+     * @param int $table_id
+     */
     public function delete_image_profile($customer_id, $table_id)
     {
         $object_table_id = $table_id;
