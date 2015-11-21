@@ -10,7 +10,11 @@ class start extends base_module_controller
     public function add()
     {
         $view_data = [
+            'css' => [
+                'autocomplete.css'
+            ],
             'js' => [
+                'third_party/autocomplete.js',
                 'add/add.controller.js'
             ]
         ];
