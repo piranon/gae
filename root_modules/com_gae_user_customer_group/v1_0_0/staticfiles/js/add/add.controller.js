@@ -4,6 +4,16 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
   $scope.customers = [];
   $scope.customersSelected = [];
   $scope.customersSelectedId = [];
+  $scope.clickOnSubmit = submit;
+  $scope.selectedCustomer = function(seleted){
+    addCustomer(seleted);
+  };
+  $scope.submitCustomerInGroup = function () {
+    addCustomer($scope.inputCustomer);
+  };
+  $scope.removeCustomer = function (id) {
+    removeCustomer(id);
+  };
 
   CUR_MODULE.apiGet("start/customer_list").then(function (res) {
     $scope.response = res.data;
@@ -14,15 +24,7 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
     });
   });
 
-  $scope.selectedCustomer = function(seleted){
-    addCustomer(seleted);
-  };
-
-  $scope.submitCustomerInGroup = function () {
-    addCustomer($scope.inputCustomer);
-  };
-
-  $scope.clickOnSubmit = function () {
+  function submit() {
     if ($scope.name && $scope.customersSelectedId.length > 0) {
       var dataSend = {
         "name": $scope.name || '',
@@ -39,22 +41,27 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
     } else {
       alert('Please fill-in required field');
     }
-  };
+  }
 
-  $scope.removeCustomer = function (id) {
+  function removeCustomer(id) {
     $scope.customersSelected = $scope.customersSelected.filter(function( obj ) {
       return obj.customer_id != id;
     });
     console.log($scope.customersSelectedId);
     $scope.customersSelectedId.splice($scope.customersSelectedId.indexOf(id),1);
     console.log($scope.customersSelectedId);
-  };
+  }
 
   function addCustomer(seleted) {
-    var isFound = false;
+    var isFound = false,
+        isAdded = false;
     angular.forEach($scope.response, function(value, key) {
       var name = value.first_name + ' ' + value.last_name;
       if (name != seleted) {
+        return true;
+      }
+      if ($scope.customersSelectedId.indexOf(value.customer_id) > -1) {
+        isAdded = true;
         return true;
       }
       value.image_url = null;
@@ -66,6 +73,10 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
       isFound = true;
     });
     $scope.inputCustomer = '';
+    if (isAdded) {
+      isFound = true;
+      alert('The customer has already added');
+    }
     if (!isFound) {
       alert('Not found customer');
     }
