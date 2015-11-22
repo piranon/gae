@@ -138,10 +138,16 @@ class start extends base_module_controller
 
         $customer_group = $this->customer_group_model->get_group_by_id($id);
         if ($customer_group) {
-            $customer_group['customer'] = $this->customer_mathto_customer_group_model->get_customers($id);
+            $customer_group['customers'] = $this->customer_mathto_customer_group_model->get_customers($id);
         }
 
         // Response
         resOk($customer_group);
+    }
+
+    function bulk_delete_customer()
+    {
+        echo '<pre>';
+        print_r($_POST);
     }
 }

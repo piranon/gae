@@ -69,6 +69,13 @@ class Customer_mathto_customer_group_model extends base_module_model
             'customer.user_name',
             'customer.first_name',
             'customer.last_name',
+            'customer.birthday',
+            'customer.gender_type_id',
+            'customer.email',
+            'customer.phone',
+            'customer.tag',
+            'customer.create_time',
+            'customer.update_time',
             'image.image_id',
             'image.file_name',
             'image.file_dir'

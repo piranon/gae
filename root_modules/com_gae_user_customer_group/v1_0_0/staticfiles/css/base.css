@@ -503,3 +503,74 @@ div.dataTables_paginate ul.pagination {
     line-height: 21px;
     margin-top: 30px;
 }
+
+/* detail pagg */
+.group-info {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.group-name {
+    height: 45px;
+    color: #333;
+    font-family: "Source Sans Pro";
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 45px;
+}
+
+.group-customers {
+    height: 30px;
+    color: #333;
+    font-family: "Source Sans Pro";
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+}
+
+.group-description {
+    height: 24px;
+    color: #666;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.detail-complete-order {
+    width: 215px;
+    height: 120px;
+    background-color: #7ed321;
+    border-radius: 20px;
+    padding-top: 12px;
+}
+
+.detail-complete-order > div:first-child {
+    height: 27px;
+    color: black;
+    font-family: "Source Sans Pro";
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 27px;
+    text-align: center;
+}
+
+.detail-complete-order > div + div {
+    height: 40px;
+    color: white;
+    font-family: "Source Sans Pro";
+    font-size: 40px;
+    font-weight: 400;
+    line-height: 40px;
+    text-align: center;
+}
+
+.detail-complete-order > div + div + div {
+    height: 24px;
+    color: #666;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+}
