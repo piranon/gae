@@ -29,6 +29,7 @@ class Start extends base_module_controller
         $customer_phone = t_Post('phone');
         $customer_tag = t_Post('tag');
         $customer_password = t_Post('password');
+        $customer_group_id = t_Post('group_id');
 
         // Business logic
         $dbData = array();
@@ -47,11 +48,13 @@ class Start extends base_module_controller
         $this->mLoadModel('customer_model');
         $this->mLoadModel('table_model');
         $this->mLoadModel('image_model');
+        $this->mLoadModel('customer_mathto_customer_group_model');
 
         try {
             $customer_id = $this->customer_model->insert($dbData);
             $table_id = $this->table_model->get_table_id('customer');
             $this->image_model->upload_image_profile($customer_id, $table_id);
+            $this->customer_mathto_customer_group_model->create_mathto_customer_group($customer_group_id, $customer_id);
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
@@ -82,6 +85,7 @@ class Start extends base_module_controller
         $customer_tag = t_Post('tag');
         $customer_password = t_Post('password');
         $customer_id = t_Post('id');
+        $customer_group_id = t_Post('group_id');
 
         // Business logic
         $dbData = array();
@@ -99,11 +103,13 @@ class Start extends base_module_controller
         $this->mLoadModel('customer_model');
         $this->mLoadModel('table_model');
         $this->mLoadModel('image_model');
+        $this->mLoadModel('customer_mathto_customer_group_model');
 
         try {
             $this->customer_model->update($dbData, $customer_id);
             $table_id = $this->table_model->get_table_id('customer');
             $this->image_model->upload_image_profile($customer_id, $table_id);
+            $this->customer_mathto_customer_group_model->create_mathto_customer_group($customer_group_id, $customer_id);
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
@@ -149,8 +155,10 @@ class Start extends base_module_controller
             resDie('id should be integer');
         }
 
+        $this->mLoadModel('customer_mathto_customer_group_model');
         $this->mLoadModel('customer_model');
         $customer = $this->customer_model->get_customer_by_id($id);
+        $customer['groups'] = $this->customer_mathto_customer_group_model->get_customers($id);
 
         // Response
         resOk($customer);
@@ -189,5 +197,20 @@ class Start extends base_module_controller
 
         // Response
         resOk();
+    }
+
+    function list_group()
+    {
+        // Form validation
+        $this->form_validation->onlyGet();
+        $this->form_validation->allRequest();
+        $this->formCheck();
+
+        // Business logic
+        $this->mLoadModel('customer_group_model');
+        $customer_groups = $this->customer_group_model->get_customer_groups();
+
+        // Response
+        resOk($customer_groups);
     }
 }

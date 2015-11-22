@@ -110,6 +110,7 @@
                         <div class="text-left desc-field">เพศ</div>
                         <select ng-model="gender" name="gender" class="form-control"
                                 ng-options="s.name for s in sexOption">
+                            <option value="">เลือกเพศ</option>
                         </select>
                     </div>
                 </div>
@@ -120,7 +121,8 @@
                     <div class="form-group">
                         <div class="text-left non-require-field">Customer Group</div>
                         <div class="text-left desc-field">กลุ่มลูกค้า</div>
-                        <select ng-model="customerGroup" name="customerGroup" class="form-control">
+                        <select ng-model="customerGroup" name="customerGroup" class="form-control"
+                                ng-options="g.name for g in groupOption">
                             <option value="">เลือกกลุ่มลูกค้า</option>
                         </select>
                     </div>

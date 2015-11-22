@@ -4,8 +4,8 @@ angular.module('customer').controller('CustomerAddCtrl', function ($scope, $root
       errorMessage;
   $scope.imageProfile = '';
   $scope.inputType = 'password';
+  $scope.groupOption = [];
   $scope.sexOption = [
-    {name: 'เลือกเพศ', value: ''},
     {name: 'male', value: '1'},
     {name: 'female', value: '2'}
   ];
@@ -30,6 +30,13 @@ angular.module('customer').controller('CustomerAddCtrl', function ($scope, $root
       });
     });
   }
+
+  CUR_MODULE.apiGet('start/list_group').then(function (res) {
+    $scope.$apply(function () {
+      $scope.groupOption = res.data;
+    });
+  });
+
   $scope.showPassword = function () {
     if ($scope.inputType == 'password')
       $scope.inputType = 'text';
@@ -61,12 +68,13 @@ angular.module('customer').controller('CustomerAddCtrl', function ($scope, $root
         "first_name": $scope.firstname || '',
         "last_name": $scope.lastname || '',
         "birthday": $scope.birthday || '',
-        "gender": $scope.gender || '',
+        "gender": $scope.gender && $scope.gender.value || '',
         "email": $scope.email || '',
         "phone": $scope.phone || '',
         "tag": $scope.tag || '',
         "password": $scope.password || '',
-        "profile_pic": $scope.fileModel
+        "profile_pic": $scope.fileModel,
+        "group_id": $scope.customerGroup && $scope.customerGroup.customer_group_id || ''
       };
       CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
         if (res.ok) {

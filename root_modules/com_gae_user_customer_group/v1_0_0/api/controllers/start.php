@@ -215,6 +215,5 @@ class start extends base_module_controller
 
         // Response
         resOk();
-
     }
 }
