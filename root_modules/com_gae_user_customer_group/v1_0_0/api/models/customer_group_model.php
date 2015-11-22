@@ -22,11 +22,33 @@ class Customer_group_model extends base_module_model
         return $customer_id;
     }
 
+    /**
+     * @return array
+     */
     public function get_customer_groups()
     {
         $this->db->from('customer_group');
+        $this->db->where('status', Customer_group_model::STATUS_ACTIVE);
         $this->db->order_by('create_time', 'desc');
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+    /**
+     * @param array $customer_group_ids
+     * @return array
+     * @throws Exception
+     */
+    public function batch_delete($customer_group_ids)
+    {
+        $this->db->where_in('customer_group_id', $customer_group_ids);
+        $this->db->update('customer_group', ['status' => Customer_group_model::STATUS_INACTIVE]);
+        $result = $this->db->affected_rows();
+
+        if (!$result){
+            throw new Exception('Cannot delete customer group data');
+        }
+
+        return $result;
     }
 }
