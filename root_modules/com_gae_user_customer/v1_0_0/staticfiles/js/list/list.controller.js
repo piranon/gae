@@ -20,9 +20,13 @@ angular.module('customer').controller('ListController', function ($scope, $windo
   $scope.deleteSelected = function (id) {
     return $scope.selectedDeleteId.indexOf(id) > -1;
   };
+  $scope.setStatusBlock = function (id, status) {
+    setStatusBlock(id, status);
+  };
 
   CUR_MODULE.apiGet("start/listing").then(function (res) {
     $scope.$apply(function () {
+      console.log(res.data);
       $scope.customers = res.data;
       $scope.total = res.data.length;
     });
@@ -76,5 +80,19 @@ angular.module('customer').controller('ListController', function ($scope, $windo
     } else {
       $scope.selectedDeleteId.push(id);
     }
+  }
+
+  function setStatusBlock(id, status) {
+    var dataSend = {
+      "id": id,
+      "status": status
+    };
+    CUR_MODULE.apiPost('start/update_status', dataSend).then(function (res) {
+      if (res.ok) {
+        $window.location.href = CUR_MODULE.data.app_url + 'start';
+      } else {
+        alert('Cannot update status');
+      }
+    });
   }
 });

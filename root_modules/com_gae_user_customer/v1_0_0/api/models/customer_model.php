@@ -4,6 +4,7 @@ class Customer_model extends base_module_model
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const STATUS_BLOCK = 2;
 
     /** @var array */
     private $customer_select_fields;
@@ -21,6 +22,7 @@ class Customer_model extends base_module_model
             'customer.email',
             'customer.phone',
             'customer.tag',
+            'customer.status',
             'customer.create_time',
             'customer.update_time',
             'image.image_id',
@@ -107,6 +109,7 @@ class Customer_model extends base_module_model
         $this->db->join('image_matchto_object', 'image_matchto_object.holder_object_id = customer.customer_id', 'left');
         $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
         $this->db->where('customer.status', Customer_model::STATUS_ACTIVE);
+        $this->db->or_where('customer.status', Customer_model::STATUS_BLOCK);
         $this->db->where('customer.customer_id', $customer_id);
         $query = $this->db->get();
         return $query->row_array();
@@ -122,6 +125,7 @@ class Customer_model extends base_module_model
         $this->db->join('image_matchto_object', 'image_matchto_object.holder_object_id = customer.customer_id', 'left');
         $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
         $this->db->where('customer.status', Customer_model::STATUS_ACTIVE);
+        $this->db->or_where('customer.status', Customer_model::STATUS_BLOCK);
         $this->db->order_by('customer.create_time', 'desc');
         $query = $this->db->get();
         return $query->result_array();

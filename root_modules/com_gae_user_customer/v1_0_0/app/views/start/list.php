@@ -91,7 +91,14 @@
                         <td>0</td>
                         <td>0</td>
                         <td class="text-center">
-                            <button type="button" class="btn-circle-red">
+                            <button type="button" ng-show="customer.status == 1"
+                                    ng-click="setStatusBlock(customer.customer_id, customer.status)"
+                                    class="btn-circle-gray">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </button>
+                            <button type="button" ng-show="customer.status == 2"
+                                    ng-click="setStatusBlock(customer.customer_id, customer.status)"
+                                    class="btn-circle-red">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                             <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.customer_id}}"

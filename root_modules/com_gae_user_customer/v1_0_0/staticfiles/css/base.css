@@ -361,6 +361,19 @@ table.table {
     padding-bottom: 3px;
 }
 
+.btn-circle-gray {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    outline: 0px;
+    border: 0px;
+    background-color: #eee;
+    color: white;
+    margin: 0 5px;
+    padding: 3px;
+}
+
 .btn-circle-orange {
     float: left;
     width: 40px;

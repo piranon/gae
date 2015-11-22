@@ -115,7 +115,6 @@ class Start extends base_module_controller
         }
         // Response
         resOk();
-
     }
 
     public function listing()
@@ -212,5 +211,36 @@ class Start extends base_module_controller
 
         // Response
         resOk($customer_groups);
+    }
+
+    public function update_status()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('id', 'trim|required');
+        $this->form_validation->set_rules('status', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $customer_id = t_Post('id');
+        $customer_status = t_Post('status');
+
+        // Business logic
+        $status_active = 1;
+        $status_blocked = 2;
+
+        $dbData = array();
+        $dbData['status'] = $customer_status == $status_active ? $status_blocked : $status_active;
+        $dbData['update_time'] = time();
+
+        $this->mLoadModel('customer_model');
+
+        try {
+            $this->customer_model->update($dbData, $customer_id);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+        // Response
+        resOk();
     }
 }
