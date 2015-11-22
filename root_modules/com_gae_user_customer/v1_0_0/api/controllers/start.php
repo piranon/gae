@@ -107,7 +107,6 @@ class Start extends base_module_controller
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
-
         // Response
         resOk();
 
@@ -121,11 +120,18 @@ class Start extends base_module_controller
         $this->formCheck();
 
         // Business logic
+        $this->mLoadModel('customer_mathto_customer_group_model');
         $this->mLoadModel('customer_model');
         $customers = $this->customer_model->get_customers();
 
+        $response = [];
+        foreach ($customers as $customer) {
+            $customer['groups'] = $this->customer_mathto_customer_group_model->get_customers($customer['customer_id']);
+            $response[] = $customer;
+        }
+
         // Response
-        resOk($customers);
+        resOk($response);
     }
 
     public function detail()

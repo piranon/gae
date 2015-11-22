@@ -321,16 +321,31 @@ table.table {
     border-bottom: 1px solid #E4E2E2 !important;
 }
 
+.tag-name a {
+    color: #9c5000;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
 .tag-group-name {
-    background-color: #333333;
     width: 70%;
-    color: white;
+    color: #666;;
     text-align: center;
-    height: 26px;
     border-radius: 20px;
-    line-height: 2.4em;
-    font-weight: 300;
-    font-size: .8em;
+    background-color: #eee;
+    font-family: "Source Sans Pro";
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: -5px;
+}
+
+.tag-group-name a {
+    color: #666;
+    font-family: "Source Sans Pro";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
 }
 
 .tag-customer {

@@ -59,13 +59,17 @@
                             </button>
                         </td>
                         <td>
-                            <br>
-                            <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_id}}">
-                                {{customer.first_name}} {{customer.last_name}}
-                            </a>
-
+                            <div class="tag-name">
+                                <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_id}}">
+                                    {{customer.first_name}} {{customer.last_name}}
+                                </a>
+                            </div>
                             <div class="tag-group-name">
-                                No Group
+                                <div ng-repeat="group in customer.groups">
+                                    <a href="<?php echo base_url(); ?>module/app/15/start/detail?id={{group.customer_group_id}}">
+                                        {{group.name}}
+                                    </a>
+                                </div>
                             </div>
                             <div class="tag-customer" ng-show="user.tag">
                                 Tag:
