@@ -1,4 +1,5 @@
 angular.module('customerGroup').controller('AddController', function ($scope, $rootScope, $timeout, $window) {
+  var groupId = getUrlParameter('id');
   $scope.response = [];
   $scope.customers = [];
   $scope.customersSelected = [];
@@ -13,6 +14,27 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
   $scope.removeCustomer = function (id) {
     removeCustomer(id);
   };
+
+  if (groupId) {
+    var dataSend = {
+      "id": groupId
+    };
+    CUR_MODULE.apiGet('start/detail', dataSend).then(function (res) {
+      $scope.$apply(function () {
+        $scope.name = res.data.name;
+        $scope.description = res.data.description;
+        //$scope.customersSelected = res.data.customers;
+        angular.forEach(res.data.customers, function(value, key) {
+          value.image_url = null;
+          if (value.image_id) {
+            value.image_url = GURL.root_url() + 'root_images/' + value.file_dir + 'r100_' + value.file_name;
+          }
+          $scope.customersSelected.push(value);
+          $scope.customersSelectedId.push(value.customer_id);
+        });
+      });
+    });
+  }
 
   CUR_MODULE.apiGet("start/customer_list").then(function (res) {
     $scope.response = res.data;
