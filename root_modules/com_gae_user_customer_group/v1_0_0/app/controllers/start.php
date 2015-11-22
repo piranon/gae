@@ -19,7 +19,8 @@ class start extends base_module_controller
                 'autocomplete.css'
             ],
             'js' => [
-                'add/add.controller.js'
+                'add/add.controller.js',
+                'add/addCustomer.directive.js'
             ]
         ];
         $this->render('start/add', $view_data);

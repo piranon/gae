@@ -7,7 +7,7 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
   $scope.customersSelected = [];
   $scope.customersSelectedId = [];
   $scope.clickOnSubmit = submit;
-  $scope.selectedCustomer = function(seleted){
+  $scope.selectedCustomer = function (seleted) {
     addCustomer(seleted);
   };
   $scope.submitCustomerInGroup = function () {
@@ -26,7 +26,7 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
         $scope.name = res.data.name;
         $scope.description = res.data.description;
         //$scope.customersSelected = res.data.customers;
-        angular.forEach(res.data.customers, function(value, key) {
+        angular.forEach(res.data.customers, function (value, key) {
           value.image_url = null;
           if (value.image_id) {
             value.image_url = GURL.root_url() + 'root_images/' + value.file_dir + 'r100_' + value.file_name;
@@ -37,11 +37,10 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
       });
     });
   }
-
   CUR_MODULE.apiGet("start/customer_list").then(function (res) {
     $scope.response = res.data;
     $scope.$apply(function () {
-      angular.forEach(res.data, function(value, key) {
+      angular.forEach(res.data, function (value, key) {
         $scope.customers.push(value.first_name + ' ' + value.last_name);
       });
     });
@@ -75,18 +74,18 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
   }
 
   function removeCustomer(id) {
-    $scope.customersSelected = $scope.customersSelected.filter(function( obj ) {
+    $scope.customersSelected = $scope.customersSelected.filter(function (obj) {
       return obj.customer_id != id;
     });
     console.log($scope.customersSelectedId);
-    $scope.customersSelectedId.splice($scope.customersSelectedId.indexOf(id),1);
+    $scope.customersSelectedId.splice($scope.customersSelectedId.indexOf(id), 1);
     console.log($scope.customersSelectedId);
   }
 
   function addCustomer(seleted) {
     var isFound = false,
         isAdded = false;
-    angular.forEach($scope.response, function(value, key) {
+    angular.forEach($scope.response, function (value, key) {
       var name = value.first_name + ' ' + value.last_name;
       if (name != seleted) {
         return true;
@@ -114,51 +113,3 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
   }
 
 });
-angular.module('customerGroup').directive('addCustomer', function(){
-  return {
-    template: '\
-      <div class="row">\
-        <div class="col-md-3"></div>\
-          <div class="col-md-8"><div>\
-            <div class="row">\
-              <div class="col-md-12 customer-selected-box">\
-                <div class="row">\
-                  <div class="col-md-2">\
-                    <div class="circle-size-80">\
-                      <img ng-show="customerSelected.image_url" src="{{customerSelected.image_url}}">\
-                    </div>\
-                  </div>\
-                  <div class="col-md-10">\
-                    <div class="name">{{customerSelected.first_name}} {{customerSelected.last_name}}</div>\
-                    <div class="username">{{customerSelected.user_name}}</div>\
-                  </div>\
-                </div>\
-              </div>\
-            </div>\
-          </div>\
-        </div>\
-        <div class="col-md-1">\
-          <a href="" class="btn-circle-gray" ng-click="removeCustomer(customerSelected.customer_id);">\
-            <span class="glyphicon glyphicon-trash"></span>\
-          </a>\
-        </div>\
-      </div>',
-    scope: false
-  };
-});
-function getUrlParameter(param, dummyPath) {
-  var sPageURL = dummyPath || window.location.search.substring(1),
-      sURLVariables = sPageURL.split(/[&||?]/),
-      res;
-
-  for (var i = 0; i < sURLVariables.length; i += 1) {
-    var paramName = sURLVariables[i],
-        sParameterName = (paramName || '').split('=');
-
-    if (sParameterName[0] === param) {
-      res = sParameterName[1];
-    }
-  }
-
-  return res;
-}
