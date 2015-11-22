@@ -1,7 +1,8 @@
-angular.module('customer').controller('CustomerAddCtrl', function ($scope, $rootScope, $timeout, $window, GAEAPI) {
+angular.module('customer').controller('AddController', function ($scope, $rootScope, $timeout, $window) {
   var id = getUrlParameter('id'),
       apiUrl,
       errorMessage;
+
   $scope.imageProfile = '';
   $scope.inputType = 'password';
   $scope.groupOption = [];
@@ -9,6 +10,11 @@ angular.module('customer').controller('CustomerAddCtrl', function ($scope, $root
     {name: 'male', value: '1'},
     {name: 'female', value: '2'}
   ];
+  $scope.showPassword = showPassword;
+  $scope.clickOnUpload = clickOnUpload;
+  $scope.clickOnSubmit = clickOnSubmit;
+  $scope.submit = submit;
+
   if (id) {
     var dataSend = {
       "id": id
@@ -37,23 +43,27 @@ angular.module('customer').controller('CustomerAddCtrl', function ($scope, $root
     });
   });
 
-  $scope.showPassword = function () {
-    if ($scope.inputType == 'password')
+  function showPassword() {
+    if ($scope.inputType == 'password') {
       $scope.inputType = 'text';
-    else
+    } else {
       $scope.inputType = 'password';
-  };
-  $scope.clickOnUpload = function () {
+    }
+  }
+
+  function clickOnUpload() {
     $timeout(function () {
       angular.element('#imageCategory').trigger('click');
     }, 100);
-  };
-  $scope.clickOnSubmit = function () {
+  }
+
+  function clickOnSubmit() {
     $timeout(function () {
       angular.element('#submit').trigger('click');
     }, 100);
-  };
-  $scope.submit = function () {
+  }
+
+  function submit() {
     if ($scope.username && $scope.email && $scope.firstname && $scope.lastname && $scope.password) {
       if (id) {
         apiUrl = 'start/update';
@@ -86,7 +96,7 @@ angular.module('customer').controller('CustomerAddCtrl', function ($scope, $root
     } else {
       alert('Please fill-in required field');
     }
-  };
+  }
 });
 angular.module('customer').directive("fileread", [function () {
   return {
@@ -100,25 +110,9 @@ angular.module('customer').directive("fileread", [function () {
           scope.$apply(function () {
             scope.fileread = loadEvent.target.result;
           });
-        }
+        };
         reader.readAsDataURL(changeEvent.target.files[0]);
       });
     }
   }
 }]);
-function getUrlParameter(param, dummyPath) {
-  var sPageURL = dummyPath || window.location.search.substring(1),
-      sURLVariables = sPageURL.split(/[&||?]/),
-      res;
-
-  for (var i = 0; i < sURLVariables.length; i += 1) {
-    var paramName = sURLVariables[i],
-        sParameterName = (paramName || '').split('=');
-
-    if (sParameterName[0] === param) {
-      res = sParameterName[1];
-    }
-  }
-
-  return res;
-}

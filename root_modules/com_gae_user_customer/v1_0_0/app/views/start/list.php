@@ -8,7 +8,7 @@
             <input type="text" ng-model="search" class="new-search-btn" placeholder="Search Here">
         </div>
     </div>
-    <div class="row customer-list" ng-controller="listdata">
+    <div class="row customer-list" ng-controller="ListController">
         <div class="col-lg-12">
             <div class="row customer-filter">
                 <div class="col-sm-2">

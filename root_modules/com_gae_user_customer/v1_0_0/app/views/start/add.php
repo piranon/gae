@@ -1,4 +1,4 @@
-<div ng-app="customer" ng-controller="CustomerAddCtrl">
+<div ng-app="customer" ng-controller="AddController">
     <div class="row top-navigation">
         <div class="col-md-4">
             <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Cancel</a>
