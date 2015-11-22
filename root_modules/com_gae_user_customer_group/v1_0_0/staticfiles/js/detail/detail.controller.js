@@ -1,5 +1,5 @@
 angular.module('customerGroup').controller('DetailController', function ($scope, $window) {
-  var groupId = getUrlParameter('id');
+  var id = getUrlParameter('id');
   $scope.group = [];
   $scope.customers = [];
   $scope.total = 0;
@@ -7,7 +7,7 @@ angular.module('customerGroup').controller('DetailController', function ($scope,
   $scope.selectedDeleteId = [];
   $scope.deleteAll = false;
   var dataSend = {
-    "id": groupId
+    "id": id
   };
   CUR_MODULE.apiGet('start/detail', dataSend).then(function (res) {
     $scope.$apply(function () {
@@ -27,12 +27,12 @@ angular.module('customerGroup').controller('DetailController', function ($scope,
       alert('Please select some customer');
     } else {
       var dataSend = {
-        "groupId": groupId,
+        "id": id,
         "customerIds": $scope.selectedDeleteId
       };
       CUR_MODULE.apiPost('start/bulk_delete_customer', dataSend).then(function (res) {
         if (res.ok) {
-          $window.location.href = CUR_MODULE.data.app_url + 'start';
+          $window.location.href = CUR_MODULE.data.app_url + 'start/detail?id=' + id;
         } else {
           alert("Error: Can not delete customer");
         }

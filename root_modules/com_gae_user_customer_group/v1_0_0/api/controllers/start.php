@@ -189,7 +189,32 @@ class start extends base_module_controller
 
     function bulk_delete_customer()
     {
-        echo '<pre>';
-        print_r($_POST);
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('id', 'trim|required');
+        $this->form_validation->set_rules('customerIds', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $customer_group_id = t_Post('id');
+        $customer_customer_ids = t_Post('customerIds');
+
+        // Business logic
+        $customer_customer_ids = explode(',', $customer_customer_ids);
+        if (!is_array($customer_customer_ids)) {
+            resDie("Cannot delete customer data");
+        }
+
+        $this->mLoadModel('customer_mathto_customer_group_model');
+
+        try {
+            $this->customer_mathto_customer_group_model->delete_customer($customer_group_id, $customer_customer_ids);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
+        // Response
+        resOk();
+
     }
 }
