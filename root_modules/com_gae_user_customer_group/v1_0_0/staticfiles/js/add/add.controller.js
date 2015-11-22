@@ -1,5 +1,7 @@
 angular.module('customerGroup').controller('AddController', function ($scope, $rootScope, $timeout, $window) {
-  var groupId = getUrlParameter('id');
+  var id = getUrlParameter('id'),
+      apiUrl,
+      errorMessage;
   $scope.response = [];
   $scope.customers = [];
   $scope.customersSelected = [];
@@ -15,9 +17,9 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
     removeCustomer(id);
   };
 
-  if (groupId) {
+  if (id) {
     var dataSend = {
-      "id": groupId
+      "id": id
     };
     CUR_MODULE.apiGet('start/detail', dataSend).then(function (res) {
       $scope.$apply(function () {
@@ -47,16 +49,24 @@ angular.module('customerGroup').controller('AddController', function ($scope, $r
 
   function submit() {
     if ($scope.name && $scope.customersSelectedId.length > 0) {
+      if (id) {
+        apiUrl = 'start/update';
+        errorMessage = 'Can not update customer group';
+      } else {
+        apiUrl = 'start/add';
+        errorMessage = 'Can not create customer group';
+      }
       var dataSend = {
+        "id": id || '',
         "name": $scope.name || '',
         "description": $scope.description || '',
         "customer_ids": $scope.customersSelectedId || ''
       };
-      CUR_MODULE.apiPost('start/add', dataSend).then(function (res) {
+      CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
         if (res.ok) {
           $window.location.href = CUR_MODULE.data.app_url + 'start';
         } else {
-          alert('Can not create customer group');
+          alert(errorMessage);
         }
       });
     } else {

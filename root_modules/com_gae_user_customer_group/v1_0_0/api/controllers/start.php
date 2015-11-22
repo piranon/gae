@@ -47,6 +47,48 @@ class start extends base_module_controller
         resOk();
     }
 
+    public function update()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('name', 'trim|required');
+        $this->form_validation->set_rules('customer_ids', 'trim|required');
+        $this->form_validation->set_rules('id', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $group_name = t_Post('name');
+        $group_description = t_Post('description');
+        $group_customer_ids = t_Post('customer_ids');
+        $group_id = t_Post('id');
+
+        // Business logic
+        $dbData = array();
+        $dbData['name'] = $group_name;
+        $dbData['description'] = $group_description;
+        $dbData['update_time'] = time();
+
+        $this->mLoadModel('customer_group_model');
+        $this->mLoadModel('customer_mathto_customer_group_model');
+
+        try {
+            $mathTo = $this->customer_mathto_customer_group_model->createInsertData(
+                $group_id,
+                $group_customer_ids
+            );
+            $this->customer_group_model->update($dbData, $group_id);
+            $this->customer_mathto_customer_group_model->delete($group_id);
+            $this->customer_mathto_customer_group_model->insert_batch($mathTo);
+
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
+        // Response
+        resOk();
+
+    }
+
     public function listing()
     {
         // Form validation

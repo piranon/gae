@@ -22,6 +22,21 @@ class Customer_group_model extends base_module_model
         return $customer_id;
     }
 
+    public function update($customer_group, $customer_group_id)
+    {
+        $this->db->where('customer_group_id', $customer_group_id);
+        $this->db->update('customer_group', array_filter($customer_group));
+
+        $result = $this->db->affected_rows();
+
+        if (!$result){
+            throw new Exception('Cannot update customer group data');
+        }
+
+        return $result;
+    }
+
+
     /**
      * @return array
      */

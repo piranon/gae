@@ -49,6 +49,23 @@ class Customer_mathto_customer_group_model extends base_module_model
 
     /**
      * @param int $group_id
+     * @return boolean
+     * @throws Exception
+     */
+    public function delete($group_id)
+    {
+        $this->db->delete('customer_mathto_customer_group', ['customer_group_id' => $group_id]);
+        $result = $this->db->affected_rows();
+
+        if (!$result){
+            throw new Exception('Cannot delete the customers in group');
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param int $group_id
      * @return int
      */
     public function count_customer($group_id)
