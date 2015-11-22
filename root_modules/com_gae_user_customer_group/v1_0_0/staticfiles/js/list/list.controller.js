@@ -1,4 +1,4 @@
-angular.module('customer').controller('listdata', function ($scope, $window, $attrs) {
+angular.module('customerGroup').controller('ListController', function ($scope, $rootScope, $timeout, $window) {
   $scope.customers = [];
   $scope.total = 0;
   $scope.limit = 10;
@@ -48,7 +48,7 @@ angular.module('customer').controller('listdata', function ($scope, $window, $at
       $scope.deleteAll = true;
       $scope.selectedDeleteId = [];
       angular.forEach($scope.customers, function(value, key) {
-        $scope.selectedDeleteId.push(value.customer_id);
+        $scope.selectedDeleteId.push(value.customer_group_id);
       });
 
     }
@@ -59,7 +59,6 @@ angular.module('customer').controller('listdata', function ($scope, $window, $at
     } else {
       $scope.selectedDeleteId.push(id);
     }
-    console.log($scope.selectedDeleteId);
   };
   $scope.deleteSelected =  function(id){
     return $scope.selectedDeleteId.indexOf(id) > -1;

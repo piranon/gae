@@ -62,6 +62,8 @@ class start extends base_module_controller
 
         $response = [];
         foreach ($groups as $group) {
+            $group['create_time'] = date('Y-m-d H:i:s', $group['create_time']);
+            $group['update_time'] = $group['update_time'] > 0 ? date('Y-m-d H:i:s', $group['update_time']) : 0;
             $group['count_customers'] = $this->customer_mathto_customer_group_model->count_customer(
                     $group['customer_group_id']
             );
@@ -86,5 +88,11 @@ class start extends base_module_controller
 
         // Response
         resOk($customers);
+    }
+
+    function bulk_delete()
+    {
+        echo '<pre>';
+        print_r($_POST);
     }
 }

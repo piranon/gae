@@ -1,14 +1,12 @@
-<div ng-app="customer">
+<div ng-app="customerGroup">
     <div class="row top-navigation">
         <div class="col-md-4">
-            <a class="btn-add" href="<?php echo $curModule->app_url; ?>start/add">Add Customer</a>
+            <a class="btn-add" href="<?php echo $curModule->app_url; ?>start/add">Customer Group Name</a>
         </div>
         <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <input type="text" ng-model="search" class="new-search-btn" placeholder="Search Here">
-        </div>
+        <div class="col-md-4"></div>
     </div>
-    <div class="row customer-list" ng-controller="listdata">
+    <div class="row customer-list" ng-controller="ListController">
         <div class="col-lg-12">
             <div class="row customer-filter">
                 <div class="col-sm-2">
@@ -40,12 +38,15 @@
                                 <span class="glyphicon glyphicon-ok"></span>
                             </button>
                         </th>
-                        <th style="width: 137px; cursor: pointer;" ng-click="onClickSort('first_name')">Name/Group</th>
-                        <th style="width: 127px; cursor: pointer;" ng-click="onClickSort('user_name')">Username</th>
-                        <th style="width: 246px; cursor: pointer;" ng-click="onClickSort('email')">Email/Phone</th>
-                        <th style="width: 70px;">Order</th>
-                        <th style="width: 70px;">Total Pay</th>
-                        <th style="width: 166px;">Action</th>
+                        <th style="width: 207px; cursor: pointer;" ng-click="onClickSort('name')">
+                            Customer group name
+                        </th>
+                        <th style="width: 157px; cursor: pointer;" ng-click="onClickSort('count_customers')">
+                            No. of customer
+                        </th>
+                        <th style="width: 127px; cursor: pointer;" ng-click="onClickSort('update_time')">Updated</th>
+                        <th style="width: 127px; cursor: pointer;" ng-click="onClickSort('create_time')">Created</th>
+                        <th style="width: 70px;"></th>
                     </tr>
                     </thead>
 
@@ -53,45 +54,22 @@
                     <tr dir-paginate="customer in customers|orderBy:sortKey:reverse|filter:search|itemsPerPage:limit">
                         <td align="center">
                             <button class="xChoose circle-small-warning" type="button"
-                                    ng-class="{'active-discount' : deleteSelected(customer.customer_id)}"
-                                    ng-click="onClickBulkDelete(customer.customer_id)">
+                                    ng-class="{'active-discount' : deleteSelected(customer.customer_group_id)}"
+                                    ng-click="onClickBulkDelete(customer.customer_group_id)">
                                 <span class="glyphicon glyphicon-ok"></span>
                             </button>
                         </td>
                         <td>
-                            <br>
-                            <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_id}}">
-                                {{customer.first_name}} {{customer.last_name}}
+                            <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_group_id}}">
+                                {{customer.name}}
                             </a>
-
-                            <div class="tag-group-name">
-                                No Group
-                            </div>
-                            <div class="tag-customer" ng-show="user.tag">
-                                Tag:
-                                <div class="list">{{user.tag}}</div>
-                            </div>
                         </td>
+                        <td>{{customer.count_customers}}</td>
+                        <td>{{customer.update_time}}</td>
+                        <td>{{customer.create_time}}</td>
                         <td>
-                            <div ng-show="customer.image_id" class="circle-size-80">
-                                <img
-                                    src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
-                            </div>
-                            <div ng-hide="customer.image_id" class="circle-size-80"></div>
-                            {{customer.user_name}}
-                        </td>
-                        <td>
-                            <div>{{customer.email}}</div>
-                            <div>{{customer.phone}}</div>
-                        </td>
-                        <td>0</td>
-                        <td>0</td>
-                        <td class="text-center">
-                            <button type="button" class="btn-circle-red">
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </button>
-                            <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.customer_id}}"
-                               class="btn-circle-orange">
+                            <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.customer_group_id}}"
+                               class="btn-circle-orange text-center">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
@@ -119,7 +97,7 @@
                 <div class="col-xs-12">
                     <img src="<?php echo $curModule->file_url; ?>icon/shape.png">
 
-                    <div>ยังไม่มีรายชื่อลูกค้า ทำการเพิ่มลูกค้าสามาชิกได้เองโดยกดที่ปุ่ม Add customer</div>
+                    <div>ยังไม่มีกลุ่มลูกค้า ทำการสร้างกลุ่มลูกค้าได้โดยกดที่ปุ่ม Create Customer Group</div>
                 </div>
             </div>
         </div>
