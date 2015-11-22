@@ -21,4 +21,12 @@ class Customer_group_model extends base_module_model
 
         return $customer_id;
     }
+
+    public function get_customer_groups()
+    {
+        $this->db->from('customer_group');
+        $this->db->order_by('create_time', 'desc');
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

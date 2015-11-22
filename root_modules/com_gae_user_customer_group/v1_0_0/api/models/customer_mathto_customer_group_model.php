@@ -46,4 +46,15 @@ class Customer_mathto_customer_group_model extends base_module_model
 
         return $result;
     }
+
+    /**
+     * @param int $group_id
+     * @return int
+     */
+    public function count_customer($group_id)
+    {
+        $this->db->where('customer_group_id', $group_id);
+        $this->db->from('customer_mathto_customer_group');
+        return $this->db->count_all_results();
+    }
 }

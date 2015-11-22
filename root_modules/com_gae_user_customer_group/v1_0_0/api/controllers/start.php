@@ -47,6 +47,32 @@ class start extends base_module_controller
         resOk();
     }
 
+    public function listing()
+    {
+        // Form validation
+        $this->form_validation->onlyGet();
+        $this->form_validation->allRequest();
+        $this->formCheck();
+
+        // Business logic
+        $this->mLoadModel('customer_group_model');
+        $this->mLoadModel('customer_mathto_customer_group_model');
+
+        $groups = $this->customer_group_model->get_customer_groups();
+
+        $response = [];
+        foreach ($groups as $group) {
+            $group['count_customers'] = $this->customer_mathto_customer_group_model->count_customer(
+                    $group['customer_group_id']
+            );
+            $response[] = $group;
+        }
+
+        // Response
+        resOk($response);
+    }
+
+
     function customer_list()
     {
         // Form validation

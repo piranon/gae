@@ -4,7 +4,12 @@ class start extends base_module_controller
 {
     public function index()
     {
-        $this->render('start/list');
+        $view_data = [
+            'js' => [
+                'list/list.controller.js'
+            ]
+        ];
+        $this->render('start/list', $view_data);
     }
 
     public function add()
