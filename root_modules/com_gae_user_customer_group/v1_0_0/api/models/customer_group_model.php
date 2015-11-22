@@ -51,4 +51,17 @@ class Customer_group_model extends base_module_model
 
         return $result;
     }
+
+    /**
+     * @param int $customer_group_id
+     * @return array
+     */
+    public function get_group_by_id($customer_group_id)
+    {
+        $this->db->from('customer_group');
+        $this->db->where('status', Customer_group_model::STATUS_ACTIVE);
+        $this->db->where('customer_group_id', $customer_group_id);
+        $query = $this->db->get();
+        return $query->row_array();
+    }
 }
