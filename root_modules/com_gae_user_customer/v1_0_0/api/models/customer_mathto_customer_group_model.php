@@ -19,6 +19,11 @@ class Customer_mathto_customer_group_model extends base_module_model
         return $id;
     }
 
+    /**
+     * @param int $customer_group_id
+     * @param int $customer_id
+     * @return bool
+     */
     function create_mathto_customer_group($customer_group_id, $customer_id)
     {
         if (empty($customer_group_id)) {

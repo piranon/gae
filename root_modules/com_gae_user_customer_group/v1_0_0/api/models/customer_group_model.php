@@ -22,6 +22,12 @@ class Customer_group_model extends base_module_model
         return $customer_id;
     }
 
+    /**
+     * @param array $customer_group
+     * @param int $customer_group_id
+     * @return boolean
+     * @throws Exception
+     */
     public function update($customer_group, $customer_group_id)
     {
         $this->db->where('customer_group_id', $customer_group_id);
