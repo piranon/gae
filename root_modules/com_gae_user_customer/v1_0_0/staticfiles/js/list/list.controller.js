@@ -26,7 +26,6 @@ angular.module('customer').controller('ListController', function ($scope, $windo
 
   CUR_MODULE.apiGet("start/listing").then(function (res) {
     $scope.$apply(function () {
-      console.log(res.data);
       $scope.customers = res.data;
       $scope.total = res.data.length;
     });

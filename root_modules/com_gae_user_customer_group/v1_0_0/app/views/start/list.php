@@ -69,7 +69,7 @@
                         <td>{{customer.create_time}}</td>
                         <td>
                             <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.customer_group_id}}"
-                               class="btn-circle-orange text-center">
+                               class="btn-edit text-center">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
@@ -95,7 +95,7 @@
             </div>
             <div ng-hide="customers" class="row no-cusotmer">
                 <div class="col-xs-12">
-                    <img src="<?php echo $curModule->file_url; ?>icon/shape.png">
+                    <img ng-src="<?php echo $curModule->file_url; ?>icon/shape.png">
 
                     <div>ยังไม่มีกลุ่มลูกค้า ทำการสร้างกลุ่มลูกค้าได้โดยกดที่ปุ่ม Create Customer Group</div>
                 </div>

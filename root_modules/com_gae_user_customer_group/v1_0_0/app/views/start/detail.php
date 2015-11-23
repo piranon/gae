@@ -3,7 +3,9 @@
         <div class="col-md-4">
             <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Cancel</a>
         </div>
-        <div class="col-md-4"><div class="topic-page">Customer Group Detail</div></div>
+        <div class="col-md-4">
+            <div class="topic-page">Customer Group Detail</div>
+        </div>
         <div class="col-md-4"></div>
     </div>
     <div class="row customer-list" ng-controller="DetailController">
@@ -74,6 +76,7 @@
                             <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_id}}">
                                 {{customer.first_name}} {{customer.last_name}}
                             </a>
+
                             <div class="tag-customer" ng-show="user.tag">
                                 Tag:
                                 <div class="list">{{user.tag}}</div>
@@ -82,7 +85,7 @@
                         <td>
                             <div ng-show="customer.image_id" class="circle-size-80">
                                 <img
-                                    src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
+                                    ng-src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
                             </div>
                             <div ng-hide="customer.image_id" class="circle-size-80"></div>
                             {{customer.user_name}}
@@ -115,7 +118,8 @@
             </div>
             <div ng-hide="customers" class="row no-cusotmer">
                 <div class="col-xs-12">
-                    <img src="<?php echo $curModule->file_url; ?>icon/shape_customer.png">
+                    <img ng-src="<?php echo $curModule->file_url; ?>icon/shape_customer.png">
+
                     <div>ไม่มีลูกค้าที่ถูกจัดเข้ากลุ่มนี้</div>
                 </div>
             </div>

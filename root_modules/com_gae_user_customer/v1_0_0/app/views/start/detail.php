@@ -11,7 +11,8 @@
         <div class="row">
             <div class="col-sm-2">
                 <div class="circle-size-100">
-                    <img ng-show="customer.image_id" src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
+                    <img ng-show="customer.image_id"
+                         ng-src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
                     <img ng-hide="customer.image_id">
                 </div>
             </div>

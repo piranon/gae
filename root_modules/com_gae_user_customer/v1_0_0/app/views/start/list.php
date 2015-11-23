@@ -79,7 +79,7 @@
                         <td>
                             <div ng-show="customer.image_id" class="circle-size-80">
                                 <img
-                                    src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
+                                    ng-src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
                             </div>
                             <div ng-hide="customer.image_id" class="circle-size-80"></div>
                             {{customer.user_name}}
@@ -93,16 +93,16 @@
                         <td class="text-center">
                             <button type="button" ng-show="customer.status == 1"
                                     ng-click="setStatusBlock(customer.customer_id, customer.status)"
-                                    class="btn-circle-gray">
+                                    class="btn-block">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                             <button type="button" ng-show="customer.status == 2"
                                     ng-click="setStatusBlock(customer.customer_id, customer.status)"
-                                    class="btn-circle-red">
+                                    class="btn-block btn-block-active">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                             <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.customer_id}}"
-                               class="btn-circle-orange">
+                               class="btn-edit">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </td>
@@ -128,7 +128,7 @@
             </div>
             <div ng-hide="customers" class="row no-cusotmer">
                 <div class="col-xs-12">
-                    <img src="<?php echo $curModule->file_url; ?>icon/shape.png">
+                    <img ng-src="<?php echo $curModule->file_url; ?>icon/shape.png">
 
                     <div>ยังไม่มีรายชื่อลูกค้า ทำการเพิ่มลูกค้าสามาชิกได้เองโดยกดที่ปุ่ม Add customer</div>
                 </div>
