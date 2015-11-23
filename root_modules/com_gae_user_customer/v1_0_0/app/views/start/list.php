@@ -98,7 +98,7 @@
                             </button>
                             <button type="button" ng-show="customer.status == 2"
                                     ng-click="setStatusBlock(customer.customer_id, customer.status)"
-                                    class="btn-block btn-block-active">
+                                    class="btn-block btn-block-selected">
                                 <span class="glyphicon glyphicon-minus"></span>
                             </button>
                             <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.customer_id}}"

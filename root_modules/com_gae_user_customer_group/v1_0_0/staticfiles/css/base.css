@@ -144,6 +144,11 @@
     margin-top: 40px;
 }
 
+.main-container input:focus, .main-container select:focus, .main-container textarea:focus {
+    box-shadow: none;
+    border: 2px solid #ff5000;
+}
+
 .add {
     min-height: 700px;
 }
@@ -390,6 +395,10 @@ table.table {
 .btn-edit:hover {
     background-color: #9c5000;
     color: #ffad00;
+}
+
+.btn-edit:active {
+    background-color: #ff5000;
 }
 
 .active-discount {

@@ -171,6 +171,25 @@
     margin-top: 50px;
 }
 
+.main-container input:focus, .main-container select:focus, .main-container textarea:focus {
+    box-shadow: none;
+    border: 2px solid #ff5000;
+}
+
+.add-warning {
+    height: 22px;
+    color: red;
+    font-family: Thonburi;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+}
+
+.add-success {
+    box-shadow: none;
+    border: 2px solid #093 !important;
+}
+
 .heading-form {
     color: #333;
     font-family: "Source Sans Pro";
@@ -385,13 +404,18 @@ table.table {
     padding-right: 1px;
 }
 
-.btn-block:hover, .btn-block-active {
+.btn-block:hover, .btn-block:active {
     background-color: red;
 }
 
-.btn-block:hover > span, .btn-block-active > span {
+.btn-block:hover > span, .btn-block:active > span {
     background-color: #fff;
     color: red;
+}
+
+.btn-block-selected > span {
+    background-color: red;
+    color: #fff;
 }
 
 .btn-edit {
@@ -408,6 +432,10 @@ table.table {
 .btn-edit:hover {
     background-color: #9c5000;
     color: #ffad00;
+}
+
+.btn-edit:active {
+    background-color: #ff5000;
 }
 
 .active-discount {

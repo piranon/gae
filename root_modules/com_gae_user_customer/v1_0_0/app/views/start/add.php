@@ -152,8 +152,10 @@
                     <div class="form-group">
                         <div class="text-left require-field">Login Password</div>
                         <div class="text-left desc-field">รหัสผ่านของลูกค้า</div>
-                        <input type="{{inputType}}" ng-model="password" class="form-control">
+                        <input type="{{inputType}}" ng-model="password" ng-keyup="checkPassword()" class="form-control"
+                               ng-class="{'add-success': password != '' && !passwordWarning}" id="password">
                     </div>
+                    <div class="add-warning" ng-show='passwordWarning'>รหัสต้องมีความยาวอย่างต่ำ 8 ตัว</div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">

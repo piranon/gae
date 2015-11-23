@@ -1,4 +1,4 @@
-angular.module('customer').controller('AddController', function ($scope, $rootScope, $timeout, $window) {
+angular.module('customer').controller('AddController', function ($scope, $rootScope, $timeout, $window, focus) {
   var id = getUrlParameter('id'),
       apiUrl,
       errorMessage;
@@ -10,6 +10,9 @@ angular.module('customer').controller('AddController', function ($scope, $rootSc
     {name: 'male', value: '1'},
     {name: 'female', value: '2'}
   ];
+  $scope.password = '';
+  $scope.passwordWarning = false;
+  $scope.checkPassword = checkPassword;
   $scope.showPassword = showPassword;
   $scope.clickOnUpload = clickOnUpload;
   $scope.clickOnSubmit = clickOnSubmit;
@@ -44,6 +47,7 @@ angular.module('customer').controller('AddController', function ($scope, $rootSc
   });
 
   function showPassword() {
+    focus('test');
     if ($scope.inputType == 'password') {
       $scope.inputType = 'text';
     } else {
@@ -63,7 +67,19 @@ angular.module('customer').controller('AddController', function ($scope, $rootSc
     }, 100);
   }
 
+  function checkPassword() {
+    if ($scope.password.length >= 8) {
+      $scope.passwordWarning = false;
+    } else {
+      $scope.passwordWarning = true;
+    }
+  }
+
   function submit() {
+    if ($scope.passwordWarning) {
+      focus('password');
+      return false;
+    }
     if ($scope.username && $scope.email && $scope.firstname && $scope.lastname && $scope.password) {
       if (id) {
         apiUrl = 'start/update';
@@ -116,3 +132,12 @@ angular.module('customer').directive("fileread", [function () {
     }
   }
 }]);
+angular.module('customer').factory('focus', function($timeout, $window) {
+  return function(id) {
+    $timeout(function() {
+      var element = $window.document.getElementById(id);
+      if(element)
+        element.focus();
+    });
+  };
+});
