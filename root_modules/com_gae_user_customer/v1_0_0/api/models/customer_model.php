@@ -108,9 +108,8 @@ class Customer_model extends base_module_model
         $this->db->from('customer');
         $this->db->join('image_matchto_object', 'image_matchto_object.holder_object_id = customer.customer_id', 'left');
         $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
-        $this->db->where('customer.status', Customer_model::STATUS_ACTIVE);
-        $this->db->or_where('customer.status', Customer_model::STATUS_BLOCK);
         $this->db->where('customer.customer_id', $customer_id);
+        $this->db->where_in('customer.status', [Customer_model::STATUS_ACTIVE, Customer_model::STATUS_BLOCK]);
         $query = $this->db->get();
         return $query->row_array();
     }

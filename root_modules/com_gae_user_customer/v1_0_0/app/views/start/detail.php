@@ -1,4 +1,4 @@
-<div ng-app="customer" ng-controller="DetailController">
+<div ng-app="customer" ng-controller="DetailController as detail">
     <div class="row top-navigation">
         <div class="col-md-4">
             <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Cancel</a>
@@ -11,15 +11,15 @@
         <div class="row">
             <div class="col-sm-2">
                 <div class="circle-size-100">
-                    <img ng-show="customer.image_id"
-                         ng-src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
-                    <img ng-hide="customer.image_id">
+                    <img ng-show="detail.customer.image_id"
+                         ng-src="<?php echo root_url(), 'root_images/'; ?>{{detail.customer.file_dir}}r100_{{detail.customer.file_name}}">
+                    <img ng-hide="detail.customer.image_id">
                 </div>
             </div>
             <div class="col-sm-5">
-                <div class="detail-name">{{customer.first_name}} {{customer.last_name}}</div>
-                <div class="detail-username">{{customer.user_name}}</div>
-                <div class="detail-email">{{customer.email}}</div>
+                <div class="detail-name">{{detail.customer.first_name}} {{detail.customer.last_name}}</div>
+                <div class="detail-username">{{detail.customer.user_name}}</div>
+                <div class="detail-email">{{detail.customer.email}}</div>
             </div>
             <div class="col-sm-2">
                 <div class="detail-point">

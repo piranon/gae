@@ -22,7 +22,9 @@ class Start extends base_module_controller
                 'third_party/bootstrap-datepicker.min.js',
                 'third_party/bootstrap-datepicker.th.js',
                 'add/add.controller.js',
-                'add/add.common.js'
+                'add/add.common.js',
+                'components/fileread.directive.js',
+                'services/focus.service.js'
             ]
         ];
         $this->render('start/add', $view_data);

@@ -1,97 +1,107 @@
-angular.module('customer').controller('ListController', function ($scope, $window) {
-  $scope.customers = [];
-  $scope.total = 0;
-  $scope.limit = 10;
-  $scope.selectedDeleteId = [];
-  $scope.deleteAll = false;
-  $scope.onClickBulkDeleteAll = onClickBulkDeleteAll;
-  $scope.onChangeLimit = function (limitList) {
-    $scope.limit = limitList || 10;
-  };
-  $scope.onChangeBulkDelete = function (action) {
-    onChangeBulkDelete(action);
-  };
-  $scope.onClickSort = function (keyname) {
-    onClickSort(keyname);
-  };
-  $scope.onClickBulkDelete = function (id) {
-    onClickBulkDelete(id);
-  };
-  $scope.deleteSelected = function (id) {
-    return $scope.selectedDeleteId.indexOf(id) > -1;
-  };
-  $scope.setStatusBlock = function (id, status) {
-    setStatusBlock(id, status);
-  };
+(function() {
+  'use strict';
 
-  CUR_MODULE.apiGet("start/listing").then(function (res) {
-    $scope.$apply(function () {
-      $scope.customers = res.data;
-      $scope.total = res.data.length;
+  angular
+      .module('customer')
+      .controller('ListController', ListController);
+
+  function ListController($scope, $window) {
+    var vm = this;
+    vm.customers = [];
+    vm.total = 0;
+    vm.limit = 10;
+    vm.selectedDeleteId = [];
+    vm.deleteAll = false;
+    vm.onClickBulkDeleteAll = onClickBulkDeleteAll;
+    vm.onChangeLimit = function (limitList) {
+      vm.limit = limitList || 10;
+    };
+    vm.onChangeBulkDelete = function (action) {
+      onChangeBulkDelete(action);
+    };
+    vm.onClickSort = function (keyname) {
+      onClickSort(keyname);
+    };
+    vm.onClickBulkDelete = function (id) {
+      onClickBulkDelete(id);
+    };
+    vm.deleteSelected = function (id) {
+      return vm.selectedDeleteId.indexOf(id) > -1;
+    };
+    vm.setStatusBlock = function (id, status) {
+      setStatusBlock(id, status);
+    };
+
+    CUR_MODULE.apiGet("start/listing").then(function (res) {
+      $scope.$apply(function () {
+        vm.customers = res.data;
+        vm.total = res.data.length;
+      });
     });
-  });
 
-  function onChangeBulkDelete(action) {
-    if (action != 1) {
-      return false;
+    function onChangeBulkDelete(action) {
+      if (action != 1) {
+        return false;
+      }
+      if (vm.selectedDeleteId.length === 0) {
+        alert('Please select some customer');
+      } else {
+        var dataSend = {
+          "ids": vm.selectedDeleteId
+        };
+        CUR_MODULE.apiPost('start/bulk_delete', dataSend).then(function (res) {
+          if (res.ok) {
+            $window.location.href = CUR_MODULE.data.app_url + 'start';
+          } else {
+            alert("Error: Can not delete customer");
+          }
+        });
+      }
     }
-    if ($scope.selectedDeleteId.length === 0) {
-      alert('Please select some customer');
-    } else {
+
+    function onClickSort(keyname) {
+      vm.sortKey = keyname || 'create_time';
+      if (vm.reverse) {
+        vm.reverse = false;
+      } else {
+        vm.reverse = true;
+      }
+    }
+
+    function onClickBulkDeleteAll() {
+      if (vm.deleteAll) {
+        vm.deleteAll = false;
+        vm.selectedDeleteId = [];
+      } else {
+        vm.deleteAll = true;
+        vm.selectedDeleteId = [];
+        angular.forEach(vm.customers, function (value, key) {
+          vm.selectedDeleteId.push(value.customer_id);
+        });
+      }
+    }
+
+    function onClickBulkDelete(id) {
+      if (vm.selectedDeleteId.indexOf(id) > -1) {
+        vm.selectedDeleteId.splice(vm.selectedDeleteId.indexOf(id), 1);
+      } else {
+        vm.selectedDeleteId.push(id);
+      }
+    }
+
+    function setStatusBlock(id, status) {
       var dataSend = {
-        "ids": $scope.selectedDeleteId
+        "id": id,
+        "status": status
       };
-      CUR_MODULE.apiPost('start/bulk_delete', dataSend).then(function (res) {
+      CUR_MODULE.apiPost('start/update_status', dataSend).then(function (res) {
         if (res.ok) {
           $window.location.href = CUR_MODULE.data.app_url + 'start';
         } else {
-          alert("Error: Can not delete customer");
+          alert('Cannot update status');
         }
       });
     }
   }
 
-  function onClickSort(keyname) {
-    $scope.sortKey = keyname || 'create_time';
-    if ($scope.reverse) {
-      $scope.reverse = false;
-    } else {
-      $scope.reverse = true;
-    }
-  }
-
-  function onClickBulkDeleteAll() {
-    if ($scope.deleteAll) {
-      $scope.deleteAll = false;
-      $scope.selectedDeleteId = [];
-    } else {
-      $scope.deleteAll = true;
-      $scope.selectedDeleteId = [];
-      angular.forEach($scope.customers, function (value, key) {
-        $scope.selectedDeleteId.push(value.customer_id);
-      });
-    }
-  }
-
-  function onClickBulkDelete(id) {
-    if ($scope.selectedDeleteId.indexOf(id) > -1) {
-      $scope.selectedDeleteId.splice($scope.selectedDeleteId.indexOf(id), 1);
-    } else {
-      $scope.selectedDeleteId.push(id);
-    }
-  }
-
-  function setStatusBlock(id, status) {
-    var dataSend = {
-      "id": id,
-      "status": status
-    };
-    CUR_MODULE.apiPost('start/update_status', dataSend).then(function (res) {
-      if (res.ok) {
-        $window.location.href = CUR_MODULE.data.app_url + 'start';
-      } else {
-        alert('Cannot update status');
-      }
-    });
-  }
-});
+})();
