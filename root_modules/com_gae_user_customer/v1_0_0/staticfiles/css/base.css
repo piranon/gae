@@ -43,64 +43,71 @@
     font-size: 18px;
 }
 
-.mainmenu_addon {
-    min-height: 175px;
+.row {
+    margin-right: 0px;
+    margin-left: 0px;
+}
+
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 0px;
+    padding-left: 0px;
 }
 
 #pageContent {
-    padding: 20px 70px 20px 70px;
+    width: 100%;
+    max-width: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+.module-container {
+    width: 960px;
+    margin: 0 auto;
 }
 
 .top-navigation {
     width: 100%;
-    margin-top: -75px;
+    background-color: #333;
+    height: 40px;
 }
 
-.top-navigation > div {
-    float: left;
-}
-
-.top-navigation > div + div {
-    text-align: center;
-}
-
-.top-navigation > div + div + div {
-    float: right;
-    text-align: right;
+.box-search {
+    width: 100%;
+    height: 60px;
+    background-color: #4a4a4a;
+    padding-top: 10px;
 }
 
 .btn-add {
-    padding: 4px 30px !important;
-    background: #089E62;
+    padding: 3px 19px;
     color: white;
-    border: 0px;
+    font-family: "Source Sans Pro";
+    font-size: 14px;
+    background-color: #ff8300;
     border-radius: 20px;
-    outline: 0px;
-    font-size: 15px;
-    margin-right: 5px;
-    margin-top: -4px;
+    display: block;
+    width: 123px;
+    height: 30px;
 }
 
 .btn-add:hover {
-    background-color: #ff5000 !important;
     text-decoration: none;
     color: white;
 }
 
 .new-search-btn {
-    float: right;
-    margin-right: -85px;
-    margin-top: -7px;
     border: 1px solid #646464;
-    background: inherit;
     color: #fff;
-    border-radius: 20px;
-    height: 35px;
     font-size: 14px !important;
     outline: 0px !important;
-    width: 250px;
-    padding: 10px;
-    text-align: center;
+    background: url('../icon/fa-search.png') no-repeat scroll 15px 10px;
+    padding-left:55px;
+    width: 960px;
+    height: 40px;
+    background-color: #424242;
+    border-radius: 20px;
 }
 
 .btn-cancle {
@@ -129,10 +136,13 @@
 }
 
 .topic-page {
-    font-family: 'Source Sans Pro', sans-serif;
-    font-size: 1.5em;
+    height: 30px;
     color: #ff5000;
-    font-weight: normal;
+    font-family: "Source Sans Pro";
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: center;
 }
 
 /* add page */
@@ -225,11 +235,6 @@
 }
 
 /* listing page */
-.col-lg-12 {
-    padding-left: 7px;
-    padding-right: 7px;
-}
-
 body {
     margin: 0;
     outline: 0;
@@ -244,6 +249,23 @@ body {
     height: 100%;
 }
 
+.bulk-delete {
+    width: 210px;
+    height: 34px;
+    background-color: white;
+    border: 2px solid #ff5000;
+    border-radius: 5px;
+}
+
+.view-limit {
+    width: 110px;
+    height: 34px;
+    background-color: white;
+    border: 1px solid #96a0ad;
+    border-radius: 5px;
+    float: right;
+}
+
 .customer-list {
     clear: both;
     margin-top: 15px;
@@ -253,16 +275,9 @@ body {
     margin-top: 10px;
 }
 
-.customer-filter .col-sm-6 {
-    text-align: right;
-}
-
-.customer-filter > div + div, .customer-filter > div + div + div {
+.customer-filter > div + div {
     color: #ff7522;
-}
-
-.customer-limit {
-    margin-top: 10px;
+    padding-top: 5px;
 }
 
 .customer-table {
@@ -299,10 +314,14 @@ table.table {
 }
 
 .table > thead:first-child > tr:first-child > th {
-    color: #666;
-    font-weight: bold;
-    font-size: 13px;
-    vertical-align: middle;
+    height: 24px;
+    color: #333;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    padding: 0px;
+    padding-bottom: 8px;
 }
 
 .circle-small-warning:hover {
@@ -316,6 +335,7 @@ table.table {
 
 .tbl-restyled tbody tr td {
     border: 0px solid !important;
+    padding: 0px;
     padding-top: 7px;
     background-color: white !important;
     border-left: 0px !important;
@@ -349,7 +369,7 @@ table.table {
 }
 
 .tag-group-name {
-    width: 70%;
+    width: 99px;
     color: #666;;
     text-align: center;
     border-radius: 20px;
@@ -357,7 +377,7 @@ table.table {
     font-family: "Source Sans Pro";
     font-size: 14px;
     font-weight: 400;
-    margin-left: -5px;
+    margin-left: -2px;
 }
 
 .tag-group-name a {
@@ -366,6 +386,46 @@ table.table {
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;
+}
+
+.tag-username {
+    width: 69px;
+    height: 24px;
+    color: #333;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.tag-email {
+    height: 24px;
+    color: #9c5000;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.tag-email:hover {
+    height: 24px;
+    color: #ff5000;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-decoration: underline;
+}
+
+.tag-tel {
+    height: 24px;
+    color: #333;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
 }
 
 .tag-customer {
@@ -383,25 +443,19 @@ table.table {
 
 .btn-block {
     float: left;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: #eee;
     margin: 5px 5px;
-    padding: 3px;
     border: 0px;
 }
 
 .btn-block > span {
-    float: left;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #aaa;
-    color: #fff;
-    margin: -11px 7px;
-    padding-top: 3px;
-    padding-right: 1px;
+    background: url('../icon/fa-minus-circle.png') no-repeat scroll 0px 0px;
+    display: inline-block;
+    height: 16px;
+    width: 14px;
 }
 
 .btn-block:hover, .btn-block:active {
@@ -409,29 +463,35 @@ table.table {
 }
 
 .btn-block:hover > span, .btn-block:active > span {
-    background-color: #fff;
     color: red;
+    background: url('../icon/fa-minus-circle-hover.png') no-repeat scroll 0px 0px;
 }
 
 .btn-block-selected > span {
-    background-color: red;
     color: #fff;
+    background: url('../icon/fa-minus-circle-selected.png') no-repeat scroll 0px 0px;
 }
 
 .btn-edit {
     float: left;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
     background-color: #eee;
     margin: 5px 5px;
-    padding: 3px;
+    border: 0px;
     color: #ffad00;
+}
+
+.btn-edit > span {
+    background: url('../icon/fa-pencil.png') no-repeat scroll 0px 0px;
+    display: inline-block;
+    height: 16px;
+    width: 14px;
 }
 
 .btn-edit:hover {
     background-color: #9c5000;
-    color: #ffad00;
 }
 
 .btn-edit:active {

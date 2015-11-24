@@ -1,28 +1,33 @@
-<div ng-app="customer"  ng-controller="ListController as list">
-    <div class="row top-navigation">
-        <div class="col-md-4">
-            <a class="btn-add" href="<?php echo $curModule->app_url; ?>start/add">Add Customer</a>
+<div ng-app="customer" ng-controller="ListController as list">
+    <div class="top-navigation">
+        <div class="row module-container">
+            <div class="col-md-4">
+                <a class="btn-add" href="<?php echo $curModule->app_url; ?>start/add">Add Customer</a>
+            </div>
+            <div class="col-md-4 topic-page">Customer Manager</div>
         </div>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+    </div>
+    <div class="box-search">
+        <div class="module-container">
             <input type="text" ng-model="list.search" class="new-search-btn" placeholder="Search Here">
         </div>
     </div>
-    <div class="row customer-list">
-        <div class="col-lg-12">
+    <div class="customer-list">
+        <div class="module-container">
             <div class="row customer-filter">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <select ng-model="list.bulkDelete" ng-change="list.onChangeBulkDelete(bulkDelete)"
-                            class="form-control ng-pristine ng-valid ng-touched">
+                            class="form-control ng-pristine ng-valid ng-touched bulk-delete">
                         <option value="">Bulk Action</option>
                         <option value="1">Delete Selected</option>
                     </select>
                 </div>
-                <div class="col-sm-2">{{list.selectedDeleteId.length}} item selected</div>
-                <div class="col-sm-2">total {{list.total}} customers</div>
-                <div class="col-sm-3"></div>
+                <div class="col-sm-6">{{list.selectedDeleteId.length}} customer selected from total {{list.total}}
+                    customers
+                </div>
                 <div class="col-sm-3">
-                    <select ng-model="list.limitList" ng-change="list.onChangeLimit(limitList)" class="form-control">
+                    <select ng-model="list.limitList" ng-change="list.onChangeLimit(limitList)"
+                            class="form-control view-limit">
                         <option value="">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -34,18 +39,20 @@
                 <table class="datatable table tbl-restyled">
                     <thead>
                     <tr>
-                        <th style="width: 31px;">
+                        <th style="width: 40px;">
                             <button class="circle-small-warning" type="button" ng-click="list.onClickBulkDeleteAll()"
                                     ng-class="{'active-discount' : list.deleteAll}">
-                                <span class="glyphicon glyphicon-ok"></span>
                             </button>
                         </th>
-                        <th style="width: 137px; cursor: pointer;" ng-click="list.onClickSort('first_name')">Name/Group</th>
-                        <th style="width: 127px; cursor: pointer;" ng-click="list.onClickSort('user_name')">Username</th>
-                        <th style="width: 246px; cursor: pointer;" ng-click="list.onClickSort('email')">Email/Phone</th>
-                        <th style="width: 70px;">Order</th>
-                        <th style="width: 70px;">Total Pay</th>
-                        <th style="width: 166px;">Action</th>
+                        <th style="width: 210px; cursor: pointer;" ng-click="list.onClickSort('first_name')">
+                            Name/Group
+                        </th>
+                        <th style="width: 170px; cursor: pointer;" ng-click="list.onClickSort('user_name')">Username
+                        </th>
+                        <th style="width: 230px; cursor: pointer;" ng-click="list.onClickSort('email')">Email/Phone</th>
+                        <th style="width: 100px;">Order</th>
+                        <th style="width: 100px;">Total Pay</th>
+                        <th style="width: 100px;"></th>
                     </tr>
                     </thead>
 
@@ -53,9 +60,8 @@
                     <tr dir-paginate="customer in list.customers|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">
                         <td align="center">
                             <button class="xChoose circle-small-warning" type="button"
-                                    ng-class="{'active-discount' : list.deleteSelected(list.customer.customer_id)}"
+                                    ng-class="{'active-discount' : list.deleteSelected(customer.customer_id)}"
                                     ng-click="list.onClickBulkDelete(customer.customer_id)">
-                                <span class="glyphicon glyphicon-ok"></span>
                             </button>
                         </td>
                         <td>
@@ -82,28 +88,28 @@
                                     ng-src="<?php echo root_url(), 'root_images/'; ?>{{customer.file_dir}}r100_{{customer.file_name}}">
                             </div>
                             <div ng-hide="customer.image_id" class="circle-size-80"></div>
-                            {{customer.user_name}}
+                            <div class="tag-username">{{customer.user_name}}</div>
                         </td>
                         <td>
-                            <div>{{customer.email}}</div>
-                            <div>{{customer.phone}}</div>
+                            <div class="tag-email">{{customer.email}}</div>
+                            <div class="tag-tel">{{customer.phone}}</div>
                         </td>
                         <td>0</td>
                         <td>0</td>
                         <td class="text-center">
-                            <button type="button" ng-show="customer.status == 1"
+                            <a ng-show="customer.status == 1"
                                     ng-click="list.setStatusBlock(customer.customer_id, customer.status)"
                                     class="btn-block">
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </button>
-                            <button type="button" ng-show="customer.status == 2"
+                                <span></span>
+                            </a>
+                            <a ng-show="customer.status == 2"
                                     ng-click="list.setStatusBlock(customer.customer_id, customer.status)"
                                     class="btn-block btn-block-selected">
-                                <span class="glyphicon glyphicon-minus"></span>
-                            </button>
+                                <span></span>
+                            </a>
                             <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.customer_id}}"
                                class="btn-edit">
-                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span></span>
                             </a>
                         </td>
                     </tr>
