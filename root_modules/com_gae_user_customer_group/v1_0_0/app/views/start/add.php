@@ -1,19 +1,19 @@
 <div ng-app="customerGroup" ng-controller="AddController">
-    <div class="row top-navigation">
-        <div class="col-md-4">
-            <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Cancel</a>
-        </div>
-        <div class="col-md-4">
-            <div class="topic-page">Create Customer Group</div>
-        </div>
-        <div class="col-md-4">
-            <button ng-click="clickOnSubmit(); $event.stopPropagation();" type="button" class="btn-add">
-                Save
-            </button>
+    <div class="top-navigation">
+        <div class="row module-container">
+            <div class="col-md-4">
+                <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Cancel</a>
+            </div>
+            <div class="col-md-4 topic-page">Create Customer Group</div>
+            <div class="col-md-4">
+                <a ng-click="clickOnSubmit(); $event.stopPropagation();" class="btn-save">
+                    Save
+                </a>
+            </div>
         </div>
     </div>
-    <div class="main-container add">
-        <form>
+    <div class="add-page">
+        <form  class="module-container">
             <div class="row">
                 <div class="col-md-3">
                     <div class="text-right require-field">Customer Group Name</div>
@@ -34,7 +34,7 @@
             </div>
             <br>
         </form>
-        <form ng-submit="submitCustomerInGroup()">
+        <form ng-submit="submitCustomerInGroup()" class="module-container">
             <div class="row">
                 <div class="col-md-3">
                 </div>
@@ -47,7 +47,7 @@
                 </div>
             </div>
         </form>
-        <div id="customer-selected-list" ng-repeat="customerSelected in customersSelected"
+        <div id="customer-selected-list" class="module-container" ng-repeat="customerSelected in customersSelected"
              add-customer="customerSelected">
         </div>
     </div>

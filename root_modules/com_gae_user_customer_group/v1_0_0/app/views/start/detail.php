@@ -1,15 +1,14 @@
 <div ng-app="customerGroup">
-    <div class="row top-navigation">
-        <div class="col-md-4">
-            <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Cancel</a>
+    <div class="top-navigation">
+        <div class="row module-container">
+            <div class="col-md-4">
+                <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Back</a>
+            </div>
+            <div class="col-md-4 topic-page">Customer Group Detail</div>
         </div>
-        <div class="col-md-4">
-            <div class="topic-page">Customer Group Detail</div>
-        </div>
-        <div class="col-md-4"></div>
     </div>
     <div class="row customer-list" ng-controller="DetailController">
-        <div class="col-lg-12">
+        <div class="module-container">
             <div class="row group-info">
                 <div class="col-lg-9">
                     <div class="group-name">{{group.name}}</div>
@@ -25,18 +24,17 @@
                 </div>
             </div>
             <div class="row customer-filter">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <select ng-model="bulkDelete" ng-change="onChangeBulkDelete(bulkDelete)"
-                            class="form-control ng-pristine ng-valid ng-touched">
+                            class="form-control ng-pristine ng-valid ng-touched bulk-delete">
                         <option value="">Bulk Action</option>
                         <option value="1">Delete Selected</option>
                     </select>
                 </div>
-                <div class="col-sm-2">{{selectedDeleteId.length}} item selected</div>
-                <div class="col-sm-2">total {{total}} customers</div>
-                <div class="col-sm-3"></div>
+                <div class="col-sm-6">{{selectedDeleteId.length}} customers selected from total {{total}} customers
+                </div>
                 <div class="col-sm-3">
-                    <select ng-model="limitList" ng-change="onChangeLimit(limitList)" class="form-control">
+                    <select ng-model="limitList" ng-change="onChangeLimit(limitList)" class="form-control view-limit">
                         <option value="">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -51,7 +49,6 @@
                         <th style="width: 31px;">
                             <button class="circle-small-warning" type="button" ng-click="onClickBulkDeleteAll()"
                                     ng-class="{'active-discount' : deleteAll}">
-                                <span class="glyphicon glyphicon-ok"></span>
                             </button>
                         </th>
                         <th style="width: 137px; cursor: pointer;" ng-click="onClickSort('first_name')">Name</th>
@@ -68,7 +65,6 @@
                             <button class="xChoose circle-small-warning" type="button"
                                     ng-class="{'active-discount' : deleteSelected(customer.customer_id)}"
                                     ng-click="onClickBulkDelete(customer.customer_id)">
-                                <span class="glyphicon glyphicon-ok"></span>
                             </button>
                         </td>
                         <td>
