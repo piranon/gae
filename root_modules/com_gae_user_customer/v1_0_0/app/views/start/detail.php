@@ -1,13 +1,13 @@
 <div ng-app="customer" ng-controller="DetailController as detail">
-    <div class="row top-navigation">
-        <div class="col-md-4">
-            <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Cancel</a>
-        </div>
-        <div class="col-md-4">
-            <div class="topic-page">Customer Detail</div>
+    <div class="top-navigation">
+        <div class="row module-container">
+            <div class="col-md-4">
+                <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Back</a>
+            </div>
+            <div class="col-md-4 topic-page">Customer Detail</div>
         </div>
     </div>
-    <div class="main-container detail">
+    <div class="detail module-container">
         <div class="row">
             <div class="col-sm-2">
                 <div class="circle-size-100">

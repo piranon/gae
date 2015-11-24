@@ -1,19 +1,19 @@
 <div ng-app="customer" ng-controller="AddController as add">
-    <div class="row top-navigation">
-        <div class="col-md-4">
-            <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Cancel</a>
-        </div>
-        <div class="col-md-4">
-            <div class="topic-page">Add Customer</div>
-        </div>
-        <div class="col-md-4">
-            <button ng-click="add.clickOnSubmit(); $event.stopPropagation();" type="button" class="btn-add">
-                Save
-            </button>
+    <div class="top-navigation">
+        <div class="row module-container">
+            <div class="col-md-4">
+                <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Cancel</a>
+            </div>
+            <div class="col-md-4 topic-page">Add Customer</div>
+            <div class="col-md-4">
+                <a ng-click="add.clickOnSubmit(); $event.stopPropagation();" class="btn-save">
+                    Save
+                </a>
+            </div>
         </div>
     </div>
-    <div class="main-container">
-        <form ng-submit="add.submit()">
+    <div class="add-page">
+        <form ng-submit="add.submit()" class="module-container">
             <div class="row">
                 <div class="col-sm-3">
                     <div class="text-left heading-form">Profile Pic</div>
@@ -30,7 +30,7 @@
                             <div class="area-inner-container">
                                 <img id="area-inner-image" src="{{add.imageProfile}}">
                             </div>
-                            <span ng-hide="add.imageProfile" class="glyphicon glyphicon-picture" id="pic-icon"></span>
+                            <span ng-hide="add.imageProfile" id="pic-icon"></span>
                         </div>
                         <div class="hide">
                             <input type="file" file-model='add.fileModel' id="imageCategory" onchange="PreviewImage();">
@@ -152,7 +152,8 @@
                     <div class="form-group">
                         <div class="text-left require-field">Login Password</div>
                         <div class="text-left desc-field">รหัสผ่านของลูกค้า</div>
-                        <input type="{{add.inputType}}" ng-model="add.password" ng-keyup="add.checkPassword()" class="form-control"
+                        <input type="{{add.inputType}}" ng-model="add.password" ng-keyup="add.checkPassword()"
+                               class="form-control"
                                ng-class="{'add-success': add.password != '' && !add.passwordWarning}" id="password">
                     </div>
                     <div class="add-warning" ng-show='add.passwordWarning'>รหัสต้องมีความยาวอย่างต่ำ 8 ตัว</div>

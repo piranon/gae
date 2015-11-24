@@ -145,43 +145,70 @@
     text-align: center;
 }
 
+.btn-save {
+    width: 120px;
+    height: 30px;
+    background-color: #093;
+    border-radius: 20px;
+    float: right;
+    color: white;
+    font-family: "Source Sans Pro";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    padding: 5px 45px;
+}
+
+.btn-save:hover {
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+}
+
 /* add page */
-.main-container {
-    width: 900px;
-    position: relative;
-    height: auto;
-    margin: 0 auto;
+.add-page {
     margin-top: 40px;
+    min-height: 1100px;
 }
 
-.main-container .cover-container {
-    width: 150px;
-    height: 150px;
+.add-page .col-sm-4, .add-page .col-sm-8 {
+    margin-left: 20px;
+}
+
+.add-page .col-sm-8 input {
+    width: 657px;
+}
+
+.cover-container {
+    width: 223px;
+    height: 223px;
     position: relative;
+    background-color: #e7e7e7;
 }
 
-.main-container .cover-container .area-inner-container {
-    width: 150px;
-    height: 150px;
+.area-inner-container {
+    width: 223px;
+    height: 223px;
     cursor: pointer;
     overflow: hidden;
 }
 
-.main-container .cover-container .area-inner-container img {
+.area-inner-container img {
     height: 100%;
     width: 100%;
-    background-color: #eee;
 }
 
-.main-container .cover-container .glyphicon {
-    color: #b2b2b2;
-    font-size: 3em;
+#pic-icon {
+    background: url('../icon/rectangle-upload.png') no-repeat scroll 0px 0px;
+    display: inline-block;
+    height: 221px;
+    width: 221px;
     position: absolute;
-    margin-left: 50px;
-    margin-top: 50px;
+    margin-top: -222px;
+    margin-left: 1px;
 }
 
-.main-container input:focus, .main-container select:focus, .main-container textarea:focus {
+.add-page input:focus, .add-page select:focus, .add-page textarea:focus {
     box-shadow: none;
     border: 2px solid #ff5000;
 }
@@ -600,6 +627,7 @@ div.dataTables_paginate ul.pagination {
 /* detail page */
 .detail {
     min-height: 400px;
+    margin-top: 30px;
 }
 
 .detail > div {
