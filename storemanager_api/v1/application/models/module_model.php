@@ -113,6 +113,25 @@ class module_model extends base_model {
             $moduleData["module_bundle_id"] = "com.gae.user.customer.group";
             $moduleData["module_version"] = "1.0.0";
             array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "16";
+            $moduleData["module_bundle_id"] = "com.gae.deal.dealmanager";
+            $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "17";
+            $moduleData["module_bundle_id"] = "com.gae.file.image";
+            $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
+
+
+            $moduleData = array();
+            $moduleData["module_id"] = "18";
+            $moduleData["module_bundle_id"] = "com.gae.file.imagegallery";
+            $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
            
 
         return $resultData;

@@ -115,6 +115,12 @@ class menu_model extends base_model {
                             "menu_name"=>"customer",
                             "menu_label"=>"Customer",
                             "menu_sub"=>array(),
+                        ),
+                        array(
+                            "menu_id"=>18,
+                            "menu_name"=>"file",
+                            "menu_label"=>"File",
+                            "menu_sub"=>array(),
                         )
                     )
                 ),

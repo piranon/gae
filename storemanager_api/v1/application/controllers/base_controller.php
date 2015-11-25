@@ -6,30 +6,50 @@ class base_controller extends root_controller {
         parent::__construct();
     }
  
- 	public function onlyGaeStaff(){
+ 	//<<-- AUTHENTICATION : START -->>
+	public function onlyGaeStaff(){
  		//$this->load->model("access_model");
 
  	}
 
+ 	protected function currentOwnerId(){
+ 		return 5;
+ 	}
+
+ 	protected function currentStaffId(){
+ 		return 2;
+ 	}
+
+ 	protected function currentShopId(){
+ 		return 2;
+ 	}
+
+ 	protected function currentCustomerId(){
+ 		return 1;
+ 	}
+
+
  	public function onlyOwner(){
  		//$this->load->model("access_model");
-        return 5;
-
+        return $this->currentOwnerId();
  	}
 
  	public function onlyStaff(){
  		//$this->load->model("access_model");
-        return 2;
+        return $this->currentStaffId();
  	}
 
     public function onlyShop(){
-        return 2;
+        return $this->currentShopId();
     }
 
  	public function onlyCustomer(){
  		//$this->load->model("access_model");
+ 		$this->currentCustomerId();
 
  	}
+
+ 	//<<-- AUTHENTICATION : END -->>
 
 }
 
