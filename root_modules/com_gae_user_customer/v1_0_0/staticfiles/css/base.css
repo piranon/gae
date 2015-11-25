@@ -201,11 +201,10 @@
 #pic-icon {
     background: url('../icon/rectangle-upload.png') no-repeat scroll 0px 0px;
     display: inline-block;
-    height: 221px;
-    width: 221px;
+    height: 223px;
+    width: 223px;
     position: absolute;
-    margin-top: -222px;
-    margin-left: 1px;
+    margin-top: -223px;
 }
 
 .add-page input:focus, .add-page select:focus, .add-page textarea:focus {

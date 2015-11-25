@@ -16,7 +16,7 @@
         <div class="module-container">
             <div class="row customer-filter">
                 <div class="col-sm-3">
-                    <select ng-model="list.bulkDelete" ng-change="list.onChangeBulkDelete(bulkDelete)"
+                    <select ng-model="list.bulkDelete" ng-change="list.onChangeBulkDelete(list.bulkDelete)"
                             class="form-control ng-pristine ng-valid ng-touched bulk-delete">
                         <option value="">Bulk Action</option>
                         <option value="1">Delete Selected</option>
