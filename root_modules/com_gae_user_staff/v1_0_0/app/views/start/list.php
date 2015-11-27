@@ -62,13 +62,13 @@
                     <tr dir-paginate="customer in list.customers|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">
                         <td align="center">
                             <button class="xChoose circle-small-warning" type="button"
-                                    ng-class="{'active-discount' : list.deleteSelected(customer.customer_id)}"
-                                    ng-click="list.onClickBulkDelete(customer.customer_id)">
+                                    ng-class="{'active-discount' : list.deleteSelected(customer.staff_id)}"
+                                    ng-click="list.onClickBulkDelete(customer.staff_id)">
                             </button>
                         </td>
                         <td>
                             <div class="tag-name">
-                                <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.customer_id}}">
+                                <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.staff_id}}">
                                     {{customer.first_name}} {{customer.last_name}}
                                 </a>
                             </div>
@@ -100,16 +100,16 @@
                         <td>0</td>
                         <td class="text-center">
                             <a ng-show="customer.status == 1"
-                               ng-click="list.setStatusBlock(customer.customer_id, customer.status)"
+                               ng-click="list.setStatusBlock(customer.staff_id, customer.status)"
                                class="btn-block">
                                 <span></span>
                             </a>
                             <a ng-show="customer.status == 2"
-                               ng-click="list.setStatusBlock(customer.customer_id, customer.status)"
+                               ng-click="list.setStatusBlock(customer.staff_id, customer.status)"
                                class="btn-block btn-block-selected">
                                 <span></span>
                             </a>
-                            <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.customer_id}}"
+                            <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.staff_id}}"
                                class="btn-edit">
                                 <span></span>
                             </a>

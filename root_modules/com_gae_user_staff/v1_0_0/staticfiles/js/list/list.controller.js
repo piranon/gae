@@ -76,7 +76,7 @@
         vm.deleteAll = true;
         vm.selectedDeleteId = [];
         angular.forEach(vm.customers, function (value, key) {
-          vm.selectedDeleteId.push(value.customer_id);
+          vm.selectedDeleteId.push(value.staff_id);
         });
       }
     }

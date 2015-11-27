@@ -92,4 +92,39 @@ class Start extends base_module_controller
         // Response
         resOk($staff_groups);
     }
+
+    public function bulk_delete()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('ids', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $staff_ids = t_Post('ids');
+
+        // Business logic
+        $staff_ids = explode(',', $staff_ids);
+        if (!is_array($staff_ids)) {
+            resDie("Cannot delete staff data");
+        }
+
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('staff_model');
+        $this->mLoadModel('image_model');
+
+        try {
+            $table_id = $this->table_model->get_table_id('staff');
+            $this->staff_model->batch_delete($staff_ids);
+
+            foreach ($staff_ids as $staff_id) {
+                $this->image_model->delete_image_profile($staff_id, $table_id);
+            }
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
+        // Response
+        resOk();
+    }
 }
