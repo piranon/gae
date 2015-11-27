@@ -1,4 +1,4 @@
-<div ng-app="customer" ng-controller="DetailController as detail">
+<div ng-app="staff" ng-controller="DetailController as detail">
     <div class="top-navigation">
         <div class="row module-container">
             <div class="col-md-4">

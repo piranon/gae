@@ -56,6 +56,75 @@ class Start extends base_module_controller
         resOk();
     }
 
+    public function update()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('email', 'trim|required');
+        $this->form_validation->set_rules('first_name', 'trim|required');
+        $this->form_validation->set_rules('last_name', 'trim|required');
+        $this->form_validation->set_rules('group_id', 'trim|required');
+        $this->form_validation->set_rules('password', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $staff_id = t_Post('id');
+        $staff_first_name = t_Post('first_name');
+        $staff_last_name = t_Post('last_name');
+        $staff_email = t_Post('email');
+        $staff_password = t_Post('password');
+        $staff_group_id = t_Post('group_id');
+
+        // Business logic
+        $dbData = array();
+        $dbData['staff_group_id'] = $staff_group_id;
+        $dbData['first_name'] = $staff_first_name;
+        $dbData['last_name'] = $staff_last_name;
+        $dbData['email'] = $staff_email;
+        $dbData['password'] = $staff_password;
+        $dbData['update_time'] = time();
+
+        $this->mLoadModel('staff_model');
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('image_model');
+        $this->mLoadModel('staff_mathto_staff_group_model');
+
+        try {
+            $this->staff_model->update($dbData, $staff_id);
+            $table_id = $this->table_model->get_table_id('staff');
+            $this->image_model->upload_image_profile($staff_id, $table_id);
+            $this->staff_mathto_staff_group_model->create_mathto_staff_group($staff_group_id, $staff_id);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+        // Response
+        resOk();
+    }
+
+    public function detail()
+    {
+        // Form validation
+        $this->form_validation->onlyGet();
+        $this->form_validation->allRequest();
+        $this->formCheck();
+
+        // Receiving parameter
+        $id = (int)t_Request('id');
+
+        // Business logic
+        if (!is_int($id) || $id <= 0) {
+            resDie('id should be integer');
+        }
+
+        $this->mLoadModel('staff_mathto_staff_group_model');
+        $this->mLoadModel('staff_model');
+        $staff = $this->staff_model->get_staff_by_id($id);
+        $staff['groups'] = $this->staff_mathto_staff_group_model->get_staffs($id);
+
+        // Response
+        resOk($staff);
+    }
+
     public function listing()
     {
         // Form validation
