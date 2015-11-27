@@ -1,6 +1,13 @@
-angular.module('customerGroup').directive('addCustomer', function () {
-  return {
-    template: '\
+(function() {
+  'use strict';
+
+  angular
+      .module('customerGroup')
+      .directive('addCustomer', addCustomer);
+
+  function addCustomer() {
+    return {
+      template: '\
       <div class="row">\
         <div class="col-md-3"></div>\
           <div class="col-md-8"><div>\
@@ -27,6 +34,8 @@ angular.module('customerGroup').directive('addCustomer', function () {
           </a>\
         </div>\
       </div>',
-    scope: false
-  };
-});
+      scope: false
+    };
+  }
+
+})();
