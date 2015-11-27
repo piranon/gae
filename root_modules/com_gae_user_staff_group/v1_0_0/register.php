@@ -15,11 +15,11 @@ $config = array(
             )
         ),
         "addon_card_info" => array(
-            "label" => "Staff",
+            "label" => "Customer",
             "primary_image" => $curModule->file_url . "icon/icon_dashboard_home_staff.png",
             "detail" => array(
-                "name" => "Staff",
-                "title_1" => "หน้าแสดงบุคลากรของร้านทั้งหมด"
+                "name" => "Staff group",
+                "title_1" => "หน้าแสดงระดับการเข้าถึงของร้าน"
             )
         )
     )
