@@ -7,4 +7,89 @@ class Start extends base_module_controller
         parent::__construct();
         $this->load->library('form_validation');
     }
+
+    public function add()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('email', 'trim|required');
+        $this->form_validation->set_rules('first_name', 'trim|required');
+        $this->form_validation->set_rules('last_name', 'trim|required');
+        $this->form_validation->set_rules('group_id', 'trim|required');
+        $this->form_validation->set_rules('password', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $staff_first_name = t_Post('first_name');
+        $staff_last_name = t_Post('last_name');
+        $staff_email = t_Post('email');
+        $staff_phone = t_Post('phone');
+        $staff_password = t_Post('password');
+        $staff_group_id = t_Post('group_id');
+
+        // Business logic
+        $dbData = array();
+        $dbData['staff_group_id'] = $staff_group_id;
+        $dbData['first_name'] = $staff_first_name;
+        $dbData['last_name'] = $staff_last_name;
+        $dbData['email'] = $staff_email;
+        $dbData['password'] = $staff_password;
+        //$dbData['phone'] = $staff_phone;
+        $dbData['status'] = 1;
+        $dbData['create_time'] = time();
+
+        $this->mLoadModel('staff_model');
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('image_model');
+        $this->mLoadModel('staff_mathto_staff_group_model');
+
+        try {
+            $staff_id = $this->staff_model->insert($dbData);
+            $table_id = $this->table_model->get_table_id('staff');
+            $this->image_model->upload_image_profile($staff_id, $table_id);
+            $this->staff_mathto_staff_group_model->create_mathto_staff_group($staff_group_id, $staff_id);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
+        // Response
+        resOk();
+    }
+
+    public function listing()
+    {
+        // Form validation
+        $this->form_validation->onlyGet();
+        $this->form_validation->allRequest();
+        $this->formCheck();
+
+        // Business logic
+        $this->mLoadModel('staff_mathto_staff_group_model');
+        $this->mLoadModel('staff_model');
+        $staffs = $this->staff_model->get_staffs();
+
+        $response = [];
+        foreach ($staffs as $staff) {
+            $staff['groups'] = $this->staff_mathto_staff_group_model->get_staffs($staff['staff_id']);
+            $response[] = $staff;
+        }
+
+        // Response
+        resOk($response);
+    }
+
+    function list_group()
+    {
+        // Form validation
+        $this->form_validation->onlyGet();
+        $this->form_validation->allRequest();
+        $this->formCheck();
+
+        // Business logic
+        $this->mLoadModel('staff_group_model');
+        $staff_groups = $this->staff_group_model->get_staff_groups();
+
+        // Response
+        resOk($staff_groups);
+    }
 }

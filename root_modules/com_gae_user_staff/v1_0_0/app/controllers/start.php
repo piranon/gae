@@ -42,8 +42,12 @@ class Start extends base_module_controller
 
     private function render($view_name, $view_data = [])
     {
+        $myData['myData'] = [
+            'owner_id' => $this->currentOwnerId(),
+            'staff_id' => $this->currentStaffId()
+        ];
         $content = [
-            'content' => $this->mLoadView($view_name, null, true)
+            'content' => $this->mLoadView($view_name, $myData, true)
         ];
         $this->mLoadView('template', array_merge($content, $view_data));
     }

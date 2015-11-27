@@ -19,8 +19,7 @@ $config = array(
             "primary_image" => $curModule->file_url . "icon/icon_dashboard_customer_customermanage.png",
             "detail" => array(
                 "name" => "Customer",
-                "title_1" => "46 Persons",
-                "title_2" => "หน้าแสดงลูกค้าของร้านทั้งหมด"
+                "title_1" => "หน้าแสดงลูกค้าของร้านทั้งหมด"
             )
         )
     )

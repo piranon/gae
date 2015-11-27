@@ -179,6 +179,17 @@
     width: 657px;
 }
 
+.add-page .shop-admin > input {
+    width: 23px;
+}
+
+.add-page .shop-admin > span {
+    color: #333;
+    font-family: Thonburi;
+    font-size: 14px;
+    font-weight: 400;
+}
+
 .cover-container {
     width: 223px;
     height: 223px;

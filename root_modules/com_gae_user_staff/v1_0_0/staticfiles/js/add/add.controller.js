@@ -85,10 +85,10 @@
       if (vm.email && vm.firstname && vm.lastname && vm.customerGroup && vm.password) {
         if (id) {
           apiUrl = 'start/update';
-          errorMessage = 'Can not update customer';
+          errorMessage = 'Can not update staff';
         } else {
           apiUrl = 'start/add';
-          errorMessage = 'Can not create customer';
+          errorMessage = 'Can not create staff';
         }
         var dataSend = {
           "id": id || '',
@@ -99,7 +99,7 @@
           "tag": vm.tag || '',
           "password": vm.password || '',
           "profile_pic": vm.fileModel,
-          "group_id": vm.customerGroup && vm.customerGroup.customer_group_id || ''
+          "group_id": vm.customerGroup && vm.customerGroup.staff_group_id || ''
         };
         CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
           if (res.ok) {

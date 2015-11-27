@@ -19,8 +19,7 @@
 						"primary_image"=>$curModule->file_url."icon/icon_dashboard_customer_customergroup.png",
 						"detail"=>array(
 							"name"=>"Customer Group",
-							"title_1"=>"1 Group",
-							"title_2"=>"หน้าแสดงกลุ่มของลูกค้า"
+							"title_1"=>"หน้าแสดงกลุ่มของลูกค้า"
 						)
 					)
 				)

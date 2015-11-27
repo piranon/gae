@@ -24,16 +24,16 @@
                 </div>
                 <div class="col-sm-6">
                     <span ng-show="list.customers">
-                        {{list.selectedDeleteId.length}} customer selected from total {{list.total}} customers
+                        {{list.selectedDeleteId.length}} staff selected from total {{list.total}} staffs
                     </span>
                 </div>
                 <div class="col-sm-3">
                     <select ng-model="list.limitList" ng-change="list.onChangeLimit(limitList)"
                             class="form-control view-limit">
-                        <option value="">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
+                        <option value="">View 10</option>
+                        <option value="25">View 25</option>
+                        <option value="50">View 50</option>
+                        <option value="100">View 100</option>
                     </select>
                 </div>
             </div>
@@ -46,15 +46,15 @@
                                     ng-class="{'active-discount' : list.deleteAll}">
                             </button>
                         </th>
-                        <th style="width: 210px; cursor: pointer;" ng-click="list.onClickSort('first_name')">
+                        <th style="width: 179px; cursor: pointer;" ng-click="list.onClickSort('first_name')">
                             Staff Name
                         </th>
-                        <th style="width: 170px; cursor: pointer;" ng-click="list.onClickSort('user_name')">Staff Pic
+                        <th style="width: 150px; cursor: pointer;" ng-click="list.onClickSort('user_name')">Staff Pic
                         </th>
-                        <th style="width: 230px; cursor: pointer;" ng-click="list.onClickSort('email')">Email/Phone</th>
-                        <th style="width: 100px;">User Role</th>
-                        <th style="width: 100px;">Last Login</th>
-                        <th style="width: 100px;"></th>
+                        <th style="width: 200px; cursor: pointer;" ng-click="list.onClickSort('email')">Email/Phone</th>
+                        <th style="width: 120px;">User Role</th>
+                        <th style="width: 75px;">Last Login</th>
+                        <th style="width: 70px;"></th>
                     </tr>
                     </thead>
 
