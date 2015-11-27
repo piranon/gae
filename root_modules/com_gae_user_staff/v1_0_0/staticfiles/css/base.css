@@ -486,6 +486,7 @@ table.table {
     background-color: #eee;
     margin: 5px 5px;
     border: 0px;
+    cursor: pointer;
 }
 
 .btn-block > span {

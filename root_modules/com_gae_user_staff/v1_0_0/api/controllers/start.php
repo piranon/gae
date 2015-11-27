@@ -127,4 +127,35 @@ class Start extends base_module_controller
         // Response
         resOk();
     }
+
+    public function update_status()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('id', 'trim|required');
+        $this->form_validation->set_rules('status', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $staff_id = t_Post('id');
+        $staff_status = t_Post('status');
+
+        // Business logic
+        $status_active = 1;
+        $status_blocked = 2;
+
+        $dbData = array();
+        $dbData['status'] = $staff_status == $status_active ? $status_blocked : $status_active;
+        $dbData['update_time'] = time();
+
+        $this->mLoadModel('staff_model');
+
+        try {
+            $this->staff_model->update($dbData, $staff_id);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+        // Response
+        resOk();
+    }
 }
