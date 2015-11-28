@@ -6,6 +6,7 @@
       .directive('addCustomer', addCustomer);
 
   function addCustomer() {
+    console.log('123');
     return {
       template: '\
       <div class="row">\
@@ -29,12 +30,12 @@
           </div>\
         </div>\
         <div class="col-md-1">\
-          <a href="" class="btn-circle-gray" ng-click="removeCustomer(customerSelected.customer_id);">\
+          <a href="" class="btn-circle-gray" ng-click="add.removeCustomer(customerSelected.customer_id);">\
             <span class="glyphicon glyphicon-trash"></span>\
           </a>\
         </div>\
       </div>',
-      scope: false
+      scope: true
     };
   }
 

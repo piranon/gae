@@ -6,21 +6,22 @@
       .controller('AddController',AddController);
 
   function AddController($scope, $window) {
+    var vm = this;
     var id = getUrlParameter('id'),
         apiUrl,
         errorMessage;
-    $scope.response = [];
-    $scope.customers = [];
-    $scope.customersSelected = [];
-    $scope.customersSelectedId = [];
-    $scope.clickOnSubmit = submit;
-    $scope.selectedCustomer = function (seleted) {
+    vm.response = [];
+    vm.customers = [];
+    vm.customersSelected = [];
+    vm.customersSelectedId = [];
+    vm.clickOnSubmit = submit;
+    vm.selectedCustomer = function (seleted) {
       addCustomer(seleted);
     };
-    $scope.submitCustomerInGroup = function () {
-      addCustomer($scope.inputCustomer);
+    vm.submitCustomerInGroup = function () {
+      addCustomer(vm.inputCustomer);
     };
-    $scope.removeCustomer = function (id) {
+    vm.removeCustomer = function (id) {
       removeCustomer(id);
     };
 
@@ -30,31 +31,31 @@
       };
       CUR_MODULE.apiGet('start/detail', dataSend).then(function (res) {
         $scope.$apply(function () {
-          $scope.name = res.data.name;
-          $scope.description = res.data.description;
-          //$scope.customersSelected = res.data.customers;
+          vm.name = res.data.name;
+          vm.description = res.data.description;
+          //vm.customersSelected = res.data.customers;
           angular.forEach(res.data.customers, function (value, key) {
             value.image_url = null;
             if (value.image_id) {
               value.image_url = GURL.root_url() + 'root_images/' + value.file_dir + 'r100_' + value.file_name;
             }
-            $scope.customersSelected.push(value);
-            $scope.customersSelectedId.push(value.customer_id);
+            vm.customersSelected.push(value);
+            vm.customersSelectedId.push(value.customer_id);
           });
         });
       });
     }
     CUR_MODULE.apiGet("start/customer_list").then(function (res) {
-      $scope.response = res.data;
+      vm.response = res.data;
       $scope.$apply(function () {
         angular.forEach(res.data, function (value, key) {
-          $scope.customers.push(value.first_name + ' ' + value.last_name);
+          vm.customers.push(value.first_name + ' ' + value.last_name);
         });
       });
     });
 
     function submit() {
-      if ($scope.name && $scope.customersSelectedId.length > 0) {
+      if (vm.name && vm.customersSelectedId.length > 0) {
         if (id) {
           apiUrl = 'start/update';
           errorMessage = 'Can not update customer group';
@@ -64,9 +65,9 @@
         }
         var dataSend = {
           "id": id || '',
-          "name": $scope.name || '',
-          "description": $scope.description || '',
-          "customer_ids": $scope.customersSelectedId || ''
+          "name": vm.name || '',
+          "description": vm.description || '',
+          "customer_ids": vm.customersSelectedId || ''
         };
         CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
           if (res.ok) {
@@ -81,23 +82,21 @@
     }
 
     function removeCustomer(id) {
-      $scope.customersSelected = $scope.customersSelected.filter(function (obj) {
+      vm.customersSelected = vm.customersSelected.filter(function (obj) {
         return obj.customer_id != id;
       });
-      console.log($scope.customersSelectedId);
-      $scope.customersSelectedId.splice($scope.customersSelectedId.indexOf(id), 1);
-      console.log($scope.customersSelectedId);
+      vm.customersSelectedId.splice(vm.customersSelectedId.indexOf(id), 1);
     }
 
     function addCustomer(seleted) {
       var isFound = false,
           isAdded = false;
-      angular.forEach($scope.response, function (value, key) {
+      angular.forEach(vm.response, function (value, key) {
         var name = value.first_name + ' ' + value.last_name;
         if (name != seleted) {
           return true;
         }
-        if ($scope.customersSelectedId.indexOf(value.customer_id) > -1) {
+        if (vm.customersSelectedId.indexOf(value.customer_id) > -1) {
           isAdded = true;
           return true;
         }
@@ -105,11 +104,11 @@
         if (value.image_id) {
           value.image_url = GURL.root_url() + 'root_images/' + value.file_dir + 'r100_' + value.file_name;
         }
-        $scope.customersSelectedId.push(value.customer_id);
-        $scope.customersSelected.unshift(value);
+        vm.customersSelectedId.push(value.customer_id);
+        vm.customersSelected.unshift(value);
         isFound = true;
       });
-      $scope.inputCustomer = '';
+      vm.inputCustomer = '';
       if (isAdded) {
         isFound = true;
         alert('The customer has already added');

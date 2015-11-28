@@ -55,13 +55,7 @@ class Customer_mathto_customer_group_model extends base_module_model
     public function delete($group_id)
     {
         $this->db->delete('customer_mathto_customer_group', ['customer_group_id' => $group_id]);
-        $result = $this->db->affected_rows();
-
-        if (!$result){
-            throw new Exception('Cannot delete the customers in group');
-        }
-
-        return $result;
+        return $this->db->affected_rows();
     }
 
     /**

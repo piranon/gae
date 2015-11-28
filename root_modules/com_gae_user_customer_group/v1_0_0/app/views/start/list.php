@@ -1,4 +1,4 @@
-<div ng-app="customerGroup">
+<div ng-app="customerGroup" ng-controller="ListController as list">
     <div class="top-navigation">
         <div class="row module-container">
             <div class="col-md-4">
@@ -7,20 +7,21 @@
             <div class="col-md-4 topic-page">Customer Groups</div>
         </div>
     </div>
-    <div class="row customer-list" ng-controller="ListController">
+    <div class="row customer-list">
         <div class="module-container">
             <div class="row customer-filter">
                 <div class="col-sm-3">
-                    <select ng-model="bulkDelete" ng-change="onChangeBulkDelete(bulkDelete)"
+                    <select ng-model="list.bulkDelete" ng-change="list.onChangeBulkDelete(list.bulkDelete)"
                             class="form-control ng-pristine ng-valid ng-touched bulk-delete">
                         <option value="">Bulk Action</option>
                         <option value="1">Delete Selected</option>
                     </select>
                 </div>
-                <div class="col-sm-6">{{selectedDeleteId.length}} group selected from total {{total}} groups
+                <div class="col-sm-6">{{list.selectedDeleteId.length}} group selected from total {{list.total}} groups
                 </div>
                 <div class="col-sm-3">
-                    <select ng-model="limitList" ng-change="onChangeLimit(limitList)" class="form-control view-limit">
+                    <select ng-model="list.limitList" ng-change="list.onChangeLimit(list.limitList)"
+                            class="form-control view-limit">
                         <option value="">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
@@ -33,28 +34,30 @@
                     <thead>
                     <tr>
                         <th style="width: 40px;">
-                            <button class="circle-small-warning" type="button" ng-click="onClickBulkDeleteAll()"
-                                    ng-class="{'active-discount' : deleteAll}">
+                            <button class="circle-small-warning" type="button" ng-click="list.onClickBulkDeleteAll()"
+                                    ng-class="{'active-discount' : list.deleteAll}">
                             </button>
                         </th>
-                        <th style="width: 200px; cursor: pointer;" ng-click="onClickSort('name')">
+                        <th style="width: 200px; cursor: pointer;" ng-click="list.onClickSort('name')">
                             Customer group name
                         </th>
-                        <th style="width: 170px; cursor: pointer;" ng-click="onClickSort('count_customers')">
+                        <th style="width: 170px; cursor: pointer;" ng-click="list.onClickSort('count_customers')">
                             No. of customer
                         </th>
-                        <th style="width: 100px; cursor: pointer;" ng-click="onClickSort('update_time')">Updated</th>
-                        <th style="width: 100px; cursor: pointer;" ng-click="onClickSort('create_time')">Created</th>
+                        <th style="width: 100px; cursor: pointer;" ng-click="list.onClickSort('update_time')">Updated
+                        </th>
+                        <th style="width: 100px; cursor: pointer;" ng-click="list.onClickSort('create_time')">Created
+                        </th>
                         <th style="width: 100px;"></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    <tr dir-paginate="customer in customers|orderBy:sortKey:reverse|filter:search|itemsPerPage:limit">
+                    <tr dir-paginate="customer in list.customers|orderBy:list.sortKey:reverse|filter:list.search|itemsPerPage:list.limit">
                         <td align="center">
                             <button class="xChoose circle-small-warning" type="button"
-                                    ng-class="{'active-discount' : deleteSelected(customer.customer_group_id)}"
-                                    ng-click="onClickBulkDelete(customer.customer_group_id)">
+                                    ng-class="{'active-discount' : list.deleteSelected(customer.customer_group_id)}"
+                                    ng-click="list.onClickBulkDelete(customer.customer_group_id)">
                             </button>
                         </td>
                         <td>
@@ -75,7 +78,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="row" ng-show="customers">
+            <div class="row" ng-show="list.customers.length">
                 <div class="col-xs-6">
                     <dir-pagination-controls
                         template-url="<?php echo $curModule->file_url; ?>template/summary-pagination.html">
@@ -91,7 +94,7 @@
                     </div>
                 </div>
             </div>
-            <div ng-hide="customers" class="row no-cusotmer">
+            <div ng-hide="list.customers.length" class="row no-cusotmer">
                 <div class="col-xs-12">
                     <img ng-src="<?php echo $curModule->file_url; ?>icon/shape.png">
 
