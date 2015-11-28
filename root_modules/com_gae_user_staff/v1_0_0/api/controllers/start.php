@@ -23,9 +23,9 @@ class Start extends base_module_controller
         $staff_first_name = t_Post('first_name');
         $staff_last_name = t_Post('last_name');
         $staff_email = t_Post('email');
-        $staff_phone = t_Post('phone');
         $staff_password = t_Post('password');
         $staff_group_id = t_Post('group_id');
+        $staff_is_shop_admin = t_Post('is_shop_admin');
 
         // Business logic
         $dbData = array();
@@ -34,9 +34,10 @@ class Start extends base_module_controller
         $dbData['last_name'] = $staff_last_name;
         $dbData['email'] = $staff_email;
         $dbData['password'] = $staff_password;
-        //$dbData['phone'] = $staff_phone;
         $dbData['status'] = 1;
+        $dbData['is_shop_admin'] = $staff_is_shop_admin;
         $dbData['create_time'] = time();
+
 
         $this->mLoadModel('staff_model');
         $this->mLoadModel('table_model');
@@ -74,6 +75,7 @@ class Start extends base_module_controller
         $staff_email = t_Post('email');
         $staff_password = t_Post('password');
         $staff_group_id = t_Post('group_id');
+        $staff_is_shop_admin = t_Post('is_shop_admin');
 
         // Business logic
         $dbData = array();
@@ -82,6 +84,7 @@ class Start extends base_module_controller
         $dbData['last_name'] = $staff_last_name;
         $dbData['email'] = $staff_email;
         $dbData['password'] = $staff_password;
+        $dbData['is_shop_admin'] = $staff_is_shop_admin;
         $dbData['update_time'] = time();
 
         $this->mLoadModel('staff_model');
@@ -226,5 +229,28 @@ class Start extends base_module_controller
         }
         // Response
         resOk();
+    }
+
+    public function get_shop_admin()
+    {
+        // Form validation
+        $this->form_validation->onlyGet();
+        $this->form_validation->allRequest();
+        $this->formCheck();
+
+        // Business logic
+        $this->mLoadModel('staff_model');
+        $shop_admin = $this->staff_model->get_shop_admin();
+
+        $response = [];
+
+        if ($shop_admin) {
+            $response = [
+                'id' => $shop_admin['staff_id']
+            ];
+        }
+
+        // Response
+        resOk($response);
     }
 }

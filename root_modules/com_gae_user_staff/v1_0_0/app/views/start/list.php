@@ -68,7 +68,7 @@
                         </td>
                         <td>
                             <div class="tag-name">
-                                <a href="<?php echo $curModule->app_url; ?>start/detail?id={{customer.staff_id}}">
+                                <a href="<?php echo $curModule->app_url; ?>start/add?id={{customer.staff_id}}">
                                     {{customer.first_name}} {{customer.last_name}}
                                 </a>
                             </div>

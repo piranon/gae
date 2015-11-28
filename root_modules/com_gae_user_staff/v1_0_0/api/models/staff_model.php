@@ -53,7 +53,7 @@ class Staff_model extends base_module_model
     public function update($staff, $staff_id)
     {
         $this->db->where('staff_id', $staff_id);
-        $this->db->update('staff', array_filter($staff));
+        $this->db->update('staff', $staff);
 
         $result = $this->db->affected_rows();
 
@@ -124,5 +124,17 @@ class Staff_model extends base_module_model
         $this->db->order_by('staff.create_time', 'desc');
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+    /**
+     * @return int
+     */
+    public function get_shop_admin()
+    {
+        $this->db->select('staff_id');
+        $this->db->from('staff');
+        $this->db->where('is_shop_admin', 1);
+        $query = $this->db->get();
+        return $query->row_array();
     }
 }

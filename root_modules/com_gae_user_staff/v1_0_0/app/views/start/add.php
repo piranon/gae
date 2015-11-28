@@ -40,7 +40,7 @@
                 <div class="col-sm-8">
                     <?php if (isset($viewData['myData']['owner_id']) && $viewData['myData']['owner_id']) { ?>
                         <div class="form-group shop-admin">
-                            <input type="checkbox" ng-model="add.shopAdmin">
+                            <input type="checkbox" ng-model="add.isShopAdmin" ng-disabled="add.shopAdminAdded">
                             <span class="text-left">
                                 Set as Shop Admin ตั้งให้เป็นผู้ดูแลหลักของร้าน (ตั้งได้เพียงคนเดียว โดยสามารถเข้าถึงได้ทุกเมนู)
                             </span>

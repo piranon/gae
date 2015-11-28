@@ -21,6 +21,8 @@
     vm.clickOnUpload = clickOnUpload;
     vm.clickOnSubmit = clickOnSubmit;
     vm.submit = submit;
+    vm.shopAdminAdded = false;
+    vm.isShopAdmin = false;
 
     if (id) {
       var dataSend = {
@@ -45,6 +47,18 @@
     CUR_MODULE.apiGet('start/list_group').then(function (res) {
       $scope.$apply(function () {
         vm.groupOption = res.data;
+      });
+    });
+
+    CUR_MODULE.apiGet('start/get_shop_admin').then(function (res) {
+      $scope.$apply(function () {
+        if (res.data && res.data.id) {
+          if (res.data.id == id) {
+            vm.isShopAdmin = true;
+          } else {
+            vm.shopAdminAdded = true;
+          }
+        }
       });
     });
 
@@ -99,7 +113,8 @@
           "tag": vm.tag || '',
           "password": vm.password || '',
           "profile_pic": vm.fileModel,
-          "group_id": vm.customerGroup && vm.customerGroup.staff_group_id || ''
+          "group_id": vm.customerGroup && vm.customerGroup.staff_group_id || '',
+          "is_shop_admin": vm.isShopAdmin ? '1' : '0'
         };
         CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
           if (res.ok) {
