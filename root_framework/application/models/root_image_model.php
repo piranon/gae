@@ -62,7 +62,7 @@ class root_image_model extends root_model {
         return $sortData;
     }
 
-    public function getListsTotalRow($WhereStr,$input_paramAr){
+    public function getListsTotalRow($WhereStr,$input_paramAr,$joinStr=""){
 
         if(trim($WhereStr)!=""){
             $WhereStr = " AND ".$WhereStr." ";
@@ -73,6 +73,7 @@ class root_image_model extends root_model {
             FROM 
                 image
                     LEFT JOIN server ON ( server.server_id = image.server_id )
+                    ".$joinStr."
             WHERE
                 image.status > 0
             "
@@ -84,7 +85,7 @@ class root_image_model extends root_model {
 
     }
 
-    public function getLists($WhereStr,$input_paramAr,$cur_page,$per_page,$sortBy_id=""){
+    public function getLists($WhereStr,$input_paramAr,$cur_page,$per_page,$sortBy_id="",$joinStr="",$extend_field=array()){
 
         if(trim($WhereStr)!=""){
             $WhereStr = " AND ".$WhereStr." ";
@@ -92,6 +93,7 @@ class root_image_model extends root_model {
         $orderAndLimit_str = $this->getPageNavSql($cur_page,$per_page,$sortBy_id);
         $fieldArray = array();
         $fieldArray = array_merge($fieldArray, $this->getSelectFieldArray_short());
+        $fieldArray = array_merge($fieldArray, $extend_field);
 
         $sql = " 
             SELECT
@@ -99,6 +101,7 @@ class root_image_model extends root_model {
             FROM 
                 image
                     LEFT JOIN server ON ( server.server_id = image.server_id )
+                    ".$joinStr."
             WHERE
                 image.status > 0
             "

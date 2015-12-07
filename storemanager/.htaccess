@@ -25,6 +25,11 @@ RewriteCond $1 !^(index\.php|images|robots\.txt)
 RewriteRule ^(.*)$ index.php?/$1 [L]
 
 
+# Add Server to support SVG
+AddType image/svg+xml svg svgz
+AddType image/svg+xml .svg .svgz
+AddEncoding gzip svgz
+
 #<IfModule mod_headers.c>
 #    # WEEK
 #   <FilesMatch "\.(jpg|jpeg|png|gif|swf)$">
@@ -36,9 +41,7 @@ RewriteRule ^(.*)$ index.php?/$1 [L]
 #    </FilesMatch>
 #</IfModule>
 
-# Add Server to support SVG
-AddType image/svg+xml svg svgz
-AddEncoding gzip svgz
+
 
 #<IfModule mod_headers.c>
 #   Header set Access-Control-Allow-Origin "*"

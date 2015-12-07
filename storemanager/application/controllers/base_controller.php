@@ -24,6 +24,13 @@ class base_controller extends root_controller {
 		$this->load->view("base/pageFooter");
 	}
 
+
+	protected function basePoupView($pathName="",$viewData=array()){
+		$this->viewPopupStart($viewData);
+		$this->load->view($pathName);
+		$this->viewPopupEnd();
+	}
+
 	protected function viewPopupStart($viewData=array()){
 		$this->load->view("base/pageHeader-popup",array("viewData"=>$viewData));
 	}
@@ -33,50 +40,29 @@ class base_controller extends root_controller {
 	}
 
 
-	//<<-- AUTHENTICATION : START -->>
+	//Authenticate
 	public function onlyGaeStaff(){
  		//$this->load->model("access_model");
-
  	}
-
- 	protected function currentOwnerId(){
- 		return 5;
- 	}
-
- 	protected function currentStaffId(){
- 		return 2;
- 	}
-
- 	protected function currentShopId(){
- 		return 2;
- 	}
-
- 	protected function currentCustomerId(){
- 		return 1;
- 	}
-
 
  	public function onlyOwner(){
  		//$this->load->model("access_model");
-        return $this->currentOwnerId();
+        return 5;
+
  	}
 
  	public function onlyStaff(){
  		//$this->load->model("access_model");
-        return $this->currentStaffId();
+        return 2;
  	}
 
     public function onlyShop(){
-        return $this->currentShopId();
+        return 2;
     }
 
  	public function onlyCustomer(){
  		//$this->load->model("access_model");
- 		$this->currentCustomerId();
-
  	}
-
- 	//<<-- AUTHENTICATION : END -->>
 
 }
 

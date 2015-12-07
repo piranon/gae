@@ -4,6 +4,7 @@
             bundel_id:"",
             version:"",
             app_url:"",
+            app_popup_url:"",
             api_url:"",
             file_url:""
         },
@@ -22,6 +23,10 @@
         app_url:function(){
             var self = this;
             return self.data.app_url;  
+        },
+        app_popup_url:function(){
+            var self = this;
+            return self.data.app_popup_url;  
         },
         api_url:function(){
             var self = this;
@@ -190,7 +195,7 @@
                             //Upload progress
                             xhr.upload.addEventListener("progress", function(evt){
                               if (evt.lengthComputable) {
-                                var percentComplete = evt.loaded / evt.total;
+                                var percentComplete = (evt.loaded / evt.total)*100;
                                 //Do something with upload progress
                                 progressObj.callback(percentComplete);
                                 //console.log("Upload progress : "+percentComplete);

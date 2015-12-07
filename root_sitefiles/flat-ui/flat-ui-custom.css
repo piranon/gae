@@ -1,0 +1,44 @@
+      .btn-gae-radius{ 
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px;
+      } 
+
+      .btn-gae-manager{
+        color: white;
+        font-family: "Source Sans Pro";
+        font-size: 14px;
+        padding: 5px 20px;
+        margin: 0px 10px;
+        width: 0px;
+        min-width: 120px;
+        font-weight: 300;
+        line-height: 21px; 
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        border-radius: 20px; 
+      }
+
+      .btn-save{
+        background-color: #093;
+      }
+      .btn-save:hover{ background-color: #0a5; }
+      .btn-save:active{ background-color: #060; }
+
+      .btn-cancel_tran{
+        border: 1px solid #666;
+        color: white;
+        background-color: none;
+      }
+      .btn-cancel_tran:hover{ border: 1px solid #999; color: #ccc; background: rgba(255,255,255,0.1); }
+      .btn-cancel_tran:active{ border: 1px solid #666; color: white; background:none; }
+
+      .btn-ori-primary{ background: #1abc9c; color: white; }
+      .btn-ori-primary:hover{ background: #2ecc71; color: white; }
+      .btn-ori-primary:active{ background: #16a085; color: white; }
+
+      .label-ori-primary{ background: #1abc9c; }
+      .text-ori-primary{ color:#1abc9c; }
+
+      .text-gae-primary{ color:#ff5000; }
+      .text-gae-cancel{}

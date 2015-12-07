@@ -25,6 +25,12 @@ class module_model extends base_model {
             $moduleData["module_version"] = "1.0.0";
             array_push($resultData,$moduleData);
 
+            $moduleData = array();
+            $moduleData["module_id"] = "3";
+            $moduleData["module_bundle_id"] = "com.gae.design.gaeui";
+            $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
+
              //SELL
             $moduleData = array();
             $moduleData["module_id"] = "31";
@@ -267,6 +273,7 @@ class module_model extends base_model {
         $curModule->url = $module_url;
         $curModule->file_url = $module_url."staticfiles/";
         $curModule->app_url = base_url()."module/app/".$module_id."/";
+        $curModule->app_popup_url = base_url()."module/app_popup/".$module_id."/";
         $curModule->api_url = base_api_url()."module/api/".$module_id."/";
         $curModule->init();
 

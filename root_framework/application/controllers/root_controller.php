@@ -11,6 +11,57 @@ class root_controller extends CI_Controller {
 
     }
 
+    //<<-- AUTHENTICATION : START -->>
+    public function currentGaeStaffId(){
+        $this->load->model("root_model");
+        return $this->root_model->currentGaeStaffId();
+    }
+
+    public function currentOwnerId(){
+         $this->load->model("root_model");
+        return $this->root_model->currentOwnerId();
+    }
+    
+    public function currentShopId(){
+        $this->load->model("root_model");
+        return $this->root_model->currentShopId();
+    }
+
+    public function currentStaffId(){
+        $this->load->model("root_model");
+        return $this->root_model->currentStaffId();
+    }
+
+    public function currentCustomerId(){
+        $this->load->model("root_model");
+        return $this->root_model->currentGaeStaffId();
+    }
+
+    public function onlyGaeStaff(){
+        return $this->currentGaeStaffId();
+    }
+
+    public function onlyOwner(){
+        //$this->load->model("access_model");
+        return $this->currentOwnerId();
+    }
+
+    public function onlyShop(){
+        return $this->currentShopId();
+    }
+
+    public function onlyStaff(){
+        //$this->load->model("access_model");
+        return $this->currentStaffId();
+    }
+
+    public function onlyCustomer(){
+        //$this->load->model("access_model");
+       return $this->currentCustomerId();
+    }
+
+    //<<-- AUTHENTICATION : END -->>
+
     protected function getLangId(){
         $this->load->model("root_model");
         return $this->root_model->getLangId();
@@ -63,11 +114,6 @@ class root_controller extends CI_Controller {
     protected function logSave($userType="",$user_id=""){
         $this->load->model("root_log_model");
         $this->root_log_model->logSave($userType,$user_id);
-    }
-
-    protected function onlyOwner(){
-        $this->load->model("root_owner_model");
-        return $this->root_owner_model->onlyOwner();
     }
 
     protected function resOk($dataArray=array()){

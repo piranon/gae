@@ -28,7 +28,7 @@
 	            <div class="cover">
 	                <img src="<?=@$itemData["primary_image"]; ?>">
 	            </div>
-	            <div class="descriotion">
+	            <div class="description">
 	                <div class="dh1"><?=@$itemData["detail"]["name"]; ?></div>
 	                <div class="dh2"><?=@$itemData["detail"]["title_1"]; ?></div>
 	                <div class="dh3"><?=@$itemData["detail"]["title_2"]; ?></div>

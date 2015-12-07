@@ -1,41 +1,234 @@
-.header_menu{ background: #FF5000; width: 100%; min-height: 60px; padding: 0px;  font-size: 15px; }
-	.header_menu a{ text-decoration: none; }
-		.mainmenu_root{ padding: 20px 10px; text-align: center;  }
-		.mainmenu_root .btn_root{ font-size: 15px; padding: 6px 8px; margin: 10px 16px; text-align: center;   color: #fff; 
-			-webkit-border-radius: 10px;
-			-moz-border-radius: 10px;
-			border-radius: 10px;   }
-		.mainmenu_root .btn_root:hover{ background: rgba(0,0,0,0.3); }
-		.mainmenu_root .btn_root.active{ background: rgba(0,0,0,0.3); }
+/* MIXIN : START */
+/* MIXIN : END */
+#pageContent {
+  min-height: 2000px;
+}
+.gae_pageMainmenu {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  min-width: 1440px;
+  background-color: #ff5000;
+  min-height: 60px;
+  width: 100%;
+}
+.gae_pageMainmenu .root_section {
+  min-height: 60px;
+  z-index: 120;
+}
+.gae_pageMainmenu .root_section .menu_btn_root_div {
+  position: relative;
+  float: right;
+  /* background-color:rgba(0,0,0,0.1); */
+  min-width: 200px;
+  min-height: inherit;
+  margin-right: 60px;
+  padding: 10px 0px;
+  min-height: 40px;
+}
+.gae_pageMainmenu .root_section .menu_btn_root_div .btn-main_menu {
+  position: relative;
+  margin: 0px 10px;
+  width: 120px;
+  height: 40px;
+  color: #303030;
+  text-shadow: 0px 0px none;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.gae_pageMainmenu .root_section .menu_btn_root_div .btn-main_menu:hover {
+  color: #fafafa;
+}
+.gae_pageMainmenu .root_section .menu_btn_root_div .btn-main_menu:active {
+  color: #c3c3c3;
+}
+.gae_pageMainmenu .root_section .menu_btn_root_div .btn-main_menu.active {
+  color: white;
+}
+.gae_pageMainmenu .sub_section {
+  min-height: 40px;
+  background-color: #e34700;
+  z-index: 110;
+}
+.gae_pageMainmenu .sub_section .menu_btn_sub_div {
+  text-align: center;
+}
+.gae_pageMainmenu .sub_section .menu_btn_sub_div .btn-main_menu {
+  -webkit-border-top-right-radius: 0px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  background-clip: padding-box;
+  position: relative;
+  top: 0px;
+  margin: 0px 0px;
+  width: 120px;
+  height: 40px;
+  color: #303030;
+  text-shadow: 0px 0px none;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.gae_pageMainmenu .sub_section .menu_btn_sub_div .btn-main_menu:hover {
+  color: #fafafa;
+  background-color: #333;
+}
+.gae_pageMainmenu .sub_section .menu_btn_sub_div .btn-main_menu:active {
+  color: #ffffff;
+  background-color: #151515;
+}
+.gae_pageMainmenu .sub_section .menu_btn_sub_div .btn-main_menu.active {
+  color: white;
+  background-color: #333;
+}
+.gae_pageMainmenu .addon_section {
+  height: 80px;
+  background-color: #333;
+  z-index: 100;
+  position: absolute;
+  width: 100%;
+  display: none;
+}
+.gae_pageMainmenu .addon_section .menu_btn_addon_div {
+  text-align: center;
+}
+.gae_pageMainmenu .addon_section .menu_btn_addon_div .btn-main_menu-addon {
+  -webkit-border-top-right-radius: 0px;
+  -webkit-border-bottom-right-radius: 0;
+  -webkit-border-bottom-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -moz-border-radius-topright: 0px;
+  -moz-border-radius-bottomright: 0;
+  -moz-border-radius-bottomleft: 0;
+  -moz-border-radius-topleft: 0;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  background-clip: padding-box;
+  position: relative;
+  top: 0px;
+  margin: 0px 0px;
+  width: 100px;
+  height: 80px;
+  color: #fff;
+  text-shadow: 0px 0px none;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.gae_pageMainmenu .addon_section .menu_btn_addon_div .btn-main_menu-addon img {
+  width: auto;
+  height: 40px;
+}
+.gae_pageMainmenu .addon_section .menu_btn_addon_div .btn-main_menu-addon .addon_label {
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+  -webkit-transition: 300ms;
+  -moz-transition: 300ms;
+  -ms-transition: 300ms;
+  -o-transition: 300ms;
+  font-size: 12px;
+  color: none;
+}
+.gae_pageMainmenu .addon_section .menu_btn_addon_div .btn-main_menu-addon:hover {
+  color: #fafafa;
+  background-color: #333;
+}
+.gae_pageMainmenu .addon_section .menu_btn_addon_div .btn-main_menu-addon:hover .addon_label {
+  font-size: 12px;
+  color: #fff;
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+}
+.gae_pageMainmenu .addon_section .menu_btn_addon_div .btn-main_menu-addon:active {
+  color: #ffffff;
+  background-color: #151515;
+}
+.gae_pageMainmenu .addon_section .menu_btn_addon_div .btn-main_menu-addon.active {
+  color: #ffffff;
+  background-color: #151515;
+}
+.gae_pageMainmenu #gae_module_topbar_section {
+  height: 80px;
+  background-color: #333;
+  z-index: 100;
+  position: relative;
+  width: 100%;
+  z-index: 90;
+}
+.gae_pageMainmenu #gae_module_topbar_section #gae_module_topbar_label {
+  position: relative;
+  top: 40px;
+  color: #ff5000;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+  height: 30px;
+  text-align: center;
+}
+.card_info_list .item {
+  float: left;
+  width: 470px;
+  height: 150px;
+  background-color: whitesmoke;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  margin: 10px;
+  padding: 0px;
+}
+.card_info_list .item .cover {
+  float: left;
+  margin: 0px;
+  position: relative;
+  top: 25px;
+  margin-left: 40px;
+  width: 100px;
+  height: 100px;
+}
+.card_info_list .item .cover img {
+  width: 100%;
+  height: auto;
+}
+.card_info_list .item .description {
+  float: left;
+  margin: 20px;
+  width: 272px;
+}
+.card_info_list .item .description .dh1 {
+  height: 30px;
+  color: #333;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 30px;
+}
+.card_info_list .item .description .dh2 {
+  height: 26px;
+  color: #333;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  margin: 5px 0px;
+}
+.card_info_list .item .description .dh3 {
+  height: 44px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  margin: 5px 0px;
+}
 
-		.mainmenu_sub{ padding: 16px 0px; margin: 0px; text-align: center; background: rgba(0,0,0,0.15);   }
-		.mainmenu_sub .btn_sub{ font-size: 14px;  padding: 6px 30px; width: 120px;  margin: 10px 10px; text-align: center;   color: #fff; border-radius: 20px; background: #FF5000;
-		-webkit-border-radius: 20px;
-			-moz-border-radius: 20px;
-			border-radius: 20px; }
-		.mainmenu_sub .btn_sub:hover{  background: rgba(0,0,0,0.3); }
-		.mainmenu_sub .btn_sub.active{ background: rgba(0,0,0,0.3); }
-
-		.mainmenu_addon{ background: #333333; min-height: 80px;  }
-		.mainmenu_addon .menu_div{ padding: 2px 0px; text-align: center; margin:auto;}
-		.mainmenu_addon .menu_div .btn_sub{ float: left; padding: 6px 2px; width: 80px;  margin: 10px 10px; text-align: center;   color: #fff; border-radius: 20px; font-size: 11px; 
-			-webkit-border-radius: 20px;
-			-moz-border-radius: 20px;
-			border-radius: 20px; }
-		.mainmenu_addon .menu_div .btn_sub img{ width: 42px; height: 42px; margin: 3px;}
-		.mainmenu_addon .menu_div .btn_sub:hover{ background: rgba(0,0,0,0.8); }
-		.mainmenu_addon .menu_div .btn_sub.active{ background: rgba(0,0,0,0.8); }
-
-
-		.card_info_list{ }
-		.card_info_list .item{ float: left; background:#f5f5f5;  border: 2px solid #eee; width: 450px; height: 140px; padding: 20px; margin: 20px;
-			 -webkit-border-radius: 20px;
-			 -moz-border-radius: 20px;
-			 border-radius: 20px; }
-		.card_info_list .item a{ text-decoration: none;}
-		.card_info_list .item  .cover{ float: left; width:100px; height: 100px; padding:0px; margin: 0px; margin-right:10px; }
-		.card_info_list .item  .cover img{ width:100%; height: 100%; }
-		.card_info_list .item  .descriotion{ float: left;  width:290px;   }
-		.card_info_list .item  .descriotion .dh1{ font-size: 18px; font-weight: 600px; color: #222;  margin:3px;}
-		.card_info_list .item  .descriotion .dh2{ font-size: 16px; color: #333; margin:3px;}
-		.card_info_list .item  .descriotion .dh3{ font-size: 14px; color: #555; margin:3px;}
+/*# sourceMappingURL=main_menu.css.map */

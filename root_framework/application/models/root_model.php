@@ -9,6 +9,55 @@ class root_model extends CI_Model {
         $this->load->database();
     }
 
+    //<<-- AUTHENTICATION : START -->>
+    public function currentGaeStaffId(){
+        return 1;
+    }
+
+    public function currentOwnerId(){
+        return 5;
+    }
+
+    public function currentShopId(){
+        return 2;
+    }
+
+    public function currentStaffId(){
+        return 2;
+    }
+
+    public function currentCustomerId(){
+        return 1;
+    }
+
+
+    public function onlyGaeStaff(){
+        return $this->currentGaeStaffId();
+    }
+
+    public function onlyOwner(){
+        //$this->load->model("access_model");
+        return $this->currentOwnerId();
+    }
+
+    public function onlyShop(){
+        return $this->currentShopId();
+    }
+
+
+    public function onlyStaff(){
+        //$this->load->model("access_model");
+        return $this->currentStaffId();
+    }
+
+    public function onlyCustomer(){
+        //$this->load->model("access_model");
+        $this->currentCustomerId();
+    }
+
+    //<<-- AUTHENTICATION : END -->>
+
+
     public function getLangId(){
         return 0;
     }
