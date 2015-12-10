@@ -5,8 +5,9 @@
       .module('customerGroup')
       .controller('ListController', ListController);
 
-  function ListController($scope, $window) {
+  function ListController($scope, $window, $cookies) {
     var vm = this;
+    var notification;
     vm.customers = [];
     vm.total = 0;
     vm.limit = 10;
@@ -29,28 +30,45 @@
       onClickBulkDelete(id);
     };
 
-    CUR_MODULE.apiGet("start/listing").then(function (res) {
-      $scope.$apply(function () {
-        vm.customers = res.data;
-        vm.total = res.data.length;
+    fetchListing();
+
+    function fetchListing() {
+      CUR_MODULE.apiGet("start/listing").then(function (res) {
+        $scope.$apply(function () {
+          vm.customers = res.data;
+          vm.total = res.data.length;
+        });
       });
-    });
+    }
+
+    notification = $cookies.getObject('cus_g_list_noti');
+    if (notification && notification.time == getUrlParameter('timestamp')) {
+      GAEUI.notification().playComplete(notification.message);
+      $cookies.remove('cus_g_list_noti', {'path': '/'});
+    }
 
     function onChangeBulkDelete(action) {
       if (action != 1) {
         return false;
       }
+      GAEUI.pageLoading().play();
       if (vm.selectedDeleteId.length === 0) {
-        alert('Please select some customer');
+        GAEUI.pageLoading().stop();
+        GAEUI.notification().playError('Please select some customer group');
       } else {
         var dataSend = {
           "ids": vm.selectedDeleteId
         };
         CUR_MODULE.apiPost('start/bulk_delete', dataSend).then(function (res) {
+          vm.selectedDeleteId = [];
+          vm.bulkDelete = "";
           if (res.ok) {
-            $window.location.href = CUR_MODULE.data.app_url + 'start';
+            fetchListing();
+            GAEUI.pageLoading().stop();
+            GAEUI.notification().playComplete("Delete customer group complete");
           } else {
-            alert("Error: Can not delete customer");
+            GAEUI.pageLoading().stop();
+            GAEUI.notification().playError('Can not delete customer group');
           }
         });
       }

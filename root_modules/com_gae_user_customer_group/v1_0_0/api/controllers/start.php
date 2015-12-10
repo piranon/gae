@@ -44,7 +44,7 @@ class start extends base_module_controller
         }
 
         // Response
-        resOk();
+        resOk(['time' => time()]);
     }
 
     public function update()
@@ -85,7 +85,7 @@ class start extends base_module_controller
         }
 
         // Response
-        resOk();
+        resOk(['time' => time()]);
 
     }
 

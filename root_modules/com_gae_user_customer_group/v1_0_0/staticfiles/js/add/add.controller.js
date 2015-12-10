@@ -5,10 +5,11 @@
       .module('customerGroup')
       .controller('AddController',AddController);
 
-  function AddController($scope, $window) {
+  function AddController($scope, $window, $cookies) {
     var vm = this;
     var id = getUrlParameter('id'),
         apiUrl,
+        successMessage,
         errorMessage;
     vm.response = [];
     vm.customers = [];
@@ -23,6 +24,9 @@
     };
     vm.removeCustomer = function (id) {
       removeCustomer(id);
+    };
+    vm.keyDownRequired = function ($event) {
+      keyDownRequired($event);
     };
 
     if (id) {
@@ -55,30 +59,40 @@
     });
 
     function submit() {
-      if (vm.name && vm.customersSelectedId.length > 0) {
-        if (id) {
-          apiUrl = 'start/update';
-          errorMessage = 'Can not update customer group';
-        } else {
-          apiUrl = 'start/add';
-          errorMessage = 'Can not create customer group';
-        }
-        var dataSend = {
-          "id": id || '',
-          "name": vm.name || '',
-          "description": vm.description || '',
-          "customer_ids": vm.customersSelectedId || ''
-        };
-        CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
-          if (res.ok) {
-            $window.location.href = CUR_MODULE.data.app_url + 'start';
-          } else {
-            alert(errorMessage);
-          }
-        });
+      GAEUI.pageLoading().play();
+      if (id) {
+        apiUrl = 'start/update';
+        successMessage = 'Update customer group complete';
+        errorMessage = 'Can not update customer group';
       } else {
-        alert('Please fill-in required field');
+        apiUrl = 'start/add';
+        successMessage = 'Create customer group complete';
+        errorMessage = 'Can not create customer group';
       }
+      var dataSend = {
+        "id": id || '',
+        "name": vm.name || '',
+        "description": vm.description || '',
+        "customer_ids": vm.customersSelectedId || ''
+      };
+      CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
+        if (res.ok) {
+          GAEUI.pageLoading().stop();
+          $cookies.putObject('cus_g_list_noti', {'message': successMessage, 'time':res.data.time}, {'path': '/'});
+          $window.location.href = CUR_MODULE.data.app_url + 'start?timestamp=' + res.data.time;
+        } else {
+          angular.forEach(res.data, function (value, key) {
+            console.log(res.data);
+            if (value === 'required') {
+              angular.element('#' + key).parent().addClass('has-error');
+              angular.element('#' + key).next().text('ห้ามเว้นว่าง');
+              angular.element('#' + key).next().removeClass('hide');
+            }
+          });
+          GAEUI.pageLoading().stop();
+          GAEUI.notification().playError(errorMessage);
+        }
+      });
     }
 
     function removeCustomer(id) {
@@ -116,6 +130,10 @@
       if (!isFound) {
         alert('Not found customer');
       }
+    }
+
+    function keyDownRequired($event) {
+      angular.element('#' + $event.currentTarget.id).parent().removeClass('has-error');
     }
   }
 

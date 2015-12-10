@@ -3,5 +3,6 @@ angular.module('customerGroup', [
   'GAEAPI',
   'file-model',
   'angularUtils.directives.dirPagination',
-  'autocomplete'
+  'autocomplete',
+  'ngCookies'
 ]);
