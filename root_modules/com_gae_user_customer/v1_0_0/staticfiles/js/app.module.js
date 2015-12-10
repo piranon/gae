@@ -2,5 +2,6 @@ angular.module('customer', [
   'ngRoute',
   'GAEAPI',
   'file-model',
-  'angularUtils.directives.dirPagination'
+  'angularUtils.directives.dirPagination',
+  'ngCookies'
 ]);

@@ -57,7 +57,7 @@
                     </thead>
 
                     <tbody>
-                    <tr dir-paginate="customer in list.customers|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">
+                    <tr dir-paginate="(key, customer) in list.customers|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">
                         <td align="center">
                             <button class="xChoose circle-small-warning" type="button"
                                     ng-class="{'active-discount' : list.deleteSelected(customer.customer_id)}"

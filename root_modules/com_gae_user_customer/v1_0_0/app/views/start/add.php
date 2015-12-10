@@ -41,7 +41,9 @@
                     <div class="form-group">
                         <div class="text-left require-field">Username</div>
                         <div class="text-left desc-field">ชื่อเรียกลูกค้าสมาชิก</div>
-                        <input type="text" ng-model="add.username" class="form-control">
+                        <input type="text" ng-model="add.username" id="username" class="form-control"
+                               ng-keydown="add.keyDownRequired($event)">
+                        <div class="add-warning hide" ng-hide='add.username'></div>
                     </div>
                 </div>
                 <div class="col-sm-4">
@@ -56,7 +58,9 @@
                         <div class="form-group">
                             <div class="text-left require-field">Email</div>
                             <div class="text-left desc-field">ชื่อเรียกลูกค้าสมาชิก</div>
-                            <input type="text" ng-model="add.email" class="form-control">
+                            <input type="text" ng-model="add.email" id="email" class="form-control"
+                                   ng-keydown="add.keyDownRequired($event)">
+                            <div class="add-warning hide" ng-hide='add.email'></div>
                         </div>
                     </div>
                 </div>
@@ -67,14 +71,18 @@
                     <div class="form-group">
                         <div class="text-left require-field">Firstname</div>
                         <div class="text-left desc-field">ชื่อจริง</div>
-                        <input type="text" ng-model="add.firstname" class="form-control">
+                        <input type="text" ng-model="add.firstname" id="first_name" class="form-control"
+                               ng-keydown="add.keyDownRequired($event)">
+                        <div class="add-warning hide" ng-hide='add.firstname'></div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="text-left require-field">Lastname</div>
                         <div class="text-left desc-field">นามสกุลจริง</div>
-                        <input type="text" ng-model="add.lastname" class="form-control">
+                        <input type="text" ng-model="add.lastname" id="last_name" class="form-control"
+                               ng-keydown="add.keyDownRequired($event)">
+                        <div class="add-warning hide" ng-hide='add.lastname'></div>
                     </div>
                 </div>
             </div>
@@ -152,17 +160,19 @@
                     <div class="form-group">
                         <div class="text-left require-field">Login Password</div>
                         <div class="text-left desc-field">รหัสผ่านของลูกค้า</div>
-                        <input type="{{add.inputType}}" ng-model="add.password" ng-keyup="add.checkPassword()"
+                        <input type="{{add.inputType}}" ng-model="add.password" ng-keyup="add.checkPassword($event)"
                                class="form-control"
                                ng-class="{'add-success': add.password != '' && !add.passwordWarning}" id="password">
+                        <div class="add-warning" ng-show='add.passwordWarning'>รหัสต้องมีความยาวอย่างต่ำ 8 ตัว</div>
+                        <div class="add-warning hide" ng-hide='add.email'></div>
                     </div>
-                    <div class="add-warning" ng-show='add.passwordWarning'>รหัสต้องมีความยาวอย่างต่ำ 8 ตัว</div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="text-left">&nbsp;</div>
                         <div class="text-left">&nbsp;</div>
-                        <input type="checkbox" ng-model="add.passwordCheckbox" ng-click="add.showPassword()">
+                        <input type="checkbox" ng-model="add.passwordCheckbox" id="password"
+                               ng-click="add.showPassword()">
                         <span class="text-left">Show Password</span>
                     </div>
                 </div>
