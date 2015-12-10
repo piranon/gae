@@ -56,6 +56,7 @@
       }
       GAEUI.pageLoading().play();
       if (vm.selectedDeleteId.length === 0) {
+        vm.bulkDelete = "";
         GAEUI.pageLoading().stop();
         GAEUI.notification().playError('Please select some customer');
       } else {

@@ -22,7 +22,6 @@
                 <div class="col-md-8">
                     <input type="text" ng-model="add.name" id="name" class="form-control"
                            ng-keydown="add.keyDownRequired($event)">
-
                     <div class="add-warning hide" ng-hide='add.name'></div>
                 </div>
             </div>

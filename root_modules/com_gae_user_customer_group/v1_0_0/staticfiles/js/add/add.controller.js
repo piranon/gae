@@ -37,7 +37,6 @@
         $scope.$apply(function () {
           vm.name = res.data.name;
           vm.description = res.data.description;
-          //vm.customersSelected = res.data.customers;
           angular.forEach(res.data.customers, function (value, key) {
             value.image_url = null;
             if (value.image_id) {

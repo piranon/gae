@@ -5,7 +5,7 @@
       .module('customerGroup')
       .controller('ListController', ListController);
 
-  function ListController($scope, $window, $cookies) {
+  function ListController($scope, $cookies) {
     var vm = this;
     var notification;
     vm.customers = [];
@@ -53,6 +53,7 @@
       }
       GAEUI.pageLoading().play();
       if (vm.selectedDeleteId.length === 0) {
+        vm.bulkDelete = "";
         GAEUI.pageLoading().stop();
         GAEUI.notification().playError('Please select some customer group');
       } else {
