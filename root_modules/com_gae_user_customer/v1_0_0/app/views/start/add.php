@@ -43,6 +43,7 @@
                         <div class="text-left desc-field">ชื่อเรียกลูกค้าสมาชิก</div>
                         <input type="text" ng-model="add.username" id="username" class="form-control"
                                ng-keydown="add.keyDownRequired($event)">
+
                         <div class="add-warning hide" ng-hide='add.username'></div>
                     </div>
                 </div>
@@ -60,6 +61,7 @@
                             <div class="text-left desc-field">ชื่อเรียกลูกค้าสมาชิก</div>
                             <input type="text" ng-model="add.email" id="email" class="form-control"
                                    ng-keydown="add.keyDownRequired($event)">
+
                             <div class="add-warning hide" ng-hide='add.email'></div>
                         </div>
                     </div>
@@ -73,6 +75,7 @@
                         <div class="text-left desc-field">ชื่อจริง</div>
                         <input type="text" ng-model="add.firstname" id="first_name" class="form-control"
                                ng-keydown="add.keyDownRequired($event)">
+
                         <div class="add-warning hide" ng-hide='add.firstname'></div>
                     </div>
                 </div>
@@ -82,6 +85,7 @@
                         <div class="text-left desc-field">นามสกุลจริง</div>
                         <input type="text" ng-model="add.lastname" id="last_name" class="form-control"
                                ng-keydown="add.keyDownRequired($event)">
+
                         <div class="add-warning hide" ng-hide='add.lastname'></div>
                     </div>
                 </div>
@@ -129,7 +133,7 @@
                     <div class="form-group">
                         <div class="text-left non-require-field">Customer Group</div>
                         <div class="text-left desc-field">กลุ่มลูกค้า</div>
-                        <select ng-model="add.customerGroup" name="customerGroup" class="form-control"
+                        <select ng-model="add.customerGroup" name="customerGroup" id="group_id" class="form-control"
                                 ng-options="g.name for g in add.groupOption">
                             <option value="">เลือกกลุ่มลูกค้า</option>
                         </select>
@@ -163,8 +167,9 @@
                         <input type="{{add.inputType}}" ng-model="add.password" ng-keyup="add.checkPassword($event)"
                                class="form-control"
                                ng-class="{'add-success': add.password != '' && !add.passwordWarning}" id="password">
+
                         <div class="add-warning" ng-show='add.passwordWarning'>รหัสต้องมีความยาวอย่างต่ำ 8 ตัว</div>
-                        <div class="add-warning hide" ng-hide='add.email'></div>
+                        <div class="add-warning hide" ng-hide='add.password'></div>
                     </div>
                 </div>
                 <div class="col-sm-4">

@@ -5,10 +5,11 @@
       .module('staff')
       .controller('AddController', AddController);
 
-  function AddController($scope, $timeout, $window, focus) {
+  function AddController($scope, $timeout, $window, $cookies, focus) {
     var vm = this;
     var id = getUrlParameter('id'),
         apiUrl,
+        successMessage,
         errorMessage;
 
     vm.imageProfile = '';
@@ -23,6 +24,12 @@
     vm.submit = submit;
     vm.shopAdminAdded = false;
     vm.isShopAdmin = false;
+    vm.keyDownRequired = function ($event) {
+      keyDownRequired($event);
+    };
+    vm.changeRequired = function ($event) {
+      changeRequired($event);
+    };
 
     if (id) {
       var dataSend = {
@@ -91,41 +98,67 @@
       }
     }
 
+    function keyDownRequired($event) {
+      angular.element('#' + $event.currentTarget.id).parent().removeClass('has-error');
+    }
+
+    function changeRequired(id) {
+      angular.element('#' + id).parent().removeClass('has-error');
+    }
+
     function submit() {
+      GAEUI.pageLoading().play();
       if (vm.passwordWarning) {
         focus('password');
+        GAEUI.pageLoading().stop();
         return false;
       }
-      if (vm.email && vm.firstname && vm.lastname && vm.customerGroup && vm.password) {
-        if (id) {
-          apiUrl = 'start/update';
-          errorMessage = 'Can not update staff';
-        } else {
-          apiUrl = 'start/add';
-          errorMessage = 'Can not create staff';
-        }
-        var dataSend = {
-          "id": id || '',
-          "first_name": vm.firstname || '',
-          "last_name": vm.lastname || '',
-          "email": vm.email || '',
-          "phone": vm.phone || '',
-          "tag": vm.tag || '',
-          "password": vm.password || '',
-          "profile_pic": vm.fileModel,
-          "group_id": vm.customerGroup && vm.customerGroup.staff_group_id || '',
-          "is_shop_admin": vm.isShopAdmin ? '1' : '0'
-        };
-        CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
-          if (res.ok) {
-            $window.location.href = CUR_MODULE.data.app_url + 'start';
-          } else {
-            alert(errorMessage);
-          }
-        });
+      if (id) {
+        apiUrl = 'start/update';
+        successMessage = 'Update staff complete';
+        errorMessage = 'Can not update staff';
       } else {
-        alert('Please fill-in required field');
+        apiUrl = 'start/add';
+        successMessage = 'Create staff complete';
+        errorMessage = 'Can not create staff';
       }
+      var dataSend = {
+        "id": id || '',
+        "first_name": vm.firstname || '',
+        "last_name": vm.lastname || '',
+        "email": vm.email || '',
+        "phone": vm.phone || '',
+        "tag": vm.tag || '',
+        "password": vm.password || '',
+        "profile_pic": vm.fileModel,
+        "group_id": vm.customerGroup && vm.customerGroup.staff_group_id || '',
+        "is_shop_admin": vm.isShopAdmin ? '1' : '0'
+      };
+      CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
+        if (res.ok) {
+          GAEUI.pageLoading().stop();
+          $cookies.putObject('staff_list_noti', {'message': successMessage, 'time':res.data.time}, {'path': '/'});
+          $window.location.href = CUR_MODULE.data.app_url + 'start?timestamp=' + res.data.time;
+        } else {
+          angular.forEach(res.data, function (value, key) {
+            if (value === 'required') {
+              angular.element('#' + key).parent().addClass('has-error');
+              if (key === 'password') {
+                angular.element('#' + key).next().next().text('ห้ามเว้นว่าง');
+                angular.element('#' + key).next().next().removeClass('hide');
+              } else if (key === 'group_id') {
+                angular.element('#' + key).next().text('กรุณาเลือก');
+                angular.element('#' + key).next().removeClass('hide');
+              } else {
+                angular.element('#' + key).next().text('ห้ามเว้นว่าง');
+                angular.element('#' + key).next().removeClass('hide');
+              }
+            }
+          });
+          GAEUI.pageLoading().stop();
+          GAEUI.notification().playError(errorMessage);
+        }
+      });
     }
   }
 

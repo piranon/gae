@@ -5,7 +5,7 @@
       .module('customer')
       .controller('ListController', ListController);
 
-  function ListController($scope, $window, $cookies) {
+  function ListController($scope, $cookies) {
     var vm = this;
     var notification;
     vm.customers = [];

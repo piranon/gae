@@ -49,21 +49,30 @@
                     <div class="form-group">
                         <div class="text-left require-field">Email</div>
                         <div class="text-left desc-field">อีเมล์เพื่อใช้เข้าสู่ระบบ</div>
-                        <input type="text" ng-model="add.email" class="form-control">
+                        <input type="text" ng-model="add.email" id="email" class="form-control"
+                               ng-keydown="add.keyDownRequired($event)">
+
+                        <div class="add-warning hide" ng-hide='add.email'></div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="text-left require-field">Firstname</div>
                         <div class="text-left desc-field">ชื่อจริง</div>
-                        <input type="text" ng-model="add.firstname" class="form-control">
+                        <input type="text" ng-model="add.firstname" id="first_name" class="form-control"
+                               ng-keydown="add.keyDownRequired($event)">
+
+                        <div class="add-warning hide" ng-hide='add.firstname'></div>
                     </div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <div class="text-left require-field">Lastname</div>
                         <div class="text-left desc-field">นามสกุลจริง</div>
-                        <input type="text" ng-model="add.lastname" class="form-control">
+                        <input type="text" ng-model="add.lastname" id="last_name" class="form-control"
+                               ng-keydown="add.keyDownRequired($event)">
+
+                        <div class="add-warning hide" ng-hide='add.lastname'></div>
                     </div>
                 </div>
             </div>
@@ -90,10 +99,13 @@
                     <div class="form-group">
                         <div class="text-left require-field">User Role</div>
                         <div class="text-left desc-field">ตำแหน่ง หรือแผนก (ระดับการเข้าถึงระบบหลังร้าน)</div>
-                        <select ng-model="add.customerGroup" name="customerGroup" class="form-control"
-                                ng-options="g.name for g in add.groupOption">
+                        <select ng-model="add.customerGroup" id="group_id" name="customerGroup"
+                                class="form-control"
+                                ng-options="g.name for g in add.groupOption" ng-change="add.changeRequired('group_id')">
                             <option value="">เลือกกลุ่มลูกค้า</option>
                         </select>
+
+                        <div class="add-warning hide" ng-hide='add.customerGroup'></div>
                     </div>
                 </div>
                 <div class="col-sm-4"></div>
@@ -107,8 +119,10 @@
                         <input type="{{add.inputType}}" ng-model="add.password" ng-keyup="add.checkPassword()"
                                class="form-control"
                                ng-class="{'add-success': add.password != '' && !add.passwordWarning}" id="password">
+
+                        <div class="add-warning" ng-show='add.passwordWarning'>รหัสต้องมีความยาวอย่างต่ำ 8 ตัว</div>
+                        <div class="add-warning hide" ng-hide='add.password'></div>
                     </div>
-                    <div class="add-warning" ng-show='add.passwordWarning'>รหัสต้องมีความยาวอย่างต่ำ 8 ตัว</div>
                 </div>
                 <div class="col-sm-4">
                     <div class="form-group">
