@@ -106,15 +106,10 @@ class Customer_mathto_customer_group_model extends base_module_model
             'customer.phone',
             'customer.tag',
             'customer.create_time',
-            'customer.update_time',
-            'image.image_id',
-            'image.file_name',
-            'image.file_dir'
+            'customer.update_time'
         ]);
         $this->db->from('customer_mathto_customer_group');
         $this->db->join('customer', 'customer.customer_id = customer_mathto_customer_group.customer_id', 'left');
-        $this->db->join('image_matchto_object', 'image_matchto_object.holder_object_id = customer.customer_id', 'left');
-        $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
         $this->db->where('customer_mathto_customer_group.customer_group_id', $group_id);
         $this->db->where('customer.status', 1);
         $query = $this->db->get();

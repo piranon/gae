@@ -126,10 +126,20 @@ class start extends base_module_controller
 
         // Business logic
         $this->mLoadModel('customer_model');
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('image_model');
+
+        $table_id = $this->table_model->get_table_id('customer');
         $customers = $this->customer_model->get_customers();
 
+        $response = [];
+        foreach ($customers as $customer) {
+            $customer = array_merge($customer, $this->image_model->get_image($table_id, $customer['customer_id']));
+            $response[] = $customer;
+        }
+
         // Response
-        resOk($customers);
+        resOk($response);
     }
 
     function bulk_delete()
@@ -177,10 +187,19 @@ class start extends base_module_controller
 
         $this->mLoadModel('customer_group_model');
         $this->mLoadModel('customer_mathto_customer_group_model');
+        $this->mLoadModel('customer_model');
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('image_model');
 
         $customer_group = $this->customer_group_model->get_group_by_id($id);
         if ($customer_group) {
-            $customer_group['customers'] = $this->customer_mathto_customer_group_model->get_customers($id);
+            $table_id = $this->table_model->get_table_id('customer');
+            $customers = $this->customer_mathto_customer_group_model->get_customers($id);
+            $customer_group['customers'] = [];
+            foreach ($customers as $customer) {
+                $customer = array_merge($customer, $this->image_model->get_image($table_id, $customer['customer_id']));
+                $customer_group['customers'][] = $customer;
+            }
         }
 
         // Response

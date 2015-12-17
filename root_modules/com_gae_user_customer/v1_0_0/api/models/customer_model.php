@@ -101,7 +101,7 @@ class Customer_model extends base_module_model
      * @param int $customer_id
      * @return array
      */
-    public function get_customer_by_id($customer_id)
+    public function get_customer_by_id($table_id, $customer_id)
     {
         $this->customer_select_fields[] = 'customer.password';
         $this->db->select(implode(', ', $this->customer_select_fields));
@@ -110,6 +110,7 @@ class Customer_model extends base_module_model
         $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
         $this->db->where('customer.customer_id', $customer_id);
         $this->db->where_in('customer.status', [Customer_model::STATUS_ACTIVE, Customer_model::STATUS_BLOCK]);
+        $this->db->where_in('image_matchto_object.holder_object_table_id', $table_id);
         $query = $this->db->get();
         return $query->row_array();
     }

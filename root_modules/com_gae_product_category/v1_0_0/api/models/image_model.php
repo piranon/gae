@@ -49,6 +49,11 @@ class Image_model extends base_module_model
         $this->root_image_model->cleanImageRelationByKey($object_table_id, $object_id, $type_id);
     }
 
+    /**
+     * @param int $table_id
+     * @param int $row_id
+     * @return mixed
+     */
     public function get_image($table_id, $row_id)
     {
         $this->db->select('image.image_id, image.file_name, image.file_dir');

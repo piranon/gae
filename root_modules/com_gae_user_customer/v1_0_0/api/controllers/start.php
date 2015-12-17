@@ -127,10 +127,15 @@ class Start extends base_module_controller
         // Business logic
         $this->mLoadModel('customer_mathto_customer_group_model');
         $this->mLoadModel('customer_model');
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('image_model');
+
         $customers = $this->customer_model->get_customers();
+        $table_id = $this->table_model->get_table_id('customer');
 
         $response = [];
         foreach ($customers as $customer) {
+            $customer = array_merge($customer, $this->image_model->get_image($table_id, $customer['customer_id']));
             $customer['groups'] = $this->customer_mathto_customer_group_model->get_customers($customer['customer_id']);
             $response[] = $customer;
         }
@@ -154,9 +159,11 @@ class Start extends base_module_controller
             resDie('id should be integer');
         }
 
+        $this->mLoadModel('table_model');
         $this->mLoadModel('customer_mathto_customer_group_model');
         $this->mLoadModel('customer_model');
-        $customer = $this->customer_model->get_customer_by_id($id);
+        $table_id = $this->table_model->get_table_id('customer');
+        $customer = $this->customer_model->get_customer_by_id($table_id, $id);
         $customer['groups'] = $this->customer_mathto_customer_group_model->get_customers($id);
 
         // Response

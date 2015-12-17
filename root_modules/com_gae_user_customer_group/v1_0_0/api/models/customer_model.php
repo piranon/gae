@@ -22,10 +22,7 @@ class Customer_model extends base_module_model
             'customer.phone',
             'customer.tag',
             'customer.create_time',
-            'customer.update_time',
-            'image.image_id',
-            'image.file_name',
-            'image.file_dir'
+            'customer.update_time'
         ];
     }
 
@@ -36,8 +33,6 @@ class Customer_model extends base_module_model
     {
         $this->db->select(implode(', ', $this->customer_select_fields));
         $this->db->from('customer');
-        $this->db->join('image_matchto_object', 'image_matchto_object.holder_object_id = customer.customer_id', 'left');
-        $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
         $this->db->where('customer.status', Customer_model::STATUS_ACTIVE);
         $this->db->order_by('customer.create_time', 'desc');
         $query = $this->db->get();
