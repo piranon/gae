@@ -57,4 +57,31 @@ class Start extends base_module_controller
         // Response
         resOk(['time' => time()]);
     }
+
+    public function listing()
+    {
+        // Form validation
+        $this->form_validation->onlyGet();
+        $this->form_validation->allRequest();
+        $this->formCheck();
+
+        // Business logic
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('referral_model');
+        $this->mLoadModel('image_model');
+        $this->mLoadModel('extra_field_model');
+
+        $table_id = $this->table_model->get_table_id('referral');
+        $referrals = $this->referral_model->get_referrals($table_id);
+
+        $response = [];
+        foreach ($referrals as $referral) {
+            $referral = array_merge($referral, $this->image_model->get_image($table_id, $referral['referral_id']));
+            $referral['extra_field'] = $this->extra_field_model->get_extra_fields($table_id, $referral['referral_id']);
+            $response[] = $referral;
+        }
+
+        // Response
+        resOk($response);
+    }
 }

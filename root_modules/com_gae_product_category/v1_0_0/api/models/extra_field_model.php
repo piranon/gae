@@ -29,4 +29,13 @@ class Extra_field_model extends base_module_model
         );
         return $this->db->insert_batch('extra_field', $data);
     }
+
+    public function get_extra_fields($table_id, $row_id)
+    {
+        $this->db->from('extra_field');
+        $this->db->where('extra_field.holder_object_table_id', $table_id);
+        $this->db->where('extra_field.holder_object_id', $row_id);
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }

@@ -20,10 +20,7 @@ class Referral_model extends base_module_model
             'referral.status',
             'referral.sort_index',
             'referral.create_time',
-            'referral.update_time',
-            'image.image_id',
-            'image.file_name',
-            'image.file_dir'
+            'referral.update_time'
         ];
     }
 
@@ -42,5 +39,14 @@ class Referral_model extends base_module_model
         }
 
         return $referral_id;
+    }
+
+    public function get_referrals()
+    {
+        $this->db->select(implode(', ', $this->select_fields));
+        $this->db->from('referral');
+        $this->db->order_by('referral.sort_index', 'asc');
+        $query = $this->db->get();
+        return $query->result_array();
     }
 }
