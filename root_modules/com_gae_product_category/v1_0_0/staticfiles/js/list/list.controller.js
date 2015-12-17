@@ -5,9 +5,13 @@
       .module('category')
       .controller('ListController', ListController);
 
-  function ListController($scope, $timeout, $cookies) {
-    var vm = this;
-    var notification;
+  function ListController($scope, $timeout, $cookies, $window) {
+    var vm = this,
+        id = getUrlParameter('id'),
+        notification,
+        apiUrl,
+        successMessage,
+        errorMessage;
     vm.customers = [];
     vm.total = 0;
     vm.limit = 10;
@@ -16,6 +20,7 @@
     vm.onClickBulkDeleteAll = onClickBulkDeleteAll;
     vm.imageProfile = '';
     vm.clickOnUpload = clickOnUpload;
+    vm.addCategory = addCategory;
     vm.onChangeLimit = function (limitList) {
       vm.limit = limitList || 10;
     };
@@ -33,6 +38,9 @@
     };
     vm.setStatusBlock = function (id, status) {
       setStatusBlock(id, status);
+    };
+    vm.keyDownRequired = function ($event) {
+      keyDownRequired($event);
     };
 
     notification = $cookies.getObject('cus_list_noti');
@@ -144,6 +152,54 @@
       $timeout(function () {
         angular.element('#imageCategory').trigger('click');
       }, 100);
+    }
+
+    function keyDownRequired($event) {
+      angular.element('#' + $event.currentTarget.id).parent().removeClass('has-error');
+    }
+
+    function addCategory() {
+      GAEUI.pageLoading().play();
+      if (vm.passwordWarning) {
+        focus('password');
+        GAEUI.pageLoading().stop();
+        return false;
+      }
+      if (id) {
+        apiUrl = 'start/update';
+        successMessage = 'Update category complete';
+        errorMessage = 'Can not update category';
+      } else {
+        apiUrl = 'start/add';
+        successMessage = 'Create category complete';
+        errorMessage = 'Can not create category';
+      }
+      var dataSend = {
+        "id": id || '',
+        "category_name": vm.categoryName || '',
+        "parent_id": vm.parentId || '',
+        "sort_index": vm.sortIndex || '',
+        "profile_pic": vm.fileModel,
+        "label_color": angular.element('#labelColor').val() || '',
+        "font_color": angular.element('#fontColor').val() || ''
+      };
+      CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
+        if (res.ok) {
+          GAEUI.pageLoading().stop();
+          $cookies.putObject('cus_list_noti', {'message': successMessage, 'time':res.data.time}, {'path': '/'});
+          $window.location.href = CUR_MODULE.data.app_url + 'start?timestamp=' + res.data.time;
+        } else {
+          angular.forEach(res.data, function (value, key) {
+            if (value === 'required') {
+              angular.element('#' + key).parent().addClass('has-error');
+              angular.element('#' + key).next().text('ห้ามเว้นว่าง');
+              angular.element('#' + key).next().removeClass('hide');
+            }
+          });
+          GAEUI.pageLoading().stop();
+          GAEUI.notification().playError(errorMessage);
+        }
+      });
     }
 
   }

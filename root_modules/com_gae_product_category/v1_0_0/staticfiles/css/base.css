@@ -43,6 +43,10 @@
     font-size: 18px;
 }
 
+button:focus {
+    outline: none;
+}
+
 .row {
     margin-right: 0px;
     margin-left: 0px;
@@ -308,7 +312,7 @@ body {
     margin-top: 20px;
     margin-bottom: 39px;
     width: 960px;
-    height: 131px;
+    min-height: 131px;
     background-color: whitesmoke;
     border: 1px solid #ff5000;
     border-radius: 5px;
@@ -401,6 +405,13 @@ body {
     margin-top: 46px;
     margin-left: 52px;
 }
+
+.has-error .form-control {
+    color: #e74c3c;
+    border-color: #e74c3c !important;
+    box-shadow: none;
+}
+
 
 .list-filter {
     float: left;

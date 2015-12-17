@@ -26,7 +26,12 @@
                 <div>
                     <div class="create-category-label">Category Name</div>
                     <div class="create-category-desc">ชื่อหมวดสินค้า</div>
-                    <div><input type="text" class="form-control"></div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="list.categoryName" id="category_name"
+                               ng-keydown="list.keyDownRequired($event)">
+
+                        <div class="add-warning hide" ng-hide='list.categoryName'></div>
+                    </div>
                 </div>
                 <div>Icon</div>
                 <div>
@@ -60,7 +65,7 @@
                         <ul class="dropdown">
                             <li></li>
                         </ul>
-                        <input type="hidden" class="colorInput"/>
+                        <input type="hidden" class="colorInput" id="labelColor">
                     </div>
                 </div>
                 <div>
@@ -77,11 +82,11 @@
                         <ul class="dropdown">
                             <li></li>
                         </ul>
-                        <input type="hidden" class="colorInput"/>
+                        <input type="hidden" class="colorInput" id="fontColor">
                     </div>
                 </div>
                 <div>
-                    <a href="#" class="btn-add">
+                    <a class="btn-add" ng-click="list.addCategory();">
                         <span></span>
                     </a>
                 </div>
@@ -113,7 +118,7 @@
                 <div class="table-list-head">
                     <div>
                         <button class="circle-small-warning" type="button" ng-click="list.onClickBulkDeleteAll()"
-                            ng-class="{'active-discount' : list.deleteAll}">
+                                ng-class="{'active-discount' : list.deleteAll}">
                         </button>
                     </div>
                     <div>Icon</div>
@@ -122,84 +127,88 @@
                     <div>Visibility</div>
                     <div>Reorder</div>
                 </div>
-                        <!--                <table class="datatable table tbl-restyled">-->
-<!--                    <thead>-->
-<!--                    <tr>-->
-<!--                        <th style="">-->
-<!--                            <button class="circle-small-warning" type="button" ng-click="list.onClickBulkDeleteAll()"-->
-<!--                                    ng-class="{'active-discount' : list.deleteAll}">-->
-<!--                            </button>-->
-<!--                        </th>-->
-<!--                        <th style="cursor: pointer;" ng-click="list.onClickSort('first_name')">-->
-<!--                            Icon-->
-<!--                        </th>-->
-<!--                        <th style="cursor: pointer;" ng-click="list.onClickSort('user_name')">Category-->
-<!--                            Label-->
-<!--                        </th>-->
-<!--                        <th style="cursor: pointer;" ng-click="list.onClickSort('email')">Category Name</th>-->
-<!--                        <th style="">Visibility</th>-->
-<!--                        <th style=" ">Reorder</th>-->
-<!--                    </tr>-->
-<!--                    </thead>-->
-<!---->
-<!--                    <tbody>-->
-<!--                    <tr dir-paginate="(key, customer) in list.customers|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">-->
-<!--                        <td align="center">-->
-<!--                            <button class="xChoose circle-small-warning" type="button"-->
-<!--                                    ng-class="{'active-discount' : list.deleteSelected(customer.customer_id)}"-->
-<!--                                    ng-click="list.onClickBulkDelete(customer.customer_id)">-->
-<!--                            </button>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <div class="tag-name">-->
-<!--                                <a href="--><?php //echo $curModule->app_url; ?><!--start/detail?id={{customer.customer_id}}">-->
-<!--                                    {{customer.first_name}} {{customer.last_name}}-->
-<!--                                </a>-->
-<!--                            </div>-->
-<!--                            <div class="tag-group-name">-->
-<!--                                <div ng-repeat="group in customer.groups">-->
-<!--                                    <a href="--><?php //echo base_url(); ?><!--module/app/15/start/detail?id={{group.customer_group_id}}">-->
-<!--                                        {{group.name}}-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            <div class="tag-customer" ng-show="customer.tag">-->
-<!--                                Tag:-->
-<!--                                <div class="list">{{customer.tag}}</div>-->
-<!--                            </div>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <div ng-show="customer.image_id" class="circle-size-80">-->
-<!--                                <img-->
-<!--                                    ng-src="--><?php //echo root_url(), 'root_images/'; ?><!--{{customer.file_dir}}r100_{{customer.file_name}}">-->
-<!--                            </div>-->
-<!--                            <div ng-hide="customer.image_id" class="circle-size-80"></div>-->
-<!--                            <div class="tag-username">{{customer.user_name}}</div>-->
-<!--                        </td>-->
-<!--                        <td>-->
-<!--                            <div class="tag-email">{{customer.email}}</div>-->
-<!--                            <div class="tag-tel">{{customer.phone}}</div>-->
-<!--                        </td>-->
-<!--                        <td>0</td>-->
-<!--                        <td class="text-center">-->
-<!--                            <a ng-show="customer.status == 1"-->
-<!--                               ng-click="list.setStatusBlock(customer.customer_id, customer.status)"-->
-<!--                               class="btn-block">-->
-<!--                                <span></span>-->
-<!--                            </a>-->
-<!--                            <a ng-show="customer.status == 2"-->
-<!--                               ng-click="list.setStatusBlock(customer.customer_id, customer.status)"-->
-<!--                               class="btn-block btn-block-selected">-->
-<!--                                <span></span>-->
-<!--                            </a>-->
-<!--                            <a href="--><?php //echo $curModule->app_url; ?><!--start/add?id={{customer.customer_id}}"-->
-<!--                               class="btn-edit">-->
-<!--                                <span></span>-->
-<!--                            </a>-->
-<!--                        </td>-->
-<!--                    </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
+                <!--                <table class="datatable table tbl-restyled">-->
+                <!--                    <thead>-->
+                <!--                    <tr>-->
+                <!--                        <th style="">-->
+                <!--                            <button class="circle-small-warning" type="button" ng-click="list.onClickBulkDeleteAll()"-->
+                <!--                                    ng-class="{'active-discount' : list.deleteAll}">-->
+                <!--                            </button>-->
+                <!--                        </th>-->
+                <!--                        <th style="cursor: pointer;" ng-click="list.onClickSort('first_name')">-->
+                <!--                            Icon-->
+                <!--                        </th>-->
+                <!--                        <th style="cursor: pointer;" ng-click="list.onClickSort('user_name')">Category-->
+                <!--                            Label-->
+                <!--                        </th>-->
+                <!--                        <th style="cursor: pointer;" ng-click="list.onClickSort('email')">Category Name</th>-->
+                <!--                        <th style="">Visibility</th>-->
+                <!--                        <th style=" ">Reorder</th>-->
+                <!--                    </tr>-->
+                <!--                    </thead>-->
+                <!---->
+                <!--                    <tbody>-->
+                <!--                    <tr dir-paginate="(key, customer) in list.customers|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">-->
+                <!--                        <td align="center">-->
+                <!--                            <button class="xChoose circle-small-warning" type="button"-->
+                <!--                                    ng-class="{'active-discount' : list.deleteSelected(customer.customer_id)}"-->
+                <!--                                    ng-click="list.onClickBulkDelete(customer.customer_id)">-->
+                <!--                            </button>-->
+                <!--                        </td>-->
+                <!--                        <td>-->
+                <!--                            <div class="tag-name">-->
+                <!--                                <a href="-->
+                <?php //echo $curModule->app_url; ?><!--start/detail?id={{customer.customer_id}}">-->
+                <!--                                    {{customer.first_name}} {{customer.last_name}}-->
+                <!--                                </a>-->
+                <!--                            </div>-->
+                <!--                            <div class="tag-group-name">-->
+                <!--                                <div ng-repeat="group in customer.groups">-->
+                <!--                                    <a href="-->
+                <?php //echo base_url(); ?><!--module/app/15/start/detail?id={{group.customer_group_id}}">-->
+                <!--                                        {{group.name}}-->
+                <!--                                    </a>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                            <div class="tag-customer" ng-show="customer.tag">-->
+                <!--                                Tag:-->
+                <!--                                <div class="list">{{customer.tag}}</div>-->
+                <!--                            </div>-->
+                <!--                        </td>-->
+                <!--                        <td>-->
+                <!--                            <div ng-show="customer.image_id" class="circle-size-80">-->
+                <!--                                <img-->
+                <!--                                    ng-src="-->
+                <?php //echo root_url(), 'root_images/'; ?><!--{{customer.file_dir}}r100_{{customer.file_name}}">-->
+                <!--                            </div>-->
+                <!--                            <div ng-hide="customer.image_id" class="circle-size-80"></div>-->
+                <!--                            <div class="tag-username">{{customer.user_name}}</div>-->
+                <!--                        </td>-->
+                <!--                        <td>-->
+                <!--                            <div class="tag-email">{{customer.email}}</div>-->
+                <!--                            <div class="tag-tel">{{customer.phone}}</div>-->
+                <!--                        </td>-->
+                <!--                        <td>0</td>-->
+                <!--                        <td class="text-center">-->
+                <!--                            <a ng-show="customer.status == 1"-->
+                <!--                               ng-click="list.setStatusBlock(customer.customer_id, customer.status)"-->
+                <!--                               class="btn-block">-->
+                <!--                                <span></span>-->
+                <!--                            </a>-->
+                <!--                            <a ng-show="customer.status == 2"-->
+                <!--                               ng-click="list.setStatusBlock(customer.customer_id, customer.status)"-->
+                <!--                               class="btn-block btn-block-selected">-->
+                <!--                                <span></span>-->
+                <!--                            </a>-->
+                <!--                            <a href="-->
+                <?php //echo $curModule->app_url; ?><!--start/add?id={{customer.customer_id}}"-->
+                <!--                               class="btn-edit">-->
+                <!--                                <span></span>-->
+                <!--                            </a>-->
+                <!--                        </td>-->
+                <!--                    </tr>-->
+                <!--                    </tbody>-->
+                <!--                </table>-->
             </div>
             <div class="row" ng-show="list.customers">
                 <div class="col-xs-6">
