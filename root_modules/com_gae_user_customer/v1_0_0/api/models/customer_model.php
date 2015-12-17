@@ -6,29 +6,9 @@ class Customer_model extends base_module_model
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK = 2;
 
-    /** @var array */
-    private $customer_select_fields;
-
     public function __construct()
     {
         parent::__construct();
-        $this->customer_select_fields = [
-            'customer.customer_id',
-            'customer.user_name',
-            'customer.first_name',
-            'customer.last_name',
-            'customer.birthday',
-            'customer.gender_type_id',
-            'customer.email',
-            'customer.phone',
-            'customer.tag',
-            'customer.status',
-            'customer.create_time',
-            'customer.update_time',
-            'image.image_id',
-            'image.file_name',
-            'image.file_dir'
-        ];
     }
 
     /**
@@ -103,8 +83,24 @@ class Customer_model extends base_module_model
      */
     public function get_customer_by_id($table_id, $customer_id)
     {
-        $this->customer_select_fields[] = 'customer.password';
-        $this->db->select(implode(', ', $this->customer_select_fields));
+        $this->db->select([
+            'customer.customer_id',
+            'customer.user_name',
+            'customer.first_name',
+            'customer.last_name',
+            'customer.birthday',
+            'customer.gender_type_id',
+            'customer.email',
+            'customer.phone',
+            'customer.tag',
+            'customer.status',
+            'customer.create_time',
+            'customer.update_time',
+            'customer.password',
+            'image.image_id',
+            'image.file_name',
+            'image.file_dir'
+        ]);
         $this->db->from('customer');
         $this->db->join('image_matchto_object', 'image_matchto_object.holder_object_id = customer.customer_id', 'left');
         $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
@@ -120,10 +116,7 @@ class Customer_model extends base_module_model
      */
     public function get_customers()
     {
-        $this->db->select(implode(', ', $this->customer_select_fields));
         $this->db->from('customer');
-        $this->db->join('image_matchto_object', 'image_matchto_object.holder_object_id = customer.customer_id', 'left');
-        $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
         $this->db->where('customer.status', Customer_model::STATUS_ACTIVE);
         $this->db->or_where('customer.status', Customer_model::STATUS_BLOCK);
         $this->db->order_by('customer.create_time', 'desc');

@@ -6,25 +6,9 @@ class Staff_model extends base_module_model
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK = 2;
 
-    /** @var array */
-    private $staff_select_fields;
-
     public function __construct()
     {
         parent::__construct();
-        $this->staff_select_fields = [
-            'staff.staff_id',
-            'staff.user_name',
-            'staff.first_name',
-            'staff.last_name',
-            'staff.email',
-            'staff.status',
-            'staff.create_time',
-            'staff.update_time',
-            'image.image_id',
-            'image.file_name',
-            'image.file_dir'
-        ];
     }
 
     /**
@@ -97,15 +81,28 @@ class Staff_model extends base_module_model
      * @param int $staff_id
      * @return array
      */
-    public function get_staff_by_id($staff_id)
+    public function get_staff_by_id($table_id, $staff_id)
     {
-        $this->staff_select_fields[] = 'staff.password';
-        $this->db->select(implode(', ', $this->staff_select_fields));
+        $this->db->select([
+            'staff.staff_id',
+            'staff.user_name',
+            'staff.first_name',
+            'staff.last_name',
+            'staff.email',
+            'staff.status',
+            'staff.create_time',
+            'staff.update_time',
+            'staff.password',
+            'image.image_id',
+            'image.file_name',
+            'image.file_dir'
+        ]);
         $this->db->from('staff');
         $this->db->join('image_matchto_object', 'image_matchto_object.holder_object_id = staff.staff_id', 'left');
         $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
         $this->db->where('staff.staff_id', $staff_id);
         $this->db->where_in('staff.status', [Staff_model::STATUS_ACTIVE, Staff_model::STATUS_BLOCK]);
+        $this->db->where_in('image_matchto_object.holder_object_table_id', $table_id);
         $query = $this->db->get();
         return $query->row_array();
     }
@@ -115,10 +112,17 @@ class Staff_model extends base_module_model
      */
     public function get_staffs()
     {
-        $this->db->select(implode(', ', $this->staff_select_fields));
+        $this->db->select([
+            'staff.staff_id',
+            'staff.user_name',
+            'staff.first_name',
+            'staff.last_name',
+            'staff.email',
+            'staff.status',
+            'staff.create_time',
+            'staff.update_time',
+        ]);
         $this->db->from('staff');
-        $this->db->join('image_matchto_object', 'image_matchto_object.holder_object_id = staff.staff_id', 'left');
-        $this->db->join('image', 'image.image_id = image_matchto_object.image_id', 'left');
         $this->db->where('staff.status', Staff_model::STATUS_ACTIVE);
         $this->db->or_where('staff.status', Staff_model::STATUS_BLOCK);
         $this->db->order_by('staff.create_time', 'desc');

@@ -121,7 +121,10 @@ class Start extends base_module_controller
 
         $this->mLoadModel('staff_mathto_staff_group_model');
         $this->mLoadModel('staff_model');
-        $staff = $this->staff_model->get_staff_by_id($id);
+        $this->mLoadModel('table_model');
+
+        $table_id = $this->table_model->get_table_id('staff');
+        $staff = $this->staff_model->get_staff_by_id($table_id, $id);
         $staff['groups'] = $this->staff_mathto_staff_group_model->get_staffs($id);
 
         // Response
@@ -138,10 +141,15 @@ class Start extends base_module_controller
         // Business logic
         $this->mLoadModel('staff_mathto_staff_group_model');
         $this->mLoadModel('staff_model');
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('image_model');
+
         $staffs = $this->staff_model->get_staffs();
+        $table_id = $this->table_model->get_table_id('staff');
 
         $response = [];
         foreach ($staffs as $staff) {
+            $staff = array_merge($staff, $this->image_model->get_image($table_id, $staff['staff_id']));
             $staff['groups'] = $this->staff_mathto_staff_group_model->get_staffs($staff['staff_id']);
             $response[] = $staff;
         }
