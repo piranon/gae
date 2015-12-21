@@ -61,7 +61,7 @@
                             <div class="colorInner"></div>
                         </a>
 
-                        <div class="track"></div>
+                        <div class="track" ng-click="list.colorPick('#colorPicker');"></div>
                         <ul class="dropdown">
                             <li></li>
                         </ul>
@@ -103,7 +103,7 @@
                 </div>
                 <div>&nbsp;
                     <div ng-show="list.items">
-                        {{list.selectedDeleteId.length}} category selected from total {{list.total}}  categories
+                        {{list.selectedDeleteId.length}} category selected from total {{list.total}} categories
                     </div>
                 </div>
                 <div>
@@ -129,7 +129,8 @@
                     <div>Visibility</div>
                     <div>Reorder</div>
                 </div>
-                <div class="table-row" dir-paginate="(key, item) in list.items|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">
+                <div class="table-row"
+                     dir-paginate="(key, item) in list.items|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">
                     <div>
                         <button class="xChoose circle-small-warning" type="button"
                                 ng-class="{'active-discount' : list.deleteSelected(item.referral_id)}"
@@ -152,11 +153,19 @@
                         <a class="btn-expand">
                             <span></span>
                         </a>
+
                         <div class="item-name">{{item.name}} (0)</div>
                         <a class="btn-add-s">
                             <span></span>
                         </a>
-                        <a class="btn-edit">
+                        <a class="btn-edit" id="btn-edit-{{item.referral_id}}"
+                           ng-click="list.onClickEdit(item.referral_id)"
+                           data-referral_id="{{item.referral_id}}"
+                           data-name="{{item.name}}"
+                           data-image_id="{{item.image_id}}"
+                           data-image="<?php echo root_url(), 'root_images/'; ?>{{item.file_dir}}r100_{{item.file_name}}"
+                           data-label="{{item.label_color}}"
+                           data-font="{{item.font_color}}">
                             <span></span>
                         </a>
                         <a class="btn-del-s">

@@ -41,6 +41,26 @@ class Referral_model extends base_module_model
         return $referral_id;
     }
 
+    /**
+     * @param array $referral
+     * @param string $referral_id
+     * @return mixed
+     * @throws Exception
+     */
+    public function update($referral, $referral_id)
+    {
+        $this->db->where('referral_id', $referral_id);
+        $this->db->update('referral', array_filter($referral));
+
+        $result = $this->db->affected_rows();
+
+        if (!$result){
+            throw new Exception('Cannot update category data');
+        }
+
+        return $result;
+    }
+
     public function get_referrals()
     {
         $this->db->select(implode(', ', $this->select_fields));

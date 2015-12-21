@@ -617,8 +617,8 @@ body {
 .btn-add > span {
     background: url('../icon/fa-plus.png') no-repeat scroll 0px 0px;
     display: inline-block;
-    height: 16px;
-    width: 16px;
+    height: 40px;
+    width: 40px;
 }
 
 .btn-add:hover {
@@ -642,6 +642,32 @@ body {
     display: inline-block;
     width: 21px;
     height: 24px;
+}
+
+.btn-save {
+    float: left;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ff8300;
+    border: 0px;
+    color: #ffad00;
+    padding: 10px 12px;
+}
+
+.btn-save > span {
+    background: url('../icon/fa-save.png') no-repeat scroll 0px 0px;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+}
+
+.btn-save:hover {
+    background-color: #ff9f39;
+}
+
+.btn-save:active {
+    background-color: #c66500;
 }
 
 .active-discount {

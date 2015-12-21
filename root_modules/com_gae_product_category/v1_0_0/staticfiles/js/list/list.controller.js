@@ -7,7 +7,7 @@
 
   function ListController($scope, $timeout, $cookies, $window) {
     var vm = this,
-        id = getUrlParameter('id'),
+        cateId,
         notification,
         apiUrl,
         successMessage,
@@ -42,6 +42,36 @@
     vm.keyDownRequired = function ($event) {
       keyDownRequired($event);
     };
+    vm.onClickEdit = function (id) {
+      onClickEdit(id);
+    };
+
+    function onClickEdit(id) {
+      cateId = id;
+      angular.element('#pic-icon').removeClass('ng-hide');
+      angular.element('#colorPicker .colorInner').removeAttr("style");
+      angular.element('#colorPicker2 .colorInner').removeAttr("style");
+      var element = '#btn-edit-' + id;
+      var name = angular.element(element).data('name');
+      var imageId = angular.element(element).data('image_id');
+      var image = angular.element(element).data('image');
+      var label = angular.element(element).data('label');
+      var font = angular.element(element).data('font');
+      if (name) {
+        vm.categoryName = angular.element(element).data('name');
+      }
+      if (imageId) {
+        vm.imageProfile = angular.element(element).data('image');
+      }
+      if (label !== '#eee') {
+        angular.element('#colorPicker .colorInner').css('background', label);
+      }
+      if (font !== '#666') {
+        angular.element('#colorPicker2 .colorInner').css('background', font);
+      }
+      angular.element('.btn-add').addClass('btn-save');
+      angular.element('.btn-add').removeClass('btn-add');
+    }
 
     notification = $cookies.getObject('cus_list_noti');
     if (notification && notification.time == getUrlParameter('timestamp')) {
@@ -160,12 +190,7 @@
 
     function addCategory() {
       GAEUI.pageLoading().play();
-      if (vm.passwordWarning) {
-        focus('password');
-        GAEUI.pageLoading().stop();
-        return false;
-      }
-      if (id) {
+      if (cateId) {
         apiUrl = 'start/update';
         successMessage = 'Update category complete';
         errorMessage = 'Can not update category';
@@ -175,7 +200,7 @@
         errorMessage = 'Can not create category';
       }
       var dataSend = {
-        "id": id || '',
+        "id": cateId || '',
         "category_name": vm.categoryName || '',
         "parent_id": vm.parentId || '',
         "sort_index": vm.sortIndex || '',
