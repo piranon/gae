@@ -173,7 +173,16 @@
                         </a>
                     </div>
                     <div>
-                        <a class="item-show">Show</a>
+                        <a ng-show="item.status == 1"
+                           ng-click="list.setStatusBlock(item.referral_id, item.status)"
+                           class="item-show">
+                            Show
+                        </a>
+                        <a ng-show="item.status == 2"
+                           ng-click="list.setStatusBlock(item.referral_id, item.status)"
+                           class="item-hide">
+                            hide
+                        </a>
                     </div>
                     <div><a class="btn-re-oder"><span></span></a></div>
                 </div>

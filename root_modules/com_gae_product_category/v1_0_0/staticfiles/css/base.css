@@ -505,7 +505,12 @@ body {
 }
 
 .item-hide {
-
+    color: #aaa;
+    font-family: "Source Sans Pro";
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    cursor: pointer;
 }
 
 .circle-small-warning {

@@ -168,7 +168,7 @@
 
     function switchStatus(id, status) {
       angular.forEach(vm.items, function (value, key) {
-        if (value.customer_id == id) {
+        if (value.referral_id == id) {
           if (status == 1) {
             vm.items[key].status = 2;
           } else {
