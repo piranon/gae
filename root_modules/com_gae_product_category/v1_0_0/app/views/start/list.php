@@ -96,12 +96,14 @@
                     <select ng-model="list.bulkDelete" ng-change="list.onChangeBulkDelete(list.bulkDelete)"
                             class="form-control ng-pristine ng-valid ng-touched bulk-delete">
                         <option value="">Bulk Action</option>
+                        <option value="1">Show Selected</option>
+                        <option value="1">Hide Selected</option>
                         <option value="1">Delete Selected</option>
                     </select>
                 </div>
                 <div>&nbsp;
-                    <div ng-show="list.customers">{{list.selectedDeleteId.length}} customer selected from total
-                        {{list.total}} customers
+                    <div ng-show="list.items">
+                        {{list.selectedDeleteId.length}} category selected from total {{list.total}}  categories
                     </div>
                 </div>
                 <div>
@@ -126,6 +128,45 @@
                     <div>Category Name</div>
                     <div>Visibility</div>
                     <div>Reorder</div>
+                </div>
+                <div class="table-row" dir-paginate="(key, item) in list.items|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">
+                    <div>
+                        <button class="xChoose circle-small-warning" type="button"
+                                ng-class="{'active-discount' : list.deleteSelected(item.referral_id)}"
+                                ng-click="list.onClickBulkDelete(item.referral_id)">
+                        </button>
+                    </div>
+                    <div>
+                        <img ng-show="item.image_id" width="70" height="70"
+                             ng-src="<?php echo root_url(), 'root_images/'; ?>{{item.file_dir}}r100_{{item.file_name}}">
+                        <img ng-hide="item.image_id" width="70" height="70"
+                             ng-src="<?php echo $curModule->file_url; ?>icon/image_upload.png">
+                    </div>
+                    <div>
+                        <div class="item-label"
+                             style="background-color:{{item.label_color}}; color: {{item.font_color}}">
+                            {{item.name}}
+                        </div>
+                    </div>
+                    <div>
+                        <a class="btn-expand">
+                            <span></span>
+                        </a>
+                        <div class="item-name">{{item.name}} (0)</div>
+                        <a class="btn-add-s">
+                            <span></span>
+                        </a>
+                        <a class="btn-edit">
+                            <span></span>
+                        </a>
+                        <a class="btn-del-s">
+                            <span></span>
+                        </a>
+                    </div>
+                    <div>
+                        <a class="item-show">Show</a>
+                    </div>
+                    <div><a class="btn-re-oder"><span></span></a></div>
                 </div>
                 <!--                <table class="datatable table tbl-restyled">-->
                 <!--                    <thead>-->
@@ -210,7 +251,7 @@
                 <!--                    </tbody>-->
                 <!--                </table>-->
             </div>
-            <div class="row" ng-show="list.customers">
+            <div class="row" ng-show="list.items">
                 <div class="col-xs-6">
                     <dir-pagination-controls
                         template-url="<?php echo $curModule->file_url; ?>template/summary-pagination.html">
@@ -227,7 +268,7 @@
                 </div>
             </div>
             <div class="clearfix"></div>
-            <div ng-hide="list.customers" class="clearfix row no-customer">
+            <div ng-hide="list.items" class="clearfix row no-customer">
                 <div class="col-xs-12">
                     <img ng-src="<?php echo $curModule->file_url; ?>icon/no_item.png">
 

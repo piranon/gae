@@ -12,7 +12,7 @@
         apiUrl,
         successMessage,
         errorMessage;
-    vm.customers = [];
+    vm.items = [];
     vm.total = 0;
     vm.limit = 10;
     vm.selectedDeleteId = [];
@@ -54,7 +54,7 @@
     function fetchListing() {
       CUR_MODULE.apiGet("start/listing").then(function (res) {
         $scope.$apply(function () {
-          vm.customers = res.data;
+          vm.items = res.data;
           vm.total = res.data.length;
         });
       });
@@ -104,7 +104,7 @@
       } else {
         vm.deleteAll = true;
         vm.selectedDeleteId = [];
-        angular.forEach(vm.customers, function (value, key) {
+        angular.forEach(vm.items, function (value, key) {
           vm.selectedDeleteId.push(value.customer_id);
         });
       }
@@ -137,12 +137,12 @@
     }
 
     function switchStatus(id, status) {
-      angular.forEach(vm.customers, function (value, key) {
+      angular.forEach(vm.items, function (value, key) {
         if (value.customer_id == id) {
           if (status == 1) {
-            vm.customers[key].status = 2;
+            vm.items[key].status = 2;
           } else {
-            vm.customers[key].status = 1;
+            vm.items[key].status = 1;
           }
         }
       });

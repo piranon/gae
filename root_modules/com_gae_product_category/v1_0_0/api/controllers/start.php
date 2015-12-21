@@ -77,7 +77,16 @@ class Start extends base_module_controller
         $response = [];
         foreach ($referrals as $referral) {
             $referral = array_merge($referral, $this->image_model->get_image($table_id, $referral['referral_id']));
-            $referral['extra_field'] = $this->extra_field_model->get_extra_fields($table_id, $referral['referral_id']);
+            $extra_fields = $this->extra_field_model->get_extra_fields($table_id, $referral['referral_id']);
+            foreach ($extra_fields as $extra_field) {
+                if ($extra_field['field_name'] === 'label_color' && !$extra_field['field_value']) {
+                    $extra_field['field_value'] = '#eee';
+                }
+                if ($extra_field['field_name'] === 'font_color' && !$extra_field['field_value']) {
+                    $extra_field['field_value'] = '#666';
+                }
+                $referral[$extra_field['field_name']] = $extra_field['field_value'];
+            }
             $response[] = $referral;
         }
 
