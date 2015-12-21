@@ -91,28 +91,38 @@
     }
 
     function onChangeBulkDelete(action) {
-      if (action != 1) {
-        return false;
-      }
       GAEUI.pageLoading().play();
       if (vm.selectedDeleteId.length === 0) {
         vm.bulkDelete = "";
         GAEUI.pageLoading().stop();
-        GAEUI.notification().playError('Please select some customer');
+        GAEUI.notification().playError('Please select some category');
       } else {
+        if (action == 1) {
+          apiUrl = 'start/bulk_show';
+          successMessage = 'Update status category complete';
+          errorMessage = 'Can not update status category';
+        } else if (action == 2) {
+          apiUrl = 'start/bulk_hide';
+          successMessage = 'Update status category complete';
+          errorMessage = 'Can not update status category';
+        } else if (action == 3) {
+          apiUrl = 'start/bulk_delete';
+          successMessage = 'Delete category complete';
+          errorMessage = 'Can not delete category';
+        }
         var dataSend = {
           "ids": vm.selectedDeleteId
         };
-        CUR_MODULE.apiPost('start/bulk_delete', dataSend).then(function (res) {
+        CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
           vm.selectedDeleteId = [];
           vm.bulkDelete = "";
           if (res.ok) {
             fetchListing();
             GAEUI.pageLoading().stop();
-            GAEUI.notification().playComplete("Delete customer complete");
+            GAEUI.notification().playComplete(successMessage);
           } else {
             GAEUI.pageLoading().stop();
-            GAEUI.notification().playError('Can not delete customer');
+            GAEUI.notification().playError(errorMessage);
           }
         });
       }
@@ -135,7 +145,7 @@
         vm.deleteAll = true;
         vm.selectedDeleteId = [];
         angular.forEach(vm.items, function (value, key) {
-          vm.selectedDeleteId.push(value.customer_id);
+          vm.selectedDeleteId.push(value.referral_id);
         });
       }
     }

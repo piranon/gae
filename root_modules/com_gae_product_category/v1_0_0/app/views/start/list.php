@@ -97,8 +97,8 @@
                             class="form-control ng-pristine ng-valid ng-touched bulk-delete">
                         <option value="">Bulk Action</option>
                         <option value="1">Show Selected</option>
-                        <option value="1">Hide Selected</option>
-                        <option value="1">Delete Selected</option>
+                        <option value="2">Hide Selected</option>
+                        <option value="3">Delete Selected</option>
                     </select>
                 </div>
                 <div>&nbsp;

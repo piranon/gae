@@ -4,6 +4,7 @@ class Start extends base_module_controller
 {
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
+    const STATUS_BLOCK = 2;
 
     public function __construct()
     {
@@ -167,6 +168,97 @@ class Start extends base_module_controller
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
+        // Response
+        resOk();
+    }
+
+    public function bulk_delete()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('ids', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $referral_ids = t_Post('ids');
+
+        // Business logic
+        $referral_ids = explode(',', $referral_ids);
+        if (!is_array($referral_ids)) {
+            resDie("Cannot delete referral data");
+        }
+
+        $this->mLoadModel('table_model');
+        $this->mLoadModel('referral_model');
+        $this->mLoadModel('image_model');
+
+        try {
+            $table_id = $this->table_model->get_table_id('referral');
+            $this->referral_model->batch_update($referral_ids, self::STATUS_INACTIVE);
+
+            foreach ($referral_ids as $referral_id) {
+                $this->image_model->delete_image($referral_id, $table_id);
+            }
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
+        // Response
+        resOk();
+    }
+
+    public function bulk_show()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('ids', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $referral_ids = t_Post('ids');
+
+        // Business logic
+        $referral_ids = explode(',', $referral_ids);
+        if (!is_array($referral_ids)) {
+            resDie("Cannot delete referral data");
+        }
+
+        $this->mLoadModel('referral_model');
+
+        try {
+            $this->referral_model->batch_update($referral_ids, self::STATUS_ACTIVE);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
+        // Response
+        resOk();
+    }
+
+    public function bulk_hide()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('ids', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $referral_ids = t_Post('ids');
+
+        // Business logic
+        $referral_ids = explode(',', $referral_ids);
+        if (!is_array($referral_ids)) {
+            resDie("Cannot delete referral data");
+        }
+
+        $this->mLoadModel('referral_model');
+
+        try {
+            $this->referral_model->batch_update($referral_ids, self::STATUS_BLOCK);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
         // Response
         resOk();
     }
