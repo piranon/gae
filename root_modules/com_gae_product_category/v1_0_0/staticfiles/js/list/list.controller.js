@@ -160,30 +160,19 @@
 
     function setStatusBlock(id, status) {
       GAEUI.pageLoading().play();
-      switchStatus(id, status);
       var dataSend = {
         "id": id,
         "status": status
       };
+      console.log(dataSend);
       CUR_MODULE.apiPost('start/update_status', dataSend).then(function (res) {
         if (res.ok) {
+          fetchListing();
           GAEUI.pageLoading().stop();
           GAEUI.notification().playComplete("Update status complete");
         } else {
           GAEUI.pageLoading().stop();
           GAEUI.notification().playError('Cannot update status');
-        }
-      });
-    }
-
-    function switchStatus(id, status) {
-      angular.forEach(vm.items, function (value, key) {
-        if (value.referral_id == id) {
-          if (status == 1) {
-            vm.items[key].status = 2;
-          } else {
-            vm.items[key].status = 1;
-          }
         }
       });
     }

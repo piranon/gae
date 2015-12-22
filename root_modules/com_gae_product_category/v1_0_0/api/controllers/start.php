@@ -89,7 +89,7 @@ class Start extends base_module_controller
         $this->mLoadModel('extra_field_model');
 
         try {
-            $this->referral_model->update($dbData, $referral_id);
+            $this->referral_model->update(array_filter($dbData), $referral_id);
             $table_id = $this->table_model->get_table_id('referral');
             $this->image_model->upload_image($referral_id, $table_id);
             $this->extra_field_model->update_color(
@@ -154,12 +154,19 @@ class Start extends base_module_controller
         $referral_status = t_Post('status');
 
         // Business logic
-        $status_active = 1;
-        $status_blocked = 2;
-
         $dbData = array();
-        $dbData['status'] = $referral_status == $status_active ? $status_blocked : $status_active;
         $dbData['update_time'] = time();
+        switch ($referral_status) {
+            case self::STATUS_INACTIVE:
+                $dbData['status'] = self::STATUS_INACTIVE;
+                break;
+            case self::STATUS_ACTIVE:
+                $dbData['status'] = self::STATUS_ACTIVE;
+                break;
+            case self::STATUS_BLOCK:
+                $dbData['status'] = self::STATUS_BLOCK;
+                break;
+        }
 
         $this->mLoadModel('referral_model');
 

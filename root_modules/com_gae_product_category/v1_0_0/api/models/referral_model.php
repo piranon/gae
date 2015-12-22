@@ -50,7 +50,7 @@ class Referral_model extends base_module_model
     public function update($referral, $referral_id)
     {
         $this->db->where('referral_id', $referral_id);
-        $this->db->update('referral', array_filter($referral));
+        $this->db->update('referral', $referral);
 
         $result = $this->db->affected_rows();
 

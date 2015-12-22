@@ -168,18 +168,18 @@
                            data-font="{{item.font_color}}">
                             <span></span>
                         </a>
-                        <a class="btn-del-s">
+                        <a class="btn-del-s" ng-click="list.setStatusBlock(item.referral_id, 0)">
                             <span></span>
                         </a>
                     </div>
                     <div>
                         <a ng-show="item.status == 1"
-                           ng-click="list.setStatusBlock(item.referral_id, item.status)"
+                           ng-click="list.setStatusBlock(item.referral_id, 2)"
                            class="item-show">
                             Show
                         </a>
                         <a ng-show="item.status == 2"
-                           ng-click="list.setStatusBlock(item.referral_id, item.status)"
+                           ng-click="list.setStatusBlock(item.referral_id, 1)"
                            class="item-hide">
                             hide
                         </a>
