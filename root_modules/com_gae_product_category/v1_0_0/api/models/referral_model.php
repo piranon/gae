@@ -68,6 +68,7 @@ class Referral_model extends base_module_model
     {
         $this->db->select(implode(', ', $this->select_fields));
         $this->db->from('referral');
+        $this->db->where('parent_id', 0);
         $this->db->where_in('status', [self::STATUS_ACTIVE, self::STATUS_BLOCK]);
         $this->db->order_by('referral.sort_index', 'asc');
         $query = $this->db->get();
@@ -91,5 +92,26 @@ class Referral_model extends base_module_model
         }
 
         return $result;
+    }
+
+    public function get_cate_child($id, $level)
+    {
+        $level++;
+        $this->db->from('referral');
+        $this->db->where('parent_id', $id);
+        $this->db->order_by('referral.sort_index', 'asc');
+        $query = $this->db->get();
+        $referrals = $query->result_array();
+
+        foreach ($referrals as $key => $referral) {
+            if ($level <= 5) {
+                $cate_child = $this->get_cate_child($referral['referral_id'], $level);
+                $referrals[$key]['cate_lv'] = $level - 1;
+                $referrals[$key]['cate_child_count'] = count($cate_child);
+                $referrals[$key]['cate_child'] = $cate_child;
+            }
+        }
+
+        return $referrals;
     }
 }

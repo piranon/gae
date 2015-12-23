@@ -134,6 +134,10 @@ class Start extends base_module_controller
                 }
                 $referral[$extra_field['field_name']] = $extra_field['field_value'];
             }
+            $cate_child = $this->referral_model->get_cate_child($referral['referral_id'], 2);
+            $referral['cate_lv'] = 1;
+            $referral['cate_child_count'] = count($cate_child);
+            $referral['cate_child'] = $cate_child;
             $response[] = $referral;
         }
 

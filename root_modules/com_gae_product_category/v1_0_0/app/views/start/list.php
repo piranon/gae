@@ -22,7 +22,7 @@
                     สร้างหมวดสินค้าหลัก
                 </div>
             </div>
-            <div class="create-category">
+            <div class="create-category" ng-show="!list.displaySubCateForm">
                 <div>
                     <div class="create-category-label">Category Name</div>
                     <div class="create-category-desc">ชื่อหมวดสินค้า</div>
@@ -86,7 +86,24 @@
                     </div>
                 </div>
                 <div>
-                    <a class="btn-add" ng-click="list.addCategory();">
+                    <a class="btn-add" ng-click="list.addCategory(false);">
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+            <div class="create-category create-sub-category" ng-show="list.displaySubCateForm">
+                <div>
+                    <div class="create-category-label">Category Name</div>
+                    <div class="create-category-desc">ชื่อหมวดสินค้า</div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" ng-model="list.subCategoryName" id="category_name"
+                               ng-keydown="list.keyDownRequired($event)" placeholder="{{list.placeholderSubCateName}}">
+
+                        <div class="add-warning hide" ng-hide='list.subCategoryName'></div>
+                    </div>
+                </div>
+                <div>
+                    <a class="btn-add" ng-click="list.addCategory(true);">
                         <span></span>
                     </a>
                 </div>
@@ -150,27 +167,90 @@
                         </div>
                     </div>
                     <div>
-                        <a class="btn-expand">
-                            <span></span>
-                        </a>
+                        <div>
+                            <a class="btn-expand">
+                                <span></span>
+                            </a>
 
-                        <div class="item-name">{{item.name}} (0)</div>
-                        <a class="btn-add-s">
+                            <div class="item-name">{{item.name}} ({{item.cate_child_count}})</div>
+                            <a class="btn-add-s" ng-click="list.createSubCate(item.referral_id, item.name)">
+                                <span></span>
+                            </a>
+                            <a class="btn-edit" id="btn-edit-{{item.referral_id}}"
+                               ng-click="list.onClickEdit(item.referral_id)"
+                               data-referral_id="{{item.referral_id}}"
+                               data-name="{{item.name}}"
+                               data-image_id="{{item.image_id}}"
+                               data-image="<?php echo root_url(), 'root_images/'; ?>{{item.file_dir}}r100_{{item.file_name}}"
+                               data-label="{{item.label_color}}"
+                               data-font="{{item.font_color}}">
+                                <span></span>
+                            </a>
+                            <a class="btn-del-s" ng-click="list.setStatusBlock(item.referral_id, 0)">
+                                <span></span>
+                            </a>
+                        </div>
+                        <div class="clear"></div>
+                        <a class="btn-expand btn-expand-lv2" ng-show="item.cate_child_count">
                             <span></span>
                         </a>
-                        <a class="btn-edit" id="btn-edit-{{item.referral_id}}"
-                           ng-click="list.onClickEdit(item.referral_id)"
-                           data-referral_id="{{item.referral_id}}"
-                           data-name="{{item.name}}"
-                           data-image_id="{{item.image_id}}"
-                           data-image="<?php echo root_url(), 'root_images/'; ?>{{item.file_dir}}r100_{{item.file_name}}"
-                           data-label="{{item.label_color}}"
-                           data-font="{{item.font_color}}">
-                            <span></span>
-                        </a>
-                        <a class="btn-del-s" ng-click="list.setStatusBlock(item.referral_id, 0)">
-                            <span></span>
-                        </a>
+                        <!-- lv2 -->
+                        <div ng-repeat="(key2, v2) in item.cate_child" class="cate-lv-2">
+                            <div class="clear"></div>
+                            <div  style="width: 20px; float:left;" ng-show="key2">&nbsp;</div>
+                            <div class="item-name">{{v2.name}} ({{v2.cate_child_count}})</div>
+                            <a class="btn-add-s" ng-click="list.createSubCate(v2.referral_id, v2.name)">
+                                <span></span>
+                            </a>
+                            <a class="btn-edit" id="btn-edit-{{v2.referral_id}}"
+                               ng-click="list.onClickEdit(v2.referral_id)"
+                               data-referral_id="{{v2.referral_id}}"
+                               data-name="{{v2.name}}">
+                                <span></span>
+                            </a>
+                            <a class="btn-del-s" ng-click="list.setStatusBlock(v2.referral_id, 0)">
+                                <span></span>
+                            </a>
+                            <div class="clear"></div>
+                            <!-- lv3 -->
+                            <div ng-repeat="(key3, v3) in v2.cate_child" class="cate-lv-3">
+                                <div class="clear"></div>
+                                <a class="btn-expand btn-expand-lv3" ng-show="!key3">
+                                    <span></span>
+                                </a>
+                                <div  style="width: 30px; float:left;" ng-show="key3">&nbsp;</div>
+                                <div class="item-name">{{v3.name}} ({{v3.cate_child_count}})</div>
+                                <a class="btn-add-s" ng-click="list.createSubCate(v3.referral_id, v3.name)">
+                                    <span></span>
+                                </a>
+                                <a class="btn-edit" id="btn-edit-{{v3.referral_id}}"
+                                   ng-click="list.onClickEdit(v3.referral_id)"
+                                   data-referral_id="{{v3.referral_id}}"
+                                   data-name="{{v3.name}}">
+                                    <span></span>
+                                </a>
+                                <a class="btn-del-s" ng-click="list.setStatusBlock(v3.referral_id, 0)">
+                                    <span></span>
+                                </a>
+                                <!-- lv4 -->
+                                <div ng-repeat="(key4, v4) in v3.cate_child" class="cate-lv-3">
+                                    <div class="clear"></div>
+                                    <div class="item-name">{{v4.name}} ({{v4.cate_child_count}})</div>
+                                    <a class="btn-add-s" ng-click="list.createSubCate(v4.referral_id, v4.name)">
+                                        <span></span>
+                                    </a>
+                                    <a class="btn-edit" id="btn-edit-{{v4.referral_id}}"
+                                       ng-click="list.onClickEdit(v4.referral_id)"
+                                       data-referral_id="{{v4.referral_id}}"
+                                       data-name="{{v4.name}}">
+                                        <span></span>
+                                    </a>
+                                    <a class="btn-del-s" ng-click="list.setStatusBlock(v4.referral_id, 0)">
+                                        <span></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div>
                         <a ng-show="item.status == 1"
@@ -186,88 +266,6 @@
                     </div>
                     <div><a class="btn-re-oder"><span></span></a></div>
                 </div>
-                <!--                <table class="datatable table tbl-restyled">-->
-                <!--                    <thead>-->
-                <!--                    <tr>-->
-                <!--                        <th style="">-->
-                <!--                            <button class="circle-small-warning" type="button" ng-click="list.onClickBulkDeleteAll()"-->
-                <!--                                    ng-class="{'active-discount' : list.deleteAll}">-->
-                <!--                            </button>-->
-                <!--                        </th>-->
-                <!--                        <th style="cursor: pointer;" ng-click="list.onClickSort('first_name')">-->
-                <!--                            Icon-->
-                <!--                        </th>-->
-                <!--                        <th style="cursor: pointer;" ng-click="list.onClickSort('user_name')">Category-->
-                <!--                            Label-->
-                <!--                        </th>-->
-                <!--                        <th style="cursor: pointer;" ng-click="list.onClickSort('email')">Category Name</th>-->
-                <!--                        <th style="">Visibility</th>-->
-                <!--                        <th style=" ">Reorder</th>-->
-                <!--                    </tr>-->
-                <!--                    </thead>-->
-                <!---->
-                <!--                    <tbody>-->
-                <!--                    <tr dir-paginate="(key, customer) in list.customers|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">-->
-                <!--                        <td align="center">-->
-                <!--                            <button class="xChoose circle-small-warning" type="button"-->
-                <!--                                    ng-class="{'active-discount' : list.deleteSelected(customer.customer_id)}"-->
-                <!--                                    ng-click="list.onClickBulkDelete(customer.customer_id)">-->
-                <!--                            </button>-->
-                <!--                        </td>-->
-                <!--                        <td>-->
-                <!--                            <div class="tag-name">-->
-                <!--                                <a href="-->
-                <?php //echo $curModule->app_url; ?><!--start/detail?id={{customer.customer_id}}">-->
-                <!--                                    {{customer.first_name}} {{customer.last_name}}-->
-                <!--                                </a>-->
-                <!--                            </div>-->
-                <!--                            <div class="tag-group-name">-->
-                <!--                                <div ng-repeat="group in customer.groups">-->
-                <!--                                    <a href="-->
-                <?php //echo base_url(); ?><!--module/app/15/start/detail?id={{group.customer_group_id}}">-->
-                <!--                                        {{group.name}}-->
-                <!--                                    </a>-->
-                <!--                                </div>-->
-                <!--                            </div>-->
-                <!--                            <div class="tag-customer" ng-show="customer.tag">-->
-                <!--                                Tag:-->
-                <!--                                <div class="list">{{customer.tag}}</div>-->
-                <!--                            </div>-->
-                <!--                        </td>-->
-                <!--                        <td>-->
-                <!--                            <div ng-show="customer.image_id" class="circle-size-80">-->
-                <!--                                <img-->
-                <!--                                    ng-src="-->
-                <?php //echo root_url(), 'root_images/'; ?><!--{{customer.file_dir}}r100_{{customer.file_name}}">-->
-                <!--                            </div>-->
-                <!--                            <div ng-hide="customer.image_id" class="circle-size-80"></div>-->
-                <!--                            <div class="tag-username">{{customer.user_name}}</div>-->
-                <!--                        </td>-->
-                <!--                        <td>-->
-                <!--                            <div class="tag-email">{{customer.email}}</div>-->
-                <!--                            <div class="tag-tel">{{customer.phone}}</div>-->
-                <!--                        </td>-->
-                <!--                        <td>0</td>-->
-                <!--                        <td class="text-center">-->
-                <!--                            <a ng-show="customer.status == 1"-->
-                <!--                               ng-click="list.setStatusBlock(customer.customer_id, customer.status)"-->
-                <!--                               class="btn-block">-->
-                <!--                                <span></span>-->
-                <!--                            </a>-->
-                <!--                            <a ng-show="customer.status == 2"-->
-                <!--                               ng-click="list.setStatusBlock(customer.customer_id, customer.status)"-->
-                <!--                               class="btn-block btn-block-selected">-->
-                <!--                                <span></span>-->
-                <!--                            </a>-->
-                <!--                            <a href="-->
-                <?php //echo $curModule->app_url; ?><!--start/add?id={{customer.customer_id}}"-->
-                <!--                               class="btn-edit">-->
-                <!--                                <span></span>-->
-                <!--                            </a>-->
-                <!--                        </td>-->
-                <!--                    </tr>-->
-                <!--                    </tbody>-->
-                <!--                </table>-->
             </div>
             <div class="row" ng-show="list.items">
                 <div class="col-xs-6">

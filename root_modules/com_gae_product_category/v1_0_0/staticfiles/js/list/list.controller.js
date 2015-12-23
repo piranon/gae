@@ -19,8 +19,10 @@
     vm.deleteAll = false;
     vm.onClickBulkDeleteAll = onClickBulkDeleteAll;
     vm.imageProfile = '';
+    vm.placeholderSubCateName = '';
     vm.clickOnUpload = clickOnUpload;
     vm.addCategory = addCategory;
+    vm.displaySubCateForm = false;
     vm.onChangeLimit = function (limitList) {
       vm.limit = limitList || 10;
     };
@@ -45,6 +47,18 @@
     vm.onClickEdit = function (id) {
       onClickEdit(id);
     };
+    vm.createSubCate = function (id, name) {
+      createSubCate(id, name);
+    };
+    function createSubCate(id, name) {
+      if (vm.displaySubCateForm) {
+        vm.displaySubCateForm = false;
+      } else {
+        vm.displaySubCateForm = true;
+      }
+      vm.parentId = id;
+      vm.placeholderSubCateName = name;
+    }
 
     function onClickEdit(id) {
       cateId = id;
@@ -187,7 +201,7 @@
       angular.element('#' + $event.currentTarget.id).parent().removeClass('has-error');
     }
 
-    function addCategory() {
+    function addCategory(isSubCate) {
       GAEUI.pageLoading().play();
       if (cateId) {
         apiUrl = 'start/update';
@@ -198,15 +212,23 @@
         successMessage = 'Create category complete';
         errorMessage = 'Can not create category';
       }
-      var dataSend = {
-        "id": cateId || '',
-        "category_name": vm.categoryName || '',
-        "parent_id": vm.parentId || '',
-        "sort_index": vm.sortIndex || '',
-        "profile_pic": vm.fileModel,
-        "label_color": angular.element('#labelColor').val() || '',
-        "font_color": angular.element('#fontColor').val() || ''
-      };
+      if (isSubCate) {
+        var dataSend = {
+          "category_name": vm.subCategoryName || '',
+          "parent_id": vm.parentId || '',
+          "sort_index": vm.sortIndex || ''
+        };
+      } else {
+        var dataSend = {
+          "id": cateId || '',
+          "category_name": vm.categoryName || '',
+          "parent_id": vm.parentId || '',
+          "sort_index": vm.sortIndex || '',
+          "profile_pic": vm.fileModel,
+          "label_color": angular.element('#labelColor').val() || '',
+          "font_color": angular.element('#fontColor').val() || ''
+        };
+      }
       CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
         if (res.ok) {
           GAEUI.pageLoading().stop();
@@ -222,6 +244,7 @@
           });
           GAEUI.pageLoading().stop();
           GAEUI.notification().playError(errorMessage);
+          vm.parentId = '';
         }
       });
     }
