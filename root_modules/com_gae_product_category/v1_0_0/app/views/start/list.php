@@ -133,7 +133,7 @@
                     </select>
                 </div>
             </div>
-            <div class="table-list">
+            <div class="table-list" id="sortable">
                 <div class="table-list-head">
                     <div>
                         <button class="circle-small-warning" type="button" ng-click="list.onClickBulkDeleteAll()"
@@ -147,7 +147,8 @@
                     <div>Reorder</div>
                 </div>
                 <div class="table-row"
-                     dir-paginate="(key, item) in list.items|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit">
+                     dir-paginate="(key, item) in list.items|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit"
+                     id="id_{{item.referral_id}}||{{item.sort_index}}">
                     <div>
                         <button class="xChoose circle-small-warning" type="button"
                                 ng-class="{'active-discount' : list.deleteSelected(item.referral_id)}"

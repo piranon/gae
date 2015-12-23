@@ -109,8 +109,9 @@
     function fetchListing() {
       CUR_MODULE.apiGet("start/listing").then(function (res) {
         $scope.$apply(function () {
-          vm.items = res.data;
-          vm.total = res.data.length;
+          vm.items = res.data.items;
+          vm.total = res.data.items.length;
+          vm.sortIndex = ++res.data.order;
         });
       });
     }
@@ -227,8 +228,7 @@
         var dataSend = {
           "id": cateId || '',
           "category_name": vm.subCategoryName || '',
-          "parent_id": vm.parentId || '',
-          "sort_index": vm.sortIndex || ''
+          "parent_id": vm.parentId || ''
         };
       } else {
         var dataSend = {
@@ -241,7 +241,6 @@
           "font_color": angular.element('#fontColor').val() || ''
         };
       }
-      console.log(dataSend);
       CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
         if (res.ok) {
           GAEUI.pageLoading().stop();
@@ -261,6 +260,30 @@
         }
       });
     }
+
+    $(document).ready(function () {
+      var sort;
+      $("#sortable").sortable({
+        handle: ".btn-re-oder",
+        start: function( event, ui ) {
+          sort = $( "#sortable" ).sortable( "serialize", { key: "id" } );
+        },
+        update: function (event, ui) {
+          var dataSend = {
+            'sort': sort,
+            'sorted': $( "#sortable" ).sortable( "serialize", { key: "id" } )
+          };
+          CUR_MODULE.apiPost('start/update_sort', dataSend).then(function (res) {
+            if (res.ok) {
+              fetchListing();
+              GAEUI.notification().playComplete("Update sort complete");
+            } else {
+              GAEUI.notification().playError('Cannot update sort');
+            }
+          });
+        }
+      });
+    });
 
   }
 

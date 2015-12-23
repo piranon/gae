@@ -30,7 +30,7 @@ class Start extends base_module_controller
         $dbData = array();
         $dbData['parent_id'] = $category_parent_id;
         $dbData['name'] = $category_category_name;
-        $dbData['sort_index'] = $category_sort_index;
+        $dbData['sort_index'] = $category_parent_id > 0 ? 0 : $category_sort_index;
         $dbData['status'] = self::STATUS_ACTIVE;
         $dbData['create_time'] = time();
 
@@ -69,7 +69,6 @@ class Start extends base_module_controller
         // Receiving parameter
         $category_category_name = t_Post('category_name');
         $category_parent_id = t_Post('parent_id');
-        $category_sort_index= t_Post('sort_index');
         $extra_field_label_color= t_Post('label_color');
         $extra_field_font_color= t_Post('font_color');
         $referral_id = t_Post('id');
@@ -78,7 +77,6 @@ class Start extends base_module_controller
         $dbData = array();
         $dbData['parent_id'] = $category_parent_id;
         $dbData['name'] = $category_category_name;
-        $dbData['sort_index'] = $category_sort_index;
         $dbData['status'] = self::STATUS_ACTIVE;
         $dbData['create_time'] = time();
 
@@ -122,6 +120,8 @@ class Start extends base_module_controller
         $referrals = $this->referral_model->get_referrals($table_id);
 
         $response = [];
+        $response['items'] = [];
+        $response['order'] = 0;
         foreach ($referrals as $referral) {
             $referral = array_merge($referral, $this->image_model->get_image($table_id, $referral['referral_id']));
             $extra_fields = $this->extra_field_model->get_extra_fields($table_id, $referral['referral_id']);
@@ -137,7 +137,10 @@ class Start extends base_module_controller
             $cate_child = $this->referral_model->get_cate_child($referral['referral_id'], 2);
             $referral['cate_child_count'] = count($cate_child);
             $referral['cate_child'] = $cate_child;
-            $response[] = $referral;
+            $response['items'][] = $referral;
+            if ($referral['sort_index'] > 0) {
+                $response['order'] = $referral['sort_index'];
+            }
         }
 
         // Response
@@ -265,6 +268,42 @@ class Start extends base_module_controller
 
         try {
             $this->referral_model->batch_update($referral_ids, self::STATUS_BLOCK);
+        } catch (Exception $e) {
+            resDie($e->getMessage());
+        }
+
+        // Response
+        resOk();
+    }
+
+    public function update_sort()
+    {
+        // Form validation
+        $this->form_validation->onlyPost();
+        $this->form_validation->set_rules('sort', 'trim|required');
+        $this->form_validation->set_rules('sorted', 'trim|required');
+        $this->formCheck();
+
+        // Receiving parameter
+        $referral_sort = t_Post('sort');
+        $referral_sorted = t_Post('sorted');
+
+        // Business logic
+        $this->mLoadModel('referral_model');
+
+        try {
+            $order = explode('&', $referral_sort);
+            $order = explode('||', $order[0]);
+            $order = $order[1]--;
+            $sorted = explode('&', $referral_sorted);
+            foreach ($sorted as $sort) {
+                $sort = explode('||', $sort);
+                $referral_id = str_replace('id=', '', $sort[0]);
+                $dbData = array();
+                $dbData['update_time'] = time();
+                $dbData['sort_index'] = $order++;
+                $this->referral_model->update($dbData, $referral_id);
+            }
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
