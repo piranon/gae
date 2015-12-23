@@ -118,7 +118,17 @@
                             hide
                         </a>
                     </div>
-                    <div><a class="btn-edit"><span></span></a></div>
+                    <div>
+                        <a class="btn-edit" id="btn-edit-{{item.referral_id}}"
+                           ng-click="list.onClickEdit(item.referral_id)"
+                           data-referral_id="{{item.referral_id}}"
+                           data-name="{{item.name}}"
+                           data-image_id="{{item.image_id}}"
+                           data-image="<?php echo root_url(), 'root_images/'; ?>{{item.file_dir}}r100_{{item.file_name}}"
+                            >
+                            <span></span>
+                        </a>
+                    </div>
                 </div>
             </div>
             <div class="row" ng-show="list.total">

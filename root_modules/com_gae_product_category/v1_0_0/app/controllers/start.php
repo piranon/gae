@@ -5,11 +5,7 @@ class Start extends base_module_controller
     public function index()
     {
         $view_data = [
-            'css' => [
-                'tinycolorpicker.css'
-            ],
             'js' => [
-                'third_party/jquery.tinycolorpicker.min.js',
                 'components/fileread.directive.js',
                 'list/list.controller.js'
             ]

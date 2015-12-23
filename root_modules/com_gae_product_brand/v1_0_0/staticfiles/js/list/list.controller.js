@@ -22,7 +22,6 @@
     vm.placeholderSubCateName = '';
     vm.clickOnUpload = clickOnUpload;
     vm.addCategory = addCategory;
-    vm.displaySubCateForm = false;
     vm.onChangeLimit = function (limitList) {
       vm.limit = limitList || 10;
     };
@@ -47,70 +46,19 @@
     vm.onClickEdit = function (id) {
       onClickEdit(id);
     };
-    vm.createSubCate = function (id, name) {
-      createSubCate(id, name);
-    };
-    vm.onClickEditSubCate = function (element) {
-      onClickEditSubCate(element);
-    };
-    vm.onClickExpand = function (lv, id, $event) {
-      onClickExpand(lv, id, $event);
-    };
-
-    function onClickExpand(lv, id, $event) {
-      var element = angular.element($event.target).parent();
-      if (element.hasClass('btn-expand')) {
-        element.removeClass('btn-expand');
-        element.addClass('btn-expand-up');
-        angular.element('#cate-' + lv + '-box-' + id).removeClass('hide');
-      } else {
-        element.removeClass('btn-expand-up');
-        element.addClass('btn-expand');
-        angular.element('#cate-' + lv + '-box-' + id).addClass('hide');
-      }
-    }
-
-    function onClickEditSubCate(id, name) {
-      vm.displaySubCateForm = true;
-      cateId = id;
-      if (name) {
-        vm.subCategoryName = name;
-      }
-      angular.element('.btn-add').addClass('btn-save');
-      angular.element('.btn-add').removeClass('btn-add');
-    }
-
-    function createSubCate(id, name) {
-      if (!vm.displaySubCateForm) {
-        vm.displaySubCateForm = true;
-      }
-      vm.parentId = id;
-      vm.placeholderSubCateName = name;
-    }
 
     function onClickEdit(id) {
-      vm.displaySubCateForm = false;
       cateId = id;
       angular.element('#pic-icon').removeClass('ng-hide');
-      angular.element('#colorPicker .colorInner').removeAttr("style");
-      angular.element('#colorPicker2 .colorInner').removeAttr("style");
       var element = '#btn-edit-' + id;
       var name = angular.element(element).data('name');
       var imageId = angular.element(element).data('image_id');
       var image = angular.element(element).data('image');
-      var label = angular.element(element).data('label');
-      var font = angular.element(element).data('font');
       if (name) {
         vm.categoryName = angular.element(element).data('name');
       }
       if (imageId) {
         vm.imageProfile = angular.element(element).data('image');
-      }
-      if (label !== '#eee') {
-        angular.element('#colorPicker .colorInner').css('background', label);
-      }
-      if (font !== '#666') {
-        angular.element('#colorPicker2 .colorInner').css('background', font);
       }
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');
@@ -278,31 +226,6 @@
         }
       });
     }
-
-    $(document).ready(function () {
-      var sort;
-      $("#sortable").sortable({
-        handle: ".btn-re-oder",
-        start: function( event, ui ) {
-          sort = $( "#sortable" ).sortable( "serialize", { key: "id" } );
-        },
-        update: function (event, ui) {
-          var dataSend = {
-            'sort': sort,
-            'sorted': $( "#sortable" ).sortable( "serialize", { key: "id" } )
-          };
-          CUR_MODULE.apiPost('start/update_sort', dataSend).then(function (res) {
-            if (res.ok) {
-              fetchListing();
-              GAEUI.notification().playComplete("Update sort complete");
-            } else {
-              GAEUI.notification().playError('Cannot update sort');
-            }
-          });
-        }
-      });
-    });
-
   }
 
 })();

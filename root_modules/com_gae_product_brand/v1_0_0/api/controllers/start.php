@@ -5,6 +5,7 @@ class Start extends base_module_controller
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK = 2;
+    const REFERRAL_TYPE = 'product-brand';
 
     public function __construct()
     {
@@ -21,16 +22,10 @@ class Start extends base_module_controller
 
         // Receiving parameter
         $category_category_name = t_Post('category_name');
-        $category_parent_id = t_Post('parent_id');
-        $category_sort_index= t_Post('sort_index');
-        $extra_field_label_color= t_Post('label_color');
-        $extra_field_font_color= t_Post('font_color');
 
         // Business logic
         $dbData = array();
-        $dbData['parent_id'] = $category_parent_id;
         $dbData['name'] = $category_category_name;
-        $dbData['sort_index'] = $category_parent_id > 0 ? 0 : $category_sort_index;
         $dbData['status'] = self::STATUS_ACTIVE;
         $dbData['create_time'] = time();
 
@@ -38,19 +33,12 @@ class Start extends base_module_controller
         $this->mLoadModel('referral_type_model');
         $this->mLoadModel('table_model');
         $this->mLoadModel('image_model');
-        $this->mLoadModel('extra_field_model');
 
         try {
-            $dbData['referral_type_id'] = $this->referral_type_model->get_referral_type_id('product-category');
+            $dbData['referral_type_id'] = $this->referral_type_model->get_referral_type_id(self::REFERRAL_TYPE);
             $referral_id = $this->referral_model->insert($dbData);
             $table_id = $this->table_model->get_table_id('referral');
             $this->image_model->upload_image($referral_id, $table_id);
-            $this->extra_field_model->insert_color(
-                $referral_id,
-                $table_id,
-                $extra_field_label_color,
-                $extra_field_font_color
-            );
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
@@ -68,14 +56,10 @@ class Start extends base_module_controller
 
         // Receiving parameter
         $category_category_name = t_Post('category_name');
-        $category_parent_id = t_Post('parent_id');
-        $extra_field_label_color= t_Post('label_color');
-        $extra_field_font_color= t_Post('font_color');
         $referral_id = t_Post('id');
 
         // Business logic
         $dbData = array();
-        $dbData['parent_id'] = $category_parent_id;
         $dbData['name'] = $category_category_name;
         $dbData['status'] = self::STATUS_ACTIVE;
         $dbData['create_time'] = time();
@@ -84,18 +68,11 @@ class Start extends base_module_controller
         $this->mLoadModel('referral_type_model');
         $this->mLoadModel('table_model');
         $this->mLoadModel('image_model');
-        $this->mLoadModel('extra_field_model');
 
         try {
             $this->referral_model->update(array_filter($dbData), $referral_id);
             $table_id = $this->table_model->get_table_id('referral');
             $this->image_model->upload_image($referral_id, $table_id);
-            $this->extra_field_model->update_color(
-                $referral_id,
-                $table_id,
-                $extra_field_label_color,
-                $extra_field_font_color
-            );
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
@@ -117,7 +94,7 @@ class Start extends base_module_controller
         $this->mLoadModel('image_model');
 
         $table_id = $this->table_model->get_table_id('referral');
-        $referral_type_id = $this->referral_type_model->get_referral_type_id('product-brand');
+        $referral_type_id = $this->referral_type_model->get_referral_type_id(self::REFERRAL_TYPE);
         $referrals = $this->referral_model->get_referrals($referral_type_id);
         $response = [];
         $response['items'] = [];
@@ -251,42 +228,6 @@ class Start extends base_module_controller
 
         try {
             $this->referral_model->batch_update($referral_ids, self::STATUS_BLOCK);
-        } catch (Exception $e) {
-            resDie($e->getMessage());
-        }
-
-        // Response
-        resOk();
-    }
-
-    public function update_sort()
-    {
-        // Form validation
-        $this->form_validation->onlyPost();
-        $this->form_validation->set_rules('sort', 'trim|required');
-        $this->form_validation->set_rules('sorted', 'trim|required');
-        $this->formCheck();
-
-        // Receiving parameter
-        $referral_sort = t_Post('sort');
-        $referral_sorted = t_Post('sorted');
-
-        // Business logic
-        $this->mLoadModel('referral_model');
-
-        try {
-            $order = explode('&', $referral_sort);
-            $order = explode('||', $order[0]);
-            $order = $order[1]--;
-            $sorted = explode('&', $referral_sorted);
-            foreach ($sorted as $sort) {
-                $sort = explode('||', $sort);
-                $referral_id = str_replace('id=', '', $sort[0]);
-                $dbData = array();
-                $dbData['update_time'] = time();
-                $dbData['sort_index'] = $order++;
-                $this->referral_model->update($dbData, $referral_id);
-            }
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
