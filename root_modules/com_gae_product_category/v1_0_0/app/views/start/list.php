@@ -169,7 +169,7 @@
                     </div>
                     <div>
                         <div>
-                            <a class="btn-expand">
+                            <a class="btn-expand" ng-click="list.onClickExpand('lv2', item.referral_id, $event)">
                                 <span></span>
                             </a>
 
@@ -192,14 +192,14 @@
                             </a>
                         </div>
                         <div class="clear"></div>
-                        <div class="cate-lv2-box">
-                            <a class="btn-expand btn-expand-lv2" ng-show="item.cate_child_count">
-                                <span></span>
-                            </a>
+                        <div class="cate-lv2-box hide" id="cate-lv2-box-{{item.referral_id}}">
                             <!-- lv2 -->
                             <div ng-repeat="(key2, v2) in item.cate_child" class="cate-lv-2">
                                 <div class="clear"></div>
-                                <div style="width: 20px; float:left;" ng-show="key2">&nbsp;</div>
+                                <a class="btn-expand" ng-click="list.onClickExpand('lv3', v2.referral_id, $event)">
+                                    <span></span>
+                                </a>
+
                                 <div class="item-name">{{v2.name}} ({{v2.cate_child_count}})</div>
                                 <a class="btn-add-s" ng-click="list.createSubCate(v2.referral_id, v2.name)">
                                     <span></span>
@@ -213,13 +213,13 @@
 
                                 <div class="clear"></div>
                                 <!-- lv3 -->
-                                <div ng-repeat="(key3, v3) in v2.cate_child" class="cate-lv-3">
+                                <div ng-repeat="(key3, v3) in v2.cate_child" class="cate-lv-3 hide"
+                                     id="cate-lv3-box-{{v2.referral_id}}">
                                     <div class="clear"></div>
-                                    <a class="btn-expand btn-expand-lv3" ng-show="!key3">
+                                    <a class="btn-expand" ng-click="list.onClickExpand('lv4', v3.referral_id, $event)">
                                         <span></span>
                                     </a>
 
-                                    <div style="width: 30px; float:left;" ng-show="key3">&nbsp;</div>
                                     <div class="item-name">{{v3.name}} ({{v3.cate_child_count}})</div>
                                     <a class="btn-add-s" ng-click="list.createSubCate(v3.referral_id, v3.name)">
                                         <span></span>
@@ -233,7 +233,8 @@
 
                                     <div class="clear"></div>
                                     <!-- lv4 -->
-                                    <div ng-repeat="(key4, v4) in v3.cate_child" class="cate-lv-4">
+                                    <div ng-repeat="(key4, v4) in v3.cate_child" class="cate-lv-4 hide"
+                                         id="cate-lv4-box-{{v3.referral_id}}">
                                         <div class="clear"></div>
                                         <div class="item-name">{{v4.name}} ({{v4.cate_child_count}})</div>
                                         <a class="btn-add-s" ng-click="list.createSubCate(v4.referral_id, v4.name)">
@@ -263,6 +264,19 @@
                         </a>
                     </div>
                     <div><a class="btn-re-oder"><span></span></a></div>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".btn-expand").click(function () {
+                                if ($(this).attr("class") != 'btn-expand') {
+                                    $(this).removeClass("btn-expand");
+                                    $(this).addClass("btn-expand-up");
+                                } else {
+                                    $(this).removeClass("btn-expand-up");
+                                    $(this).addClass("btn-expand");
+                                }
+                            });
+                        });
+                    </script>
                 </div>
             </div>
             <div class="row" ng-show="list.items">

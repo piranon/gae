@@ -50,9 +50,26 @@
     vm.createSubCate = function (id, name) {
       createSubCate(id, name);
     };
-    vm.onClickEditSubCate = function (id, name) {
-      onClickEditSubCate(id, name);
+    vm.onClickEditSubCate = function (element) {
+      onClickEditSubCate(element);
     };
+    vm.onClickExpand = function (lv, id, $event) {
+      onClickExpand(lv, id, $event);
+    };
+
+    function onClickExpand(lv, id, $event) {
+      var element = angular.element($event.target).parent();
+      if (element.hasClass('btn-expand')) {
+        element.removeClass('btn-expand');
+        element.addClass('btn-expand-up');
+        angular.element('#cate-' + lv + '-box-' + id).removeClass('hide');
+      } else {
+        element.removeClass('btn-expand-up');
+        element.addClass('btn-expand');
+        angular.element('#cate-' + lv + '-box-' + id).addClass('hide');
+      }
+    }
+
     function onClickEditSubCate(id, name) {
       vm.displaySubCateForm = true;
       cateId = id;
@@ -62,6 +79,7 @@
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');
     }
+
     function createSubCate(id, name) {
       if (!vm.displaySubCateForm) {
         vm.displaySubCateForm = true;

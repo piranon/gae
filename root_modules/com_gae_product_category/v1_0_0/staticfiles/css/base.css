@@ -516,11 +516,6 @@ body {
     margin-right: 10px;
 }
 
-.btn-expand-lv2 {
-    margin-top: 10px;
-    margin-right: 0px !important;
-}
-
 .item-label {
     border-radius: 20px;
     text-align: center;
@@ -580,7 +575,7 @@ body {
     margin-left: -0.1em;
 }
 
-.btn-expand, .btn-edit, .btn-add-s, .btn-del-s {
+.btn-expand, .btn-expand-up, .btn-edit, .btn-add-s, .btn-del-s {
     float: left;
     width: 30px;
     height: 30px;
@@ -591,14 +586,25 @@ body {
 }
 
 .btn-expand > span {
-    background: url('../icon/fa-chevron-down.png') no-repeat scroll 6px 10px;
+    background: url('../icon/fa-chevron-down.png') no-repeat scroll 7px 11px;
     display: inline-block;
     height: 30px;
     width: 30px;
 }
 
 .btn-expand:hover > span, .btn-expand:active > span {
-    background: url('../icon/fa-chevron-down-hover.png') no-repeat scroll 6px 10px;
+    background: url('../icon/fa-chevron-down-hover.png') no-repeat scroll 7px 11px;
+}
+
+.btn-expand-up > span {
+    background: url('../icon/fa-chevron-up.png') no-repeat scroll 7px 9px;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+}
+
+.btn-expand-up:hover > span, .btn-expand-up:active > span {
+    background: url('../icon/fa-chevron-up-hover.png') no-repeat scroll 7px 9px;
 }
 
 .btn-edit > span {
