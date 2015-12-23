@@ -64,11 +64,12 @@ class Referral_model extends base_module_model
     /**
      * @return mixed
      */
-    public function get_referrals()
+    public function get_referrals($referral_type_id)
     {
         $this->db->select(implode(', ', $this->select_fields));
         $this->db->from('referral');
         $this->db->where('parent_id', 0);
+        $this->db->where('referral_type_id', $referral_type_id);
         $this->db->where_in('status', [self::STATUS_ACTIVE, self::STATUS_BLOCK]);
         $this->db->order_by('referral.sort_index', 'asc');
         $query = $this->db->get();

@@ -113,34 +113,17 @@ class Start extends base_module_controller
         // Business logic
         $this->mLoadModel('table_model');
         $this->mLoadModel('referral_model');
+        $this->mLoadModel('referral_type_model');
         $this->mLoadModel('image_model');
-        $this->mLoadModel('extra_field_model');
 
         $table_id = $this->table_model->get_table_id('referral');
-        $referrals = $this->referral_model->get_referrals($table_id);
-
+        $referral_type_id = $this->referral_type_model->get_referral_type_id('product-brand');
+        $referrals = $this->referral_model->get_referrals($referral_type_id);
         $response = [];
         $response['items'] = [];
-        $response['order'] = 0;
         foreach ($referrals as $referral) {
             $referral = array_merge($referral, $this->image_model->get_image($table_id, $referral['referral_id']));
-            $extra_fields = $this->extra_field_model->get_extra_fields($table_id, $referral['referral_id']);
-            foreach ($extra_fields as $extra_field) {
-                if ($extra_field['field_name'] === 'label_color' && !$extra_field['field_value']) {
-                    $extra_field['field_value'] = '#eee';
-                }
-                if ($extra_field['field_name'] === 'font_color' && !$extra_field['field_value']) {
-                    $extra_field['field_value'] = '#666';
-                }
-                $referral[$extra_field['field_name']] = $extra_field['field_value'];
-            }
-            $cate_child = $this->referral_model->get_cate_child($referral['referral_id'], 2);
-            $referral['cate_child_count'] = count($cate_child);
-            $referral['cate_child'] = $cate_child;
             $response['items'][] = $referral;
-            if ($referral['sort_index'] > 0) {
-                $response['order'] = $referral['sort_index'];
-            }
         }
 
         // Response

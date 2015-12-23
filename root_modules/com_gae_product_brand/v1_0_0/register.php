@@ -6,21 +6,21 @@ $config = array(
     ),
     "menu_display" => array(
         "addon_menu" => array(
-            "label" => "Category",
+            "label" => "Brand",
             "image" => array(
-                "normal" => $curModule->file_url . "icon/btn_dashboard_product_category.png",
-                "hover" => $curModule->file_url . "icon/btn_dashboard_product_category_over.png",
-                "active" => $curModule->file_url . "icon/btn_dashboard_product_category_active.png",
-                "selected" => $curModule->file_url . "icon/btn_dashboard_product_category_active.png"
+                "normal" => $curModule->file_url . "icon/btn_dashboard_product_brands.png",
+                "hover" => $curModule->file_url . "icon/btn_dashboard_product_brands_over.png",
+                "active" => $curModule->file_url . "icon/btn_dashboard_product_brands_active.png",
+                "selected" => $curModule->file_url . "icon/btn_dashboard_product_brands_active.png"
             )
         ),
         "addon_card_info" => array(
-            "label" => "Category",
-            "primary_image" => $curModule->file_url . "icon/icon_dashboard_product_category.png",
+            "label" => "Brands",
+            "primary_image" => $curModule->file_url . "icon/icon_dashboard_product_brands.png",
             "detail" => array(
-                "name" => "Category",
-                "title_1" => "หน้าแสดงหมวดสินค้า",
-                "title_2" => "เพิ่ม ลบ แก้ไขหมวดสินค้าหลัก และหมวดสินค้าย่อยได้ที่เมนูนี้"
+                "name" => "Brand",
+                "title_1" => "หน้าแสดงยี่ห้อสินค้า",
+                "title_2" => "เพิ่ม ลบ แก้ไข ใส่รูปโลโก้ยี่ห้อ หรือแบนด์สินค้าได้ที่เมนูนี้"
             )
         )
     )

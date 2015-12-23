@@ -113,11 +113,13 @@ class Start extends base_module_controller
         // Business logic
         $this->mLoadModel('table_model');
         $this->mLoadModel('referral_model');
+        $this->mLoadModel('referral_type_model');
         $this->mLoadModel('image_model');
         $this->mLoadModel('extra_field_model');
 
         $table_id = $this->table_model->get_table_id('referral');
-        $referrals = $this->referral_model->get_referrals($table_id);
+        $referral_type_id = $this->referral_type_model->get_referral_type_id('product-category');
+        $referrals = $this->referral_model->get_referrals($referral_type_id);
 
         $response = [];
         $response['items'] = [];
