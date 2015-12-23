@@ -492,16 +492,20 @@ body {
     width: 66px;
 }
 
+.cate-lv2-box {
+    padding-left: 30px;
+}
+
 .cate-lv-2 {
     float: left;
     margin-left: 10px;
 }
 .cate-lv-3 {
     float: left;
-    margin-left: 90px;
+    margin-left: 60px;
 }
 .cate-lv-4 {
-    margin-left: 140px;
+    margin-left: 70px;
 }
 
 .cate-lv-2, .cate-lv-3, .cate-lv-4 {
@@ -514,6 +518,7 @@ body {
 
 .btn-expand-lv2 {
     margin-top: 10px;
+    margin-right: 0px !important;
 }
 
 .item-label {

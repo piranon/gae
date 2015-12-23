@@ -50,10 +50,20 @@
     vm.createSubCate = function (id, name) {
       createSubCate(id, name);
     };
+    vm.onClickEditSubCate = function (id, name) {
+      onClickEditSubCate(id, name);
+    };
+    function onClickEditSubCate(id, name) {
+      vm.displaySubCateForm = true;
+      cateId = id;
+      if (name) {
+        vm.subCategoryName = name;
+      }
+      angular.element('.btn-add').addClass('btn-save');
+      angular.element('.btn-add').removeClass('btn-add');
+    }
     function createSubCate(id, name) {
-      if (vm.displaySubCateForm) {
-        vm.displaySubCateForm = false;
-      } else {
+      if (!vm.displaySubCateForm) {
         vm.displaySubCateForm = true;
       }
       vm.parentId = id;
@@ -61,6 +71,7 @@
     }
 
     function onClickEdit(id) {
+      vm.displaySubCateForm = false;
       cateId = id;
       angular.element('#pic-icon').removeClass('ng-hide');
       angular.element('#colorPicker .colorInner').removeAttr("style");
@@ -214,6 +225,7 @@
       }
       if (isSubCate) {
         var dataSend = {
+          "id": cateId || '',
           "category_name": vm.subCategoryName || '',
           "parent_id": vm.parentId || '',
           "sort_index": vm.sortIndex || ''
@@ -229,6 +241,7 @@
           "font_color": angular.element('#fontColor').val() || ''
         };
       }
+      console.log(dataSend);
       CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
         if (res.ok) {
           GAEUI.pageLoading().stop();
