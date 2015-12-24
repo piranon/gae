@@ -24,8 +24,8 @@
             </div>
             <div class="create-category" ng-show="!list.displaySubCateForm">
                 <div>
-                    <div class="create-category-label">Category Name</div>
-                    <div class="create-category-desc">ชื่อหมวดสินค้า</div>
+                    <div class="create-category-label">Attribute Group Name</div>
+                    <div class="create-category-desc">ชื่อกลุ่มคุณลักษณะ</div>
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="list.categoryName" id="category_name"
                                ng-keydown="list.keyDownRequired($event)">
@@ -46,44 +46,20 @@
                     </div>
                 </div>
                 <div>
-                    <div class="create-category-label">Label Color</div>
-                    <div class="create-category-desc">สีพื้นป้าย</div>
-                </div>
-                <div>
-                    <script type="text/javascript">
-                        $(document).ready(function () {
-                            $("#colorPicker").tinycolorpicker();
-                            $("#colorPicker2").tinycolorpicker();
-                        });
-                    </script>
-                    <div id="colorPicker" class="colorPicker">
-                        <a class="color">
-                            <div class="colorInner"></div>
-                        </a>
-
-                        <div class="track" ng-click="list.colorPick('#colorPicker');"></div>
-                        <ul class="dropdown">
-                            <li></li>
-                        </ul>
-                        <input type="hidden" class="colorInput" id="labelColor">
+                    <div>
+                        <button class="circle-small-warning" type="button">
+                        </button>
+                    </div>
+                    <div>
+                        <button class="circle-small-warning" type="button">
+                        </button>
                     </div>
                 </div>
                 <div>
-                    <div class="create-category-label">Font Color</div>
-                    <div class="create-category-desc">สีตัวอักษร</div>
-                </div>
-                <div>
-                    <div id="colorPicker2" class="colorPicker">
-                        <a class="color">
-                            <div class="colorInner"></div>
-                        </a>
-
-                        <div class="track"></div>
-                        <ul class="dropdown">
-                            <li></li>
-                        </ul>
-                        <input type="hidden" class="colorInput" id="fontColor">
-                    </div>
+                    <div>Set as Product Option (Variant)</div>
+                    <div>ตั้งให้เป็นตัวเลือกสินค้า</div>
+                    <div>Set as Specification</div>
+                    <div>ตั้งให้เป็นสเปคสินค้า</div>
                 </div>
                 <div>
                     <a class="btn-add" ng-click="list.addCategory(false);">
@@ -141,10 +117,8 @@
                         </button>
                     </div>
                     <div>Icon</div>
-                    <div>Category Label</div>
-                    <div>Category Name</div>
-                    <div>Visibility</div>
-                    <div>Reorder</div>
+                    <div>Attribute Group & Class</div>
+                    <div>Specification</div>
                 </div>
                 <div class="table-row"
                      dir-paginate="(key, item) in list.items|orderBy:list.sortKey:list.reverse|filter:list.search|itemsPerPage:list.limit"
@@ -162,8 +136,7 @@
                              ng-src="<?php echo $curModule->file_url; ?>icon/image_upload.png">
                     </div>
                     <div>
-                        <div class="item-label"
-                             style="background-color:{{item.label_color}}; color: {{item.font_color}}">
+                        <div class="item-label">
                             {{item.name}}
                         </div>
                     </div>
@@ -252,31 +225,11 @@
                         </div>
                     </div>
                     <div>
-                        <a ng-show="item.status == 1"
-                           ng-click="list.setStatusBlock(item.referral_id, 2)"
-                           class="item-show">
-                            Show
-                        </a>
-                        <a ng-show="item.status == 2"
-                           ng-click="list.setStatusBlock(item.referral_id, 1)"
-                           class="item-hide">
-                            hide
-                        </a>
+                        <img src="<?php echo $curModule->file_url; ?>icon/fa-check.png"
+                             ng-show="item.attribute_type_id == 1">
+                        <img src="<?php echo $curModule->file_url; ?>icon/fa-th-list.png"
+                             ng-show="item.attribute_type_id == 2">
                     </div>
-                    <div><a class="btn-re-oder"><span></span></a></div>
-                    <script type="text/javascript">
-                        $(document).ready(function () {
-                            $(".btn-expand").click(function () {
-                                if ($(this).attr("class") != 'btn-expand') {
-                                    $(this).removeClass("btn-expand");
-                                    $(this).addClass("btn-expand-up");
-                                } else {
-                                    $(this).removeClass("btn-expand-up");
-                                    $(this).addClass("btn-expand");
-                                }
-                            });
-                        });
-                    </script>
                 </div>
             </div>
             <div class="row" ng-show="list.items">
@@ -300,7 +253,7 @@
                 <div class="col-xs-12">
                     <img ng-src="<?php echo $curModule->file_url; ?>icon/no_item.png">
 
-                    <div>ยังไม่มีหมวดสินค้า ทำการเพิ่มหมวดสินค้าได้ที่ด้านบน</div>
+                    <div>ยังไม่มีคุณลักษณะสินค้า ทำการเพิ่มคุณลักษณะได้ที่ด้านบน</div>
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@ class Start extends base_module_controller
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK = 2;
-    const REFERRAL_TYPE = 'product-attribute';
+    const REFERRAL_TYPE = 'product-category';
 
     public function __construct()
     {
@@ -21,37 +21,27 @@ class Start extends base_module_controller
         $this->formCheck();
 
         // Receiving parameter
-        $category_category_name = t_Post('category_name');
-        $category_parent_id = t_Post('parent_id');
-        $category_sort_index= t_Post('sort_index');
-        $extra_field_label_color= t_Post('label_color');
-        $extra_field_font_color= t_Post('font_color');
+        $attribute_category_name = t_Post('category_name');
+        $attribute_parent_id = t_Post('parent_id');
+        $attribute_type_id= t_Post('attribute_type_id');
 
         // Business logic
         $dbData = array();
-        $dbData['parent_id'] = $category_parent_id;
-        $dbData['name'] = $category_category_name;
-        $dbData['sort_index'] = $category_parent_id > 0 ? 0 : $category_sort_index;
+        $dbData['parent_id'] = $attribute_parent_id;
+        $dbData['attribute_type_id'] = $attribute_type_id;
+        $dbData['name'] = $attribute_category_name;
         $dbData['status'] = self::STATUS_ACTIVE;
         $dbData['create_time'] = time();
 
-        $this->mLoadModel('referral_model');
-        $this->mLoadModel('referral_type_model');
+        $this->mLoadModel('attribute_model');
+        $this->mLoadModel('attribute_type_model');
         $this->mLoadModel('table_model');
         $this->mLoadModel('image_model');
-        $this->mLoadModel('extra_field_model');
 
         try {
-            $dbData['referral_type_id'] = $this->referral_type_model->get_referral_type_id(self::REFERRAL_TYPE);
-            $referral_id = $this->referral_model->insert($dbData);
-            $table_id = $this->table_model->get_table_id('referral');
+            $referral_id = $this->attribute_model->insert($dbData);
+            $table_id = $this->table_model->get_table_id('attribute');
             $this->image_model->upload_image($referral_id, $table_id);
-            $this->extra_field_model->insert_color(
-                $referral_id,
-                $table_id,
-                $extra_field_label_color,
-                $extra_field_font_color
-            );
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
@@ -68,38 +58,32 @@ class Start extends base_module_controller
         $this->formCheck();
 
         // Receiving parameter
-        $category_category_name = t_Post('category_name');
-        $category_parent_id = t_Post('parent_id');
-        $extra_field_label_color= t_Post('label_color');
-        $extra_field_font_color= t_Post('font_color');
-        $referral_id = t_Post('id');
+        $attribute_category_name = t_Post('category_name');
+        $attribute_parent_id = t_Post('parent_id');
+        $attribute_type_id= t_Post('attribute_type_id');
+        $attribute_id = t_Post('id');
 
         // Business logic
         $dbData = array();
-        $dbData['parent_id'] = $category_parent_id;
-        $dbData['name'] = $category_category_name;
-        $dbData['status'] = self::STATUS_ACTIVE;
+        $dbData['parent_id'] = $attribute_parent_id;
+        $dbData['name'] = $attribute_category_name;
+        $dbData['attribute_type_id'] = $attribute_type_id;
         $dbData['create_time'] = time();
 
-        $this->mLoadModel('referral_model');
-        $this->mLoadModel('referral_type_model');
+        $this->mLoadModel('attribute_model');
+        $this->mLoadModel('attribute_type_model');
         $this->mLoadModel('table_model');
         $this->mLoadModel('image_model');
         $this->mLoadModel('extra_field_model');
 
         try {
-            $this->referral_model->update(array_filter($dbData), $referral_id);
-            $table_id = $this->table_model->get_table_id('referral');
-            $this->image_model->upload_image($referral_id, $table_id);
-            $this->extra_field_model->update_color(
-                $referral_id,
-                $table_id,
-                $extra_field_label_color,
-                $extra_field_font_color
-            );
+            $this->attribute_model->update(array_filter($dbData), $attribute_id);
+            $table_id = $this->table_model->get_table_id('attribute');
+            $this->image_model->upload_image($attribute_id, $table_id);
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
+
         // Response
         resOk(['time' => time()]);
     }
@@ -113,37 +97,21 @@ class Start extends base_module_controller
 
         // Business logic
         $this->mLoadModel('table_model');
-        $this->mLoadModel('referral_model');
-        $this->mLoadModel('referral_type_model');
+        $this->mLoadModel('attribute_model');
+        $this->mLoadModel('attribute_type_model');
         $this->mLoadModel('image_model');
-        $this->mLoadModel('extra_field_model');
 
-        $table_id = $this->table_model->get_table_id('referral');
-        $referral_type_id = $this->referral_type_model->get_referral_type_id(self::REFERRAL_TYPE);
-        $referrals = $this->referral_model->get_referrals($referral_type_id);
+        $table_id = $this->table_model->get_table_id('attribute');
+        $attributes = $this->attribute_model->get_attributes();
 
         $response = [];
         $response['items'] = [];
-        $response['order'] = 0;
-        foreach ($referrals as $referral) {
-            $referral = array_merge($referral, $this->image_model->get_image($table_id, $referral['referral_id']));
-            $extra_fields = $this->extra_field_model->get_extra_fields($table_id, $referral['referral_id']);
-            foreach ($extra_fields as $extra_field) {
-                if ($extra_field['field_name'] === 'label_color' && !$extra_field['field_value']) {
-                    $extra_field['field_value'] = '#eee';
-                }
-                if ($extra_field['field_name'] === 'font_color' && !$extra_field['field_value']) {
-                    $extra_field['field_value'] = '#666';
-                }
-                $referral[$extra_field['field_name']] = $extra_field['field_value'];
-            }
-            $cate_child = $this->referral_model->get_cate_child($referral['referral_id'], 2);
-            $referral['cate_child_count'] = count($cate_child);
-            $referral['cate_child'] = $cate_child;
-            $response['items'][] = $referral;
-            if ($referral['sort_index'] > 0) {
-                $response['order'] = $referral['sort_index'];
-            }
+        foreach ($attributes as $attribute) {
+            $attribute = array_merge($attribute, $this->image_model->get_image($table_id, $attribute['attribute_id']));
+            $cate_child = $this->attribute_model->get_cate_child($attribute['attribute_id'], 2);
+            $attribute['cate_child_count'] = count($cate_child);
+            $attribute['cate_child'] = $cate_child;
+            $response['items'][] = $attribute;
         }
 
         // Response
@@ -159,13 +127,13 @@ class Start extends base_module_controller
         $this->formCheck();
 
         // Receiving parameter
-        $referral_id = t_Post('id');
-        $referral_status = t_Post('status');
+        $attribute_id = t_Post('id');
+        $attribute_status = t_Post('status');
 
         // Business logic
         $dbData = array();
         $dbData['update_time'] = time();
-        switch ($referral_status) {
+        switch ($attribute_status) {
             case self::STATUS_INACTIVE:
                 $dbData['status'] = self::STATUS_INACTIVE;
                 break;
@@ -177,10 +145,10 @@ class Start extends base_module_controller
                 break;
         }
 
-        $this->mLoadModel('referral_model');
+        $this->mLoadModel('attribute_model');
 
         try {
-            $this->referral_model->update($dbData, $referral_id);
+            $this->attribute_model->update($dbData, $attribute_id);
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
@@ -196,24 +164,24 @@ class Start extends base_module_controller
         $this->formCheck();
 
         // Receiving parameter
-        $referral_ids = t_Post('ids');
+        $attribute_ids = t_Post('ids');
 
         // Business logic
-        $referral_ids = explode(',', $referral_ids);
-        if (!is_array($referral_ids)) {
-            resDie("Cannot delete referral data");
+        $attribute_ids = explode(',', $attribute_ids);
+        if (!is_array($attribute_ids)) {
+            resDie("Cannot delete attribute data");
         }
 
         $this->mLoadModel('table_model');
-        $this->mLoadModel('referral_model');
+        $this->mLoadModel('attribute_model');
         $this->mLoadModel('image_model');
 
         try {
-            $table_id = $this->table_model->get_table_id('referral');
-            $this->referral_model->batch_update($referral_ids, self::STATUS_INACTIVE);
+            $table_id = $this->table_model->get_table_id('attribute');
+            $this->attribute_model->batch_update($attribute_ids, self::STATUS_INACTIVE);
 
-            foreach ($referral_ids as $referral_id) {
-                $this->image_model->delete_image($referral_id, $table_id);
+            foreach ($attribute_ids as $attribute_id) {
+                $this->image_model->delete_image($attribute_id, $table_id);
             }
         } catch (Exception $e) {
             resDie($e->getMessage());
@@ -231,18 +199,18 @@ class Start extends base_module_controller
         $this->formCheck();
 
         // Receiving parameter
-        $referral_ids = t_Post('ids');
+        $attribute_ids = t_Post('ids');
 
         // Business logic
-        $referral_ids = explode(',', $referral_ids);
-        if (!is_array($referral_ids)) {
+        $attribute_ids = explode(',', $attribute_ids);
+        if (!is_array($attribute_ids)) {
             resDie("Cannot delete referral data");
         }
 
-        $this->mLoadModel('referral_model');
+        $this->mLoadModel('attribute_model');
 
         try {
-            $this->referral_model->batch_update($referral_ids, self::STATUS_ACTIVE);
+            $this->attribute_model->batch_update($attribute_ids, self::STATUS_ACTIVE);
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
@@ -259,54 +227,18 @@ class Start extends base_module_controller
         $this->formCheck();
 
         // Receiving parameter
-        $referral_ids = t_Post('ids');
+        $attribute_ids = t_Post('ids');
 
         // Business logic
-        $referral_ids = explode(',', $referral_ids);
-        if (!is_array($referral_ids)) {
-            resDie("Cannot delete referral data");
+        $attribute_ids = explode(',', $attribute_ids);
+        if (!is_array($attribute_ids)) {
+            resDie("Cannot delete attribute data");
         }
 
-        $this->mLoadModel('referral_model');
+        $this->mLoadModel('attribute_model');
 
         try {
-            $this->referral_model->batch_update($referral_ids, self::STATUS_BLOCK);
-        } catch (Exception $e) {
-            resDie($e->getMessage());
-        }
-
-        // Response
-        resOk();
-    }
-
-    public function update_sort()
-    {
-        // Form validation
-        $this->form_validation->onlyPost();
-        $this->form_validation->set_rules('sort', 'trim|required');
-        $this->form_validation->set_rules('sorted', 'trim|required');
-        $this->formCheck();
-
-        // Receiving parameter
-        $referral_sort = t_Post('sort');
-        $referral_sorted = t_Post('sorted');
-
-        // Business logic
-        $this->mLoadModel('referral_model');
-
-        try {
-            $order = explode('&', $referral_sort);
-            $order = explode('||', $order[0]);
-            $order = $order[1]--;
-            $sorted = explode('&', $referral_sorted);
-            foreach ($sorted as $sort) {
-                $sort = explode('||', $sort);
-                $referral_id = str_replace('id=', '', $sort[0]);
-                $dbData = array();
-                $dbData['update_time'] = time();
-                $dbData['sort_index'] = $order++;
-                $this->referral_model->update($dbData, $referral_id);
-            }
+            $this->attribute_model->batch_update($attribute_ids, self::STATUS_BLOCK);
         } catch (Exception $e) {
             resDie($e->getMessage());
         }
