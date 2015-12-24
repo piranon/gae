@@ -169,7 +169,6 @@
         "id": id,
         "status": status
       };
-      console.log(dataSend);
       CUR_MODULE.apiPost('start/update_status', dataSend).then(function (res) {
         if (res.ok) {
           fetchListing();

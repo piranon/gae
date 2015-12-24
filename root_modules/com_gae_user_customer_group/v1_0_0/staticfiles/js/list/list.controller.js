@@ -51,28 +51,37 @@
       if (action != 1) {
         return false;
       }
-      GAEUI.pageLoading().play();
-      if (vm.selectedDeleteId.length === 0) {
-        vm.bulkDelete = "";
-        GAEUI.pageLoading().stop();
-        GAEUI.notification().playError('Please select some customer group');
-      } else {
-        var dataSend = {
-          "ids": vm.selectedDeleteId
-        };
-        CUR_MODULE.apiPost('start/bulk_delete', dataSend).then(function (res) {
+      GAEUI.confirmBox().play("Are you sure?","please confirm your action.",function(bool){
+        if(bool){
+          GAEUI.confirmBox().stop();
+          GAEUI.pageLoading().play();
+          if (vm.selectedDeleteId.length === 0) {
+            vm.bulkDelete = "";
+            GAEUI.pageLoading().stop();
+            GAEUI.notification().playError('Please select some customer group');
+          } else {
+            var dataSend = {
+              "ids": vm.selectedDeleteId
+            };
+            CUR_MODULE.apiPost('start/bulk_delete', dataSend).then(function (res) {
+              vm.selectedDeleteId = [];
+              vm.bulkDelete = "";
+              if (res.ok) {
+                fetchListing();
+                GAEUI.pageLoading().stop();
+                GAEUI.notification().playComplete("Delete customer group complete");
+              } else {
+                GAEUI.pageLoading().stop();
+                GAEUI.notification().playError('Can not delete customer group');
+              }
+            });
+          }
+        } else {
           vm.selectedDeleteId = [];
           vm.bulkDelete = "";
-          if (res.ok) {
-            fetchListing();
-            GAEUI.pageLoading().stop();
-            GAEUI.notification().playComplete("Delete customer group complete");
-          } else {
-            GAEUI.pageLoading().stop();
-            GAEUI.notification().playError('Can not delete customer group');
-          }
-        });
-      }
+        }
+        GAEUI.confirmBox().stop();
+      },"Done");
     }
 
     function onClickSort(keyname) {

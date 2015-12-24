@@ -135,41 +135,50 @@
     }
 
     function onChangeBulkDelete(action) {
-      GAEUI.pageLoading().play();
-      if (vm.selectedDeleteId.length === 0) {
-        vm.bulkDelete = "";
-        GAEUI.pageLoading().stop();
-        GAEUI.notification().playError('Please select some category');
-      } else {
-        if (action == 1) {
-          apiUrl = 'start/bulk_show';
-          successMessage = 'Update status category complete';
-          errorMessage = 'Can not update status category';
-        } else if (action == 2) {
-          apiUrl = 'start/bulk_hide';
-          successMessage = 'Update status category complete';
-          errorMessage = 'Can not update status category';
-        } else if (action == 3) {
-          apiUrl = 'start/bulk_delete';
-          successMessage = 'Delete category complete';
-          errorMessage = 'Can not delete category';
-        }
-        var dataSend = {
-          "ids": vm.selectedDeleteId
-        };
-        CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
+      GAEUI.confirmBox().play("Are you sure?","please confirm your action.",function(bool){
+        if(bool){
+          GAEUI.confirmBox().stop();
+          GAEUI.pageLoading().play();
+          if (vm.selectedDeleteId.length === 0) {
+            vm.bulkDelete = "";
+            GAEUI.pageLoading().stop();
+            GAEUI.notification().playError('Please select some category');
+          } else {
+            if (action == 1) {
+              apiUrl = 'start/bulk_show';
+              successMessage = 'Update status category complete';
+              errorMessage = 'Can not update status category';
+            } else if (action == 2) {
+              apiUrl = 'start/bulk_hide';
+              successMessage = 'Update status category complete';
+              errorMessage = 'Can not update status category';
+            } else if (action == 3) {
+              apiUrl = 'start/bulk_delete';
+              successMessage = 'Delete category complete';
+              errorMessage = 'Can not delete category';
+            }
+            var dataSend = {
+              "ids": vm.selectedDeleteId
+            };
+            CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
+              vm.selectedDeleteId = [];
+              vm.bulkDelete = "";
+              if (res.ok) {
+                fetchListing();
+                GAEUI.pageLoading().stop();
+                GAEUI.notification().playComplete(successMessage);
+              } else {
+                GAEUI.pageLoading().stop();
+                GAEUI.notification().playError(errorMessage);
+              }
+            });
+          }
+        } else {
           vm.selectedDeleteId = [];
           vm.bulkDelete = "";
-          if (res.ok) {
-            fetchListing();
-            GAEUI.pageLoading().stop();
-            GAEUI.notification().playComplete(successMessage);
-          } else {
-            GAEUI.pageLoading().stop();
-            GAEUI.notification().playError(errorMessage);
-          }
-        });
-      }
+        }
+        GAEUI.confirmBox().stop();
+      },"Done");
     }
 
     function onClickSort(keyname) {
