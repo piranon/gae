@@ -14,12 +14,12 @@
         <div class="module-container">
             <div class="row content-header">
                 <div class="col-sm-12">
-                    Create Main Category
+                    {{list.title}}
                 </div>
             </div>
             <div class="row content-desc">
                 <div class="col-sm-12">
-                    สร้างหมวดสินค้าหลัก
+                    {{list.title_desc}}
                 </div>
             </div>
             <div class="create-category" ng-show="!list.displaySubCateForm">

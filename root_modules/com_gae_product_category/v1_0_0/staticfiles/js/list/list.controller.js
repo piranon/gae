@@ -12,6 +12,8 @@
         apiUrl,
         successMessage,
         errorMessage;
+    vm.title = "Create Main Category";
+    vm.title_desc = "สร้างหมวดสินค้าหลัก";
     vm.items = [];
     vm.total = 0;
     vm.limit = 10;
@@ -78,6 +80,8 @@
       }
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');
+      vm.title = "Edit Sub Category";
+      vm.title_desc = "แก้ไขหมวดสินค้าย่อย";
     }
 
     function createSubCate(id, name) {
@@ -86,6 +90,8 @@
       }
       vm.parentId = id;
       vm.placeholderSubCateName = name;
+      vm.title = "Create New Sub Category";
+      vm.title_desc = "สร้างหมวดสินค้าย่อยใหม่";
     }
 
     function onClickEdit(id) {
@@ -114,6 +120,8 @@
       }
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');
+      vm.title = "Edit Main Category";
+      vm.title_desc = "แก้ไขหมวดสินค้าหลัก";
     }
 
     notification = $cookies.getObject('cus_list_noti');
