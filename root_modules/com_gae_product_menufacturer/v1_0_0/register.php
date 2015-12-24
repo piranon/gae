@@ -6,21 +6,21 @@ $config = array(
     ),
     "menu_display" => array(
         "addon_menu" => array(
-            "label" => "Brand",
+            "label" => "Manufacturer",
             "image" => array(
-                "normal" => $curModule->file_url . "icon/btn_dashboard_product_brands.png",
-                "hover" => $curModule->file_url . "icon/btn_dashboard_product_brands_over.png",
-                "active" => $curModule->file_url . "icon/btn_dashboard_product_brands_active.png",
-                "selected" => $curModule->file_url . "icon/btn_dashboard_product_brands_active.png"
+                "normal" => $curModule->file_url . "icon/btn_dashboard_product_manufacturer.png",
+                "hover" => $curModule->file_url . "icon/btn_dashboard_product_manufacturer_over.png",
+                "active" => $curModule->file_url . "icon/btn_dashboard_product_manufacturer_active.png",
+                "selected" => $curModule->file_url . "icon/btn_dashboard_product_manufacturer_active.png"
             )
         ),
         "addon_card_info" => array(
-            "label" => "Brands",
-            "primary_image" => $curModule->file_url . "icon/icon_dashboard_product_brands.png",
+            "label" => "Manufacturer",
+            "primary_image" => $curModule->file_url . "icon/icon_dashboard_product_manufacturer.png",
             "detail" => array(
-                "name" => "Brand",
-                "title_1" => "หน้าแสดงยี่ห้อสินค้า",
-                "title_2" => "เพิ่ม ลบ แก้ไข ใส่รูปโลโก้ยี่ห้อ หรือแบนด์สินค้าได้ที่เมนูนี้"
+                "name" => "Manufacturer",
+                "title_1" => "หน้าแสดงรายชื่อผู้ผลิตสินค้า",
+                "title_2" => "เพิ่ม ลบ แก้ไขชื่อและโลโก้ของ ผู้ผลิตสินค้าได้ที่เมนูนี้ี้"
             )
         )
     )

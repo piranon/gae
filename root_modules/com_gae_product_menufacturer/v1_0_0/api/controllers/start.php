@@ -5,7 +5,7 @@ class Start extends base_module_controller
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK = 2;
-    const REFERRAL_TYPE = 'product-brand';
+    const REFERRAL_TYPE = 'product-manufacturer';
 
     public function __construct()
     {

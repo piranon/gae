@@ -272,6 +272,7 @@ body {
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
+    text-align: right;
 }
 
 .create-category .create-category-desc {
@@ -281,12 +282,13 @@ body {
     font-size: 14px;
     font-weight: 400;
     line-height: 21px;
+    text-align: right;
 }
 
 .create-category > div:first-child {
     float: left;
     margin-left: 84px;
-    width: 56px;
+    width: 65px;
     color: #333;
     font-family: Thonburi;
     font-size: 14px;
@@ -316,12 +318,8 @@ body {
     width: 140px;
 }
 
-.create-category > div:first-child + div + div > div:first-child {
-    width: 135px;
-}
-
-.create-category > div:first-child + div + div > div + div {
-    width: 84px;
+.create-category > div:first-child + div + div > * {
+    width: 145px;
 }
 
 .create-category > div:first-child + div + div + div > input {
@@ -335,6 +333,7 @@ body {
 .create-category > div:first-child + div + div + div {
     float: left;
     margin-top: 35px;
+    margin-left: 22px;
 }
 
 .create-category > div:first-child + div + div + div + div {
@@ -414,7 +413,7 @@ body {
 }
 
 .table-list > .table-list-head > div:first-child + div + div {
-    margin-left: 570px;
+    margin-left: 503px;
 }
 
 .table-list > .table-list-head > div:first-child + div + div + div {
@@ -431,6 +430,7 @@ body {
     border-bottom: 2px solid #e0e0e0;
     min-height: 100px;
     display: table;
+    width: 960px;
 }
 .table-list > .table-row > div:first-child + div {
     margin-left: 16px;

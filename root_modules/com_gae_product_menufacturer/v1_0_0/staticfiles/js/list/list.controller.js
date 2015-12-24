@@ -12,6 +12,8 @@
         apiUrl,
         successMessage,
         errorMessage;
+    vm.title = "Add New Manufacturer";
+    vm.title_desc = "เพิ่มผู้ผลิตใหม่";
     vm.items = [];
     vm.total = 0;
     vm.limit = 10;
@@ -62,6 +64,8 @@
       }
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');
+      vm.title = "Edit Manufacturer";
+      vm.title_desc = "แก้ไขผู้ผลิต";
     }
 
     notification = $cookies.getObject('cus_list_noti');

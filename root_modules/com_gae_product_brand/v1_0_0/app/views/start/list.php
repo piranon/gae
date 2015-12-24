@@ -14,12 +14,12 @@
         <div class="module-container">
             <div class="row content-header">
                 <div class="col-sm-12">
-                    Edit Brand
+                    {{list.title}}
                 </div>
             </div>
             <div class="row content-desc">
                 <div class="col-sm-12">
-                    แก้ไขยี่ห้อสินค้า
+                    {{list.title_desc}}
                 </div>
             </div>
             <div class="create-category" ng-show="!list.displaySubCateForm">
@@ -39,8 +39,8 @@
                     </div>
                 </div>
                 <div>
-                    <div class="create-category-label">Category Name</div>
-                    <div class="create-category-desc">ชื่อหมวดสินค้า</div>
+                    <div class="create-category-label">Brand Name</div>
+                    <div class="create-category-desc">ชื่อยี่ห้อสินค้า</div>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="list.categoryName" id="category_name"
@@ -86,8 +86,8 @@
                                 ng-class="{'active-discount' : list.deleteAll}">
                         </button>
                     </div>
-                    <div>Icon</div>
-                    <div>Category Label</div>
+                    <div>Brand</div>
+                    <div>Visibility</div>
                     <div></div>
                 </div>
                 <div class="table-row"
