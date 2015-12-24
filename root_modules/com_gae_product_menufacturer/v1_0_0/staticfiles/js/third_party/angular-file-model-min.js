@@ -1,0 +1,1 @@
+!function(){"use strict";angular.module("file-model",[]).directive("fileModel",["$parse",function(i){return{restrict:"A",link:function(e,n,l){var t=i(l.fileModel),f=t.assign;n.bind("change",function(){e.$apply(function(){l.multiple?f(e,n[0].files):f(e,n[0].files[0])})})}}}])}();
