@@ -18,6 +18,7 @@ class Start extends base_module_controller
         // Form validation
         $this->form_validation->onlyPost();
         $this->form_validation->set_rules('category_name', 'trim|required');
+        $this->form_validation->set_rules('attribute_type_id', 'trim|required');
         $this->formCheck();
 
         // Receiving parameter
@@ -74,7 +75,6 @@ class Start extends base_module_controller
         $this->mLoadModel('attribute_type_model');
         $this->mLoadModel('table_model');
         $this->mLoadModel('image_model');
-        $this->mLoadModel('extra_field_model');
 
         try {
             $this->attribute_model->update(array_filter($dbData), $attribute_id);
@@ -191,15 +191,17 @@ class Start extends base_module_controller
         resOk();
     }
 
-    public function bulk_show()
+    public function bulk_update_type()
     {
         // Form validation
         $this->form_validation->onlyPost();
         $this->form_validation->set_rules('ids', 'trim|required');
+        $this->form_validation->set_rules('type', 'trim|required');
         $this->formCheck();
 
         // Receiving parameter
         $attribute_ids = t_Post('ids');
+        $attribute_type = t_Post('type');
 
         // Business logic
         $attribute_ids = explode(',', $attribute_ids);
@@ -210,35 +212,7 @@ class Start extends base_module_controller
         $this->mLoadModel('attribute_model');
 
         try {
-            $this->attribute_model->batch_update($attribute_ids, self::STATUS_ACTIVE);
-        } catch (Exception $e) {
-            resDie($e->getMessage());
-        }
-
-        // Response
-        resOk();
-    }
-
-    public function bulk_hide()
-    {
-        // Form validation
-        $this->form_validation->onlyPost();
-        $this->form_validation->set_rules('ids', 'trim|required');
-        $this->formCheck();
-
-        // Receiving parameter
-        $attribute_ids = t_Post('ids');
-
-        // Business logic
-        $attribute_ids = explode(',', $attribute_ids);
-        if (!is_array($attribute_ids)) {
-            resDie("Cannot delete attribute data");
-        }
-
-        $this->mLoadModel('attribute_model');
-
-        try {
-            $this->attribute_model->batch_update($attribute_ids, self::STATUS_BLOCK);
+            $this->attribute_model->batch_update_type($attribute_ids, $attribute_type);
         } catch (Exception $e) {
             resDie($e->getMessage());
         }

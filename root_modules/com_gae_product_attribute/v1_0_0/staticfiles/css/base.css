@@ -534,6 +534,7 @@ body {
     line-height: 24px;
     display: inline;
     float: left;
+    margin-left: 30px;
 }
 
 .item-show {
@@ -554,6 +555,36 @@ body {
     cursor: pointer;
 }
 
+.radio-button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    outline: 0px;
+    border: 1px solid #c8c8c8;
+    background-color: white;
+    color: white;
+    float: left;
+    margin-top: 2px;
+}
+
+.radio-button .glyphicon {
+    font-size: .9em;
+    margin-left: -0.1em;
+}
+
+.radio-active {
+    border: 2px solid #ff5000 !important;
+}
+
+.radio-active span {
+    background-color: red;
+    width: 10px;
+    height: 10px;
+    display: block;
+    border-radius: 50%;
+    margin-left: -3px;
+}
+
 .circle-small-warning {
     width: 22px;
     height: 22px;
@@ -571,9 +602,9 @@ body {
 }
 
 .circle-small-warning .glyphicon {
-    font-size: .9em;
-    margin-left: -0.1em;
-}
+     font-size: .9em;
+     margin-left: -0.1em;
+ }
 
 .btn-expand, .btn-expand-up, .btn-edit, .btn-add-s, .btn-del-s {
     float: left;

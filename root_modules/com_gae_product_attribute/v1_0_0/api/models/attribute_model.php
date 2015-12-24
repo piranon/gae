@@ -94,6 +94,30 @@ class Attribute_model extends base_module_model
         return $result;
     }
 
+    /**
+     * @param array $attribute_ids
+     * @param int $type
+     * @return mixed
+     * @throws Exception
+     */
+    public function batch_update_type($attribute_ids, $type)
+    {
+        $this->db->where_in('attribute_id', $attribute_ids);
+        $this->db->update('attribute', ['attribute_type_id' => $type]);
+        $result = $this->db->affected_rows();
+
+        if (!$result){
+            throw new Exception('Cannot update attribute data');
+        }
+
+        return $result;
+    }
+
+    /**
+     * @param int $id
+     * @param int $level
+     * @return mixed
+     */
     public function get_cate_child($id, $level)
     {
         $level++;

@@ -49,11 +49,11 @@
     vm.onClickEdit = function (id) {
       onClickEdit(id);
     };
-    vm.createSubCate = function (id, name) {
-      createSubCate(id, name);
+    vm.createSubCate = function (id, name, type) {
+      createSubCate(id, name, type);
     };
-    vm.onClickEditSubCate = function (element) {
-      onClickEditSubCate(element);
+    vm.onClickEditSubCate = function (id, name, type) {
+      onClickEditSubCate(id, name, type);
     };
     vm.onClickExpand = function (lv, id, $event) {
       onClickExpand(lv, id, $event);
@@ -72,7 +72,7 @@
       }
     }
 
-    function onClickEditSubCate(id, name) {
+    function onClickEditSubCate(id, name, type) {
       vm.displaySubCateForm = true;
       cateId = id;
       if (name) {
@@ -84,12 +84,13 @@
       vm.title_desc = "แก้ไขหมวดสินค้าย่อย";
     }
 
-    function createSubCate(id, name) {
+    function createSubCate(id, name, type) {
       if (!vm.displaySubCateForm) {
         vm.displaySubCateForm = true;
       }
       vm.parentId = id;
       vm.placeholderSubCateName = name;
+      vm.attributeTypeId = type;
       vm.title = "Create Attribute Group for Variants & Specification";
       vm.title_desc = "สร้างกลุ่มของคุณลักษณะสินค้า เพื่อให้เป็นตัวเลือกสินค้าหรือสเปคสินค้า";
     }
@@ -98,25 +99,15 @@
       vm.displaySubCateForm = false;
       cateId = id;
       angular.element('#pic-icon').removeClass('ng-hide');
-      angular.element('#colorPicker .colorInner').removeAttr("style");
-      angular.element('#colorPicker2 .colorInner').removeAttr("style");
       var element = '#btn-edit-' + id;
       var name = angular.element(element).data('name');
       var imageId = angular.element(element).data('image_id');
       var image = angular.element(element).data('image');
-      var label = angular.element(element).data('label');
-      var font = angular.element(element).data('font');
       if (name) {
         vm.categoryName = angular.element(element).data('name');
       }
       if (imageId) {
         vm.imageProfile = angular.element(element).data('image');
-      }
-      if (label !== '#eee') {
-        angular.element('#colorPicker .colorInner').css('background', label);
-      }
-      if (font !== '#666') {
-        angular.element('#colorPicker2 .colorInner').css('background', font);
       }
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');
@@ -137,7 +128,6 @@
         $scope.$apply(function () {
           vm.items = res.data.items;
           vm.total = res.data.items.length;
-          vm.sortIndex = ++res.data.order;
         });
       });
     }
@@ -152,21 +142,18 @@
             GAEUI.pageLoading().stop();
             GAEUI.notification().playError('Please select some category');
           } else {
-            if (action == 1) {
-              apiUrl = 'start/bulk_show';
-              successMessage = 'Update status category complete';
-              errorMessage = 'Can not update status category';
-            } else if (action == 2) {
-              apiUrl = 'start/bulk_hide';
-              successMessage = 'Update status category complete';
-              errorMessage = 'Can not update status category';
+            if (action == 1 || action == 2) {
+              apiUrl = 'start/bulk_update_type';
+              successMessage = 'Update attribute complete';
+              errorMessage = 'Can not update attribute';
             } else if (action == 3) {
               apiUrl = 'start/bulk_delete';
               successMessage = 'Delete category complete';
               errorMessage = 'Can not delete category';
             }
             var dataSend = {
-              "ids": vm.selectedDeleteId
+              'ids': vm.selectedDeleteId,
+              'type': action
             };
             CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
               vm.selectedDeleteId = [];
@@ -206,7 +193,7 @@
         vm.deleteAll = true;
         vm.selectedDeleteId = [];
         angular.forEach(vm.items, function (value, key) {
-          vm.selectedDeleteId.push(value.referral_id);
+          vm.selectedDeleteId.push(value.attribute_id);
         });
       }
     }
@@ -263,17 +250,15 @@
         var dataSend = {
           "id": cateId || '',
           "category_name": vm.subCategoryName || '',
-          "parent_id": vm.parentId || ''
+          "parent_id": vm.parentId || '',
+          "attribute_type_id": vm.attributeTypeId || ''
         };
       } else {
         var dataSend = {
           "id": cateId || '',
           "category_name": vm.categoryName || '',
-          "parent_id": vm.parentId || '',
-          "sort_index": vm.sortIndex || '',
           "profile_pic": vm.fileModel,
-          "label_color": angular.element('#labelColor').val() || '',
-          "font_color": angular.element('#fontColor').val() || ''
+          "attribute_type_id": vm.attributeTypeId || ''
         };
       }
       CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {
@@ -295,31 +280,6 @@
         }
       });
     }
-
-    $(document).ready(function () {
-      var sort;
-      $("#sortable").sortable({
-        handle: ".btn-re-oder",
-        start: function( event, ui ) {
-          sort = $( "#sortable" ).sortable( "serialize", { key: "id" } );
-        },
-        update: function (event, ui) {
-          var dataSend = {
-            'sort': sort,
-            'sorted': $( "#sortable" ).sortable( "serialize", { key: "id" } )
-          };
-          CUR_MODULE.apiPost('start/update_sort', dataSend).then(function (res) {
-            if (res.ok) {
-              fetchListing();
-              GAEUI.notification().playComplete("Update sort complete");
-            } else {
-              GAEUI.notification().playError('Cannot update sort');
-            }
-          });
-        }
-      });
-    });
-
   }
 
 })();
