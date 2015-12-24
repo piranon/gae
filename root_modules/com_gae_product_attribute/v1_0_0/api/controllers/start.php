@@ -5,6 +5,7 @@ class Start extends base_module_controller
     const STATUS_INACTIVE = 0;
     const STATUS_ACTIVE = 1;
     const STATUS_BLOCK = 2;
+    const REFERRAL_TYPE = 'product-attribute';
 
     public function __construct()
     {
@@ -41,7 +42,7 @@ class Start extends base_module_controller
         $this->mLoadModel('extra_field_model');
 
         try {
-            $dbData['referral_type_id'] = $this->referral_type_model->get_referral_type_id('product-category');
+            $dbData['referral_type_id'] = $this->referral_type_model->get_referral_type_id(self::REFERRAL_TYPE);
             $referral_id = $this->referral_model->insert($dbData);
             $table_id = $this->table_model->get_table_id('referral');
             $this->image_model->upload_image($referral_id, $table_id);
@@ -118,7 +119,7 @@ class Start extends base_module_controller
         $this->mLoadModel('extra_field_model');
 
         $table_id = $this->table_model->get_table_id('referral');
-        $referral_type_id = $this->referral_type_model->get_referral_type_id('product-category');
+        $referral_type_id = $this->referral_type_model->get_referral_type_id(self::REFERRAL_TYPE);
         $referrals = $this->referral_model->get_referrals($referral_type_id);
 
         $response = [];
