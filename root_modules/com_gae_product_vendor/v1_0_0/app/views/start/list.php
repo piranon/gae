@@ -2,7 +2,7 @@
     <div class="top-navigation">
         <div class="row module-container">
             <div class="col-md-4"></div>
-            <div class="col-md-4 topic-page">Brands</div>
+            <div class="col-md-4 topic-page">Vendors</div>
         </div>
     </div>
     <div class="box-search">
@@ -25,7 +25,7 @@
             <div class="create-category" ng-show="!list.displaySubCateForm">
                 <div>
                     <strong>Logo</strong><br>
-                    ตราสินค้า
+                    <div>โลโก้ผู้จัดจำหน่าย</div>
                 </div>
                 <div>
                     <div ng-click="list.clickOnUpload(); $event.stopPropagation();">
@@ -39,8 +39,8 @@
                     </div>
                 </div>
                 <div>
-                    <div class="create-category-label">Brand Name</div>
-                    <div class="create-category-desc">ชื่อยี่ห้อสินค้า</div>
+                    <div class="create-category-label">Vendor Name</div>
+                    <div class="create-category-desc">ชื่อผู้จัดจำหน่าย</div>
                 </div>
                 <div class="form-group">
                     <input type="text" class="form-control" ng-model="list.categoryName" id="category_name"
@@ -66,7 +66,7 @@
                 </div>
                 <div>&nbsp;
                     <div ng-show="list.total">
-                        {{list.selectedDeleteId.length}} brand selected from total {{list.total}} brands
+                        {{list.selectedDeleteId.length}} vendor selected from total {{list.total}} vendors
                     </div>
                 </div>
                 <div>
@@ -86,7 +86,7 @@
                                 ng-class="{'active-discount' : list.deleteAll}">
                         </button>
                     </div>
-                    <div>Brand</div>
+                    <div>Vendor</div>
                     <div>Visibility</div>
                     <div></div>
                 </div>
@@ -152,7 +152,7 @@
                 <div class="col-xs-12">
                     <img ng-src="<?php echo $curModule->file_url; ?>icon/no_item.png">
 
-                    <div>ยังไม่มียี่ห้อสินค้า ทำการเพิ่มยี่ห้อสินค้าได้ที่ด้านบน</div>
+                    <div>ยังไม่มีผู้จัดจำหน่ายสินค้า ทำการเพิ่มผู้จัดจำหน่ายสินค้าได้ที่ด้านบน</div>
                 </div>
             </div>
         </div>

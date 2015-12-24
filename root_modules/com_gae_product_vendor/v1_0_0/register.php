@@ -6,21 +6,21 @@ $config = array(
     ),
     "menu_display" => array(
         "addon_menu" => array(
-            "label" => "Brand",
+            "label" => "Vendor",
             "image" => array(
-                "normal" => $curModule->file_url . "icon/btn_dashboard_product_brands.png",
-                "hover" => $curModule->file_url . "icon/btn_dashboard_product_brands_over.png",
-                "active" => $curModule->file_url . "icon/btn_dashboard_product_brands_active.png",
-                "selected" => $curModule->file_url . "icon/btn_dashboard_product_brands_active.png"
+                "normal" => $curModule->file_url . "icon/btn_dashboard_product_vendor.png",
+                "hover" => $curModule->file_url . "icon/btn_dashboard_product_vendor_over.png",
+                "active" => $curModule->file_url . "icon/btn_dashboard_product_vendor_active.png",
+                "selected" => $curModule->file_url . "icon/btn_dashboard_product_vendor_active.png"
             )
         ),
         "addon_card_info" => array(
-            "label" => "Brands",
-            "primary_image" => $curModule->file_url . "icon/icon_dashboard_product_brands.png",
+            "label" => "Vendor",
+            "primary_image" => $curModule->file_url . "icon/icon_dashboard_product_vendor.png",
             "detail" => array(
-                "name" => "Brand",
-                "title_1" => "หน้าแสดงยี่ห้อสินค้า",
-                "title_2" => "เพิ่ม ลบ แก้ไข ใส่รูปโลโก้ยี่ห้อ หรือแบนด์สินค้าได้ที่เมนูนี้"
+                "name" => "Vendor",
+                "title_1" => "หน้าแสดงรายชื่อผู้จัดจำหน่าย",
+                "title_2" => "เพิ่ม ลบ แก้ไขชื่อและโลโก้ของผู้จัดจำหน่ายสินค้าได้ที่เมนูนี้"
             )
         )
     )

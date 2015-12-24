@@ -12,8 +12,8 @@
         apiUrl,
         successMessage,
         errorMessage;
-    vm.title = "Add New Brand";
-    vm.title_desc = "เพิ่มยี่ห้อสินค้าใหม่";
+    vm.title = "Add New Vendor";
+    vm.title_desc = "เพิ่มผู้จัดจำหน่ายใหม่";
     vm.items = [];
     vm.total = 0;
     vm.limit = 10;
@@ -64,8 +64,8 @@
       }
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');
-      vm.title = "Edit Brand";
-      vm.title_desc = "แก้ไขยี่ห้อสินค้า";
+      vm.title = "Edit Vendor";
+      vm.title_desc = "แก้ไขผู้จัดจำหน่าย";
     }
 
     notification = $cookies.getObject('cus_list_noti');

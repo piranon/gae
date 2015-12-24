@@ -306,6 +306,15 @@ body {
     line-height: 24px;
 }
 
+.create-category > div:first-child > div {
+    color: #333;
+    font-family: Thonburi;
+    font-size: 14px;
+    font-weight: 400;
+    float: right;
+    width: 104px;
+}
+
 .create-category > div:first-child + div {
     float: left;
 }
@@ -413,7 +422,7 @@ body {
 }
 
 .table-list > .table-list-head > div:first-child + div + div {
-    margin-left: 570px;
+    margin-left: 547px;
 }
 
 .table-list > .table-list-head > div:first-child + div + div + div {
