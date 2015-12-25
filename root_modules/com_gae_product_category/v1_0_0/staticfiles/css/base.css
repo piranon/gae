@@ -367,6 +367,11 @@ body {
     margin-left: 16px;
 }
 
+.extra-btn {
+    position: relative;
+    top: -80px;
+    left: -57px;
+}
 
 .has-error .form-control {
     color: #e74c3c;

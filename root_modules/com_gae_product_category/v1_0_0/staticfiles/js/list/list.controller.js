@@ -25,6 +25,13 @@
     vm.clickOnUpload = clickOnUpload;
     vm.addCategory = addCategory;
     vm.displaySubCateForm = false;
+    vm.backCreateSubCate = backCreateSubCate;
+    vm.idV1 = 0;
+    vm.idV2 = 0;
+    vm.idV3 = 0;
+    vm.nameV1 = '';
+    vm.nameV2 = '';
+    vm.nameV3 = '';
     vm.onChangeLimit = function (limitList) {
       vm.limit = limitList || 10;
     };
@@ -49,8 +56,8 @@
     vm.onClickEdit = function (id) {
       onClickEdit(id);
     };
-    vm.createSubCate = function (id, name) {
-      createSubCate(id, name);
+    vm.createSubCate = function (idv1, idv2, idv3, nameV1, nameV2, nameV3) {
+      createSubCate(idv1, idv2, idv3, nameV1, nameV2, nameV3);
     };
     vm.onClickEditSubCate = function (element) {
       onClickEditSubCate(element);
@@ -84,14 +91,58 @@
       vm.title_desc = "แก้ไขหมวดสินค้าย่อย";
     }
 
-    function createSubCate(id, name) {
+    function backCreateSubCate() {
+      if (vm.idV3) {
+        vm.idV3 = 0;
+        vm.nameV3 = '';
+      } else if (vm.idV2) {
+        vm.idV2 = 0;
+        vm.nameV2 = '';
+      } else if (vm.idV1) {
+        vm.idV1 = 0;
+        vm.nameV1 = '';
+      }
+      if (!vm.idV1) {
+        vm.displaySubCateForm = false;
+        vm.title = "Create Main Category";
+        vm.title_desc = "สร้างหมวดสินค้าหลัก";
+      }
+      vm.placeholderSubCateName = '';
+      if (vm.nameV1) {
+        vm.placeholderSubCateName += vm.nameV1;
+      }
+      if (vm.nameV2) {
+        vm.placeholderSubCateName += ' | ' + vm.nameV2;
+      }
+      if (vm.nameV3) {
+        vm.placeholderSubCateName += ' | ' + vm.nameV3;
+      }
+      vm.parentId = vm.idV3 || vm.idV2 || vm.idV1;
+    }
+
+    function createSubCate(idv1, idv2, idv3, nameV1, nameV2, nameV3) {
       if (!vm.displaySubCateForm) {
         vm.displaySubCateForm = true;
       }
-      vm.parentId = id;
-      vm.placeholderSubCateName = name;
+      vm.idV1 = idv1;
+      vm.idV2 = idv2;
+      vm.idV3 = idv3;
+      vm.nameV1 = nameV1;
+      vm.nameV2 = nameV2;
+      vm.nameV3 = nameV3;
+      vm.parentId = idv3 || idv2 || idv1;
       vm.title = "Create New Sub Category";
       vm.title_desc = "สร้างหมวดสินค้าย่อยใหม่";
+      vm.placeholderSubCateName = '';
+      if (nameV1) {
+        vm.placeholderSubCateName += nameV1;
+      }
+      if (nameV2) {
+        vm.placeholderSubCateName += ' | ' + nameV2;
+      }
+      if (nameV3) {
+        vm.placeholderSubCateName += ' | ' + nameV3;
+      }
     }
 
     function onClickEdit(id) {

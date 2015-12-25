@@ -94,14 +94,21 @@
             </div>
             <div class="create-category create-sub-category" ng-show="list.displaySubCateForm">
                 <div>
-                    <div class="create-category-label">Category Name</div>
-                    <div class="create-category-desc">ชื่อหมวดสินค้า</div>
+                    <div class="create-category-label">
+                        Category Name
+                    </div>
+                    <div class="create-category-desc">
+                        ชื่อหมวดสินค้า
+                    </div>
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="list.subCategoryName" id="category_name"
                                ng-keydown="list.keyDownRequired($event)" placeholder="{{list.placeholderSubCateName}}">
 
                         <div class="add-warning hide" ng-hide='list.subCategoryName'></div>
                     </div>
+                    <a class="btn-add extra-btn" ng-click="list.backCreateSubCate();">
+                        <span></span>
+                    </a>
                 </div>
                 <div>
                     <a class="btn-add" ng-click="list.addCategory(true);">
@@ -176,7 +183,8 @@
                             </a>
 
                             <div class="item-name">{{item.name}} ({{item.cate_child_count}})</div>
-                            <a class="btn-add-s" ng-click="list.createSubCate(item.referral_id, item.name)">
+                            <a class="btn-add-s"
+                               ng-click="list.createSubCate(item.referral_id, 0, 0, item.name, '', '')">
                                 <span></span>
                             </a>
                             <a class="btn-edit" id="btn-edit-{{item.referral_id}}"
@@ -204,7 +212,8 @@
                                 </a>
 
                                 <div class="item-name">{{v2.name}} ({{v2.cate_child_count}})</div>
-                                <a class="btn-add-s" ng-click="list.createSubCate(v2.referral_id, v2.name)">
+                                <a class="btn-add-s"
+                                   ng-click="list.createSubCate(item.referral_id, v2.referral_id, 0, item.name, v2.name, '')">
                                     <span></span>
                                 </a>
                                 <a class="btn-edit" ng-click="list.onClickEditSubCate(v2.referral_id, v2.name)">
@@ -226,7 +235,8 @@
                                         </a>
 
                                         <div class="item-name">{{v3.name}} ({{v3.cate_child_count}})</div>
-                                        <a class="btn-add-s" ng-click="list.createSubCate(v3.referral_id, v3.name)">
+                                        <a class="btn-add-s"
+                                           ng-click="list.createSubCate(item.referral_id, v2.referral_id, v3.referral_id, item.name, v2.name, v3.name)">
                                             <span></span>
                                         </a>
                                         <a class="btn-edit" ng-click="list.onClickEditSubCate(v3.referral_id, v3.name)">
