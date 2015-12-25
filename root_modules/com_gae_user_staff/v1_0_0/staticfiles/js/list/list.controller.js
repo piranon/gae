@@ -77,6 +77,8 @@
                 GAEUI.pageLoading().stop();
                 GAEUI.notification().playError('Can not delete staff');
               }
+            }).onProgress(function(percent){
+              GAEUI.pageLoading().updateProgress(percent);
             });
           }
         } else {
@@ -132,6 +134,8 @@
           GAEUI.pageLoading().stop();
           GAEUI.notification().playError('Cannot update status');
         }
+      }).onProgress(function(percent){
+        GAEUI.pageLoading().updateProgress(percent);
       });
     }
 

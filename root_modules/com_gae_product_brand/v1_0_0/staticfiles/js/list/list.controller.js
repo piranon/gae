@@ -123,6 +123,8 @@
                 GAEUI.pageLoading().stop();
                 GAEUI.notification().playError(errorMessage);
               }
+            }).onProgress(function(percent){
+              GAEUI.pageLoading().updateProgress(percent);
             });
           }
         } else {
@@ -179,6 +181,8 @@
           GAEUI.pageLoading().stop();
           GAEUI.notification().playError('Cannot update status');
         }
+      }).onProgress(function(percent){
+        GAEUI.pageLoading().updateProgress(percent);
       });
     }
 
@@ -237,6 +241,8 @@
           GAEUI.notification().playError(errorMessage);
           vm.parentId = '';
         }
+      }).onProgress(function(percent){
+        GAEUI.pageLoading().updateProgress(percent);
       });
     }
   }

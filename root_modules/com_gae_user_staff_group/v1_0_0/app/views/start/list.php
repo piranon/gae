@@ -9,7 +9,7 @@
             </div>
         </div>
     </div><!--gae_manager_view-header-->
-    
+
     <div class="customer-list">
         <div class="module-container">
             <div class="row customer-filter">

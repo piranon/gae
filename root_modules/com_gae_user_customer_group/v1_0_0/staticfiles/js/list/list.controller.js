@@ -74,6 +74,8 @@
                 GAEUI.pageLoading().stop();
                 GAEUI.notification().playError('Can not delete customer group');
               }
+            }).onProgress(function(percent){
+              GAEUI.pageLoading().updateProgress(percent);
             });
           }
         } else {

@@ -146,6 +146,8 @@
           GAEUI.pageLoading().stop();
           GAEUI.notification().playError(errorMessage);
         }
+      }).onProgress(function(percent){
+        GAEUI.pageLoading().updateProgress(percent);
       });
     }
   }
