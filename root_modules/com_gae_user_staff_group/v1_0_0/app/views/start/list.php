@@ -1,12 +1,15 @@
+<div class="gae_manager_view-footer"></div><!--gae_manager_view-header-->
+
 <div ng-app="staffGroup" ng-controller="ListController as list">
-    <div class="top-navigation">
-        <div class="row module-container">
-            <div class="col-md-4">
-                <a class="btn-add" href="<?php echo $curModule->app_url; ?>start/add">Create User Role</a>
+
+    <div class="gae_manager_view-header">
+        <div class="box-search">
+            <div class="module-container">
+                <input type="text" ng-model="list.search" class="new-search-btn" placeholder="Search Here">
             </div>
-            <div class="col-md-4 topic-page">User Role</div>
         </div>
-    </div>
+    </div><!--gae_manager_view-header-->
+    
     <div class="customer-list">
         <div class="module-container">
             <div class="row customer-filter">
