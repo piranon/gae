@@ -213,39 +213,38 @@
 
                                 <div class="clear"></div>
                                 <!-- lv3 -->
-                                <div ng-repeat="(key3, v3) in v2.cate_child" class="cate-lv-3 hide"
-                                     id="cate-lv3-box-{{v2.referral_id}}">
-                                    <div class="clear"></div>
-                                    <a class="btn-expand" ng-click="list.onClickExpand('lv4', v3.referral_id, $event)">
-                                        <span></span>
-                                    </a>
-
-                                    <div class="item-name">{{v3.name}} ({{v3.cate_child_count}})</div>
-                                    <a class="btn-add-s" ng-click="list.createSubCate(v3.referral_id, v3.name)">
-                                        <span></span>
-                                    </a>
-                                    <a class="btn-edit" ng-click="list.onClickEditSubCate(v3.referral_id, v3.name)">
-                                        <span></span>
-                                    </a>
-                                    <a class="btn-del-s" ng-click="list.setStatusBlock(v3.referral_id, 0)">
-                                        <span></span>
-                                    </a>
-
-                                    <div class="clear"></div>
-                                    <!-- lv4 -->
-                                    <div ng-repeat="(key4, v4) in v3.cate_child" class="cate-lv-4 hide"
-                                         id="cate-lv4-box-{{v3.referral_id}}">
+                                <div class="cate-lv3-box hide" id="cate-lv3-box-{{v2.referral_id}}">
+                                    <div ng-repeat="(key3, v3) in v2.cate_child" class="cate-lv-3">
                                         <div class="clear"></div>
-                                        <div class="item-name">{{v4.name}} ({{v4.cate_child_count}})</div>
-                                        <a class="btn-add-s" ng-click="list.createSubCate(v4.referral_id, v4.name)">
+                                        <a class="btn-expand" ng-click="list.onClickExpand('lv4', v3.referral_id, $event)">
                                             <span></span>
                                         </a>
-                                        <a class="btn-edit" ng-click="list.onClickEditSubCate(v4.referral_id, v4.name)">
+
+                                        <div class="item-name">{{v3.name}} ({{v3.cate_child_count}})</div>
+                                        <a class="btn-add-s" ng-click="list.createSubCate(v3.referral_id, v3.name)">
                                             <span></span>
                                         </a>
-                                        <a class="btn-del-s" ng-click="list.setStatusBlock(v4.referral_id, 0)">
+                                        <a class="btn-edit" ng-click="list.onClickEditSubCate(v3.referral_id, v3.name)">
                                             <span></span>
                                         </a>
+                                        <a class="btn-del-s" ng-click="list.setStatusBlock(v3.referral_id, 0)">
+                                            <span></span>
+                                        </a>
+
+                                        <div class="clear"></div>
+                                        <!-- lv4 -->
+                                        <div class="cate-lv4-box hide" id="cate-lv4-box-{{v3.referral_id}}">
+                                            <div ng-repeat="(key4, v4) in v3.cate_child" class="cate-lv-4">
+                                                <div class="clear"></div>
+                                                <div class="item-name">{{v4.name}} ({{v4.cate_child_count}})</div>
+                                                <a class="btn-edit" ng-click="list.onClickEditSubCate(v4.referral_id, v4.name)">
+                                                    <span></span>
+                                                </a>
+                                                <a class="btn-del-s" ng-click="list.setStatusBlock(v4.referral_id, 0)">
+                                                    <span></span>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
