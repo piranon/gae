@@ -11,6 +11,7 @@ class Start extends base_module_controller
             'js' => [
                 'third_party/jquery.tinycolorpicker.min.js',
                 'components/fileread.directive.js',
+                'services/focus.service.js',
                 'list/list.controller.js'
             ]
         ];

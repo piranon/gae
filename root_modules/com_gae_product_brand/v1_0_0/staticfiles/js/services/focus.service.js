@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('customer')
+      .module('category')
       .factory('focus', focus);
 
   function focus($timeout, $window) {

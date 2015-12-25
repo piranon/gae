@@ -5,7 +5,7 @@
       .module('category')
       .controller('ListController', ListController);
 
-  function ListController($scope, $timeout, $cookies, $window) {
+  function ListController($scope, $timeout, $cookies, $window, focus) {
     var vm = this,
         cateId,
         notification,
@@ -66,6 +66,7 @@
       angular.element('.btn-add').removeClass('btn-add');
       vm.title = "Edit Vendor";
       vm.title_desc = "แก้ไขผู้จัดจำหน่าย";
+      focus('category_name');
     }
 
     notification = $cookies.getObject('cus_list_noti');

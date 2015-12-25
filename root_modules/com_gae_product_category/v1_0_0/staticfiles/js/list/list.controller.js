@@ -5,7 +5,7 @@
       .module('category')
       .controller('ListController', ListController);
 
-  function ListController($scope, $timeout, $cookies, $window) {
+  function ListController($scope, $timeout, $cookies, $window, focus) {
     var vm = this,
         cateId,
         notification,
@@ -89,6 +89,7 @@
       angular.element('.btn-add').removeClass('btn-add');
       vm.title = "Edit Sub Category";
       vm.title_desc = "แก้ไขหมวดสินค้าย่อย";
+      focus('sub_category_name');
     }
 
     function backCreateSubCate() {
@@ -143,6 +144,7 @@
       if (nameV3) {
         vm.placeholderSubCateName += ' | ' + nameV3;
       }
+      focus('sub_category_name');
     }
 
     function onClickEdit(id) {
@@ -173,6 +175,7 @@
       angular.element('.btn-add').removeClass('btn-add');
       vm.title = "Edit Main Category";
       vm.title_desc = "แก้ไขหมวดสินค้าหลัก";
+      focus('category_name');
     }
 
     notification = $cookies.getObject('cus_list_noti');

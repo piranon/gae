@@ -5,7 +5,7 @@
       .module('category')
       .controller('ListController', ListController);
 
-  function ListController($scope, $timeout, $cookies, $window) {
+  function ListController($scope, $timeout, $cookies, $window, focus) {
     var vm = this,
         cateId,
         notification,
@@ -83,6 +83,7 @@
       angular.element('.btn-add').removeClass('btn-add');
       vm.title = "Edit Sub Category";
       vm.title_desc = "แก้ไขหมวดสินค้าย่อย";
+      focus('sub_category_name');
     }
 
     function createSubCate(id, name, type) {
@@ -94,6 +95,7 @@
       vm.attributeTypeId = type;
       vm.title = "Create Attribute Group for Variants & Specification";
       vm.title_desc = "สร้างกลุ่มของคุณลักษณะสินค้า เพื่อให้เป็นตัวเลือกสินค้าหรือสเปคสินค้า";
+      focus('sub_category_name');
     }
 
     function onClickEdit(id) {
