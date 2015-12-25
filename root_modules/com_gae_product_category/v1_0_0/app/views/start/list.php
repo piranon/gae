@@ -8,7 +8,8 @@
                 <input type="text" ng-model="list.search" class="new-search-btn" placeholder="Search Here">
             </div>
         </div>
-    </div><!--gae_manager_view-header-->
+    </div>
+    <!--gae_manager_view-header-->
 
     <div class="customer-list">
         <div class="module-container">
@@ -169,7 +170,8 @@
                     </div>
                     <div>
                         <div>
-                            <a class="btn-expand" ng-click="list.onClickExpand('lv2', item.referral_id, $event)">
+                            <a class="btn-expand" ng-click="list.onClickExpand('lv2', item.referral_id, $event)"
+                               ng-show="item.cate_child.length > 0">
                                 <span></span>
                             </a>
 
@@ -196,7 +198,8 @@
                             <!-- lv2 -->
                             <div ng-repeat="(key2, v2) in item.cate_child" class="cate-lv-2">
                                 <div class="clear"></div>
-                                <a class="btn-expand" ng-click="list.onClickExpand('lv3', v2.referral_id, $event)">
+                                <a class="btn-expand" ng-click="list.onClickExpand('lv3', v2.referral_id, $event)"
+                                   ng-show="v2.cate_child.length > 0">
                                     <span></span>
                                 </a>
 
@@ -216,7 +219,9 @@
                                 <div class="cate-lv3-box hide" id="cate-lv3-box-{{v2.referral_id}}">
                                     <div ng-repeat="(key3, v3) in v2.cate_child" class="cate-lv-3">
                                         <div class="clear"></div>
-                                        <a class="btn-expand" ng-click="list.onClickExpand('lv4', v3.referral_id, $event)">
+                                        <a class="btn-expand"
+                                           ng-click="list.onClickExpand('lv4', v3.referral_id, $event)"
+                                           ng-show="v3.cate_child.length > 0">
                                             <span></span>
                                         </a>
 
@@ -237,7 +242,8 @@
                                             <div ng-repeat="(key4, v4) in v3.cate_child" class="cate-lv-4">
                                                 <div class="clear"></div>
                                                 <div class="item-name">{{v4.name}} ({{v4.cate_child_count}})</div>
-                                                <a class="btn-edit" ng-click="list.onClickEditSubCate(v4.referral_id, v4.name)">
+                                                <a class="btn-edit"
+                                                   ng-click="list.onClickEditSubCate(v4.referral_id, v4.name)">
                                                     <span></span>
                                                 </a>
                                                 <a class="btn-del-s" ng-click="list.setStatusBlock(v4.referral_id, 0)">
