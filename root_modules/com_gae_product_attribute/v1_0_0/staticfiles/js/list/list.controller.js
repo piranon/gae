@@ -25,6 +25,7 @@
     vm.clickOnUpload = clickOnUpload;
     vm.addCategory = addCategory;
     vm.displaySubCateForm = false;
+    vm.attributeTypeId = 1;
     vm.onChangeLimit = function (limitList) {
       vm.limit = limitList || 10;
     };
