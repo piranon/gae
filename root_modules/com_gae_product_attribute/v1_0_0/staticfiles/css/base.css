@@ -283,6 +283,17 @@ body {
     margin-bottom: 5px;
 }
 
+.create-category .create-category-parent-name {
+    height: 22px;
+    color: #333;
+    font-family: Thonburi;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    width: 600px!important;
+    margin-bottom: 9px;
+}
+
 .create-category > div:first-child {
     float: left;
     margin-left: 80px;
@@ -354,6 +365,10 @@ body {
     margin-left: 65px;
 }
 
+.create-sub-category {
+    height: 175px;
+}
+
 .create-sub-category > div:first-child {
     width: 798px;
 }
@@ -367,6 +382,12 @@ body {
     height: 0px;
     margin-top: 46px;
     margin-left: 16px;
+}
+
+.extra-btn {
+    position: relative;
+    top: -113px;
+    left: -57px;
 }
 
 .radio input {

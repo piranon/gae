@@ -75,14 +75,20 @@
             </div>
             <div class="create-category create-sub-category" ng-show="list.displaySubCateForm">
                 <div>
-                    <div class="create-category-label">Category Name</div>
-                    <div class="create-category-desc">ชื่อหมวดสินค้า</div>
+                    <div class="create-category-label">Attribute Group</div>
+                    <div class="create-category-desc">ชื่อกลุ่มคุณลักษณะ</div>
+                    <div class="create-category-parent-name">
+                        <strong>{{list.placeholderSubCateName}}</strong>
+                    </div>
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="list.subCategoryName" id="sub_category_name"
-                               ng-keydown="list.keyDownRequired($event)" placeholder="{{list.placeholderSubCateName}}">
+                               ng-keydown="list.keyDownRequired($event)">
 
                         <div class="add-warning hide" ng-hide='list.subCategoryName'></div>
                     </div>
+                    <a class="btn-add extra-btn" ng-click="list.backCreateSubCate();">
+                        <span></span>
+                    </a>
                 </div>
                 <div>
                     <a class="btn-add" ng-click="list.addCategory(true);">
@@ -102,7 +108,7 @@
                 </div>
                 <div>&nbsp;
                     <div ng-show="list.items">
-                        {{list.selectedDeleteId.length}} category selected from total {{list.total}} categories
+                        {{list.selectedDeleteId.length}} attribute group selected from total {{list.total}} attribute groups
                     </div>
                 </div>
                 <div>

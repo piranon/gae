@@ -25,6 +25,9 @@
     vm.clickOnUpload = clickOnUpload;
     vm.addCategory = addCategory;
     vm.displaySubCateForm = false;
+    vm.backCreateSubCate = backCreateSubCate;
+    vm.idV1 = 0;
+    vm.nameV1 = '';
     vm.attributeTypeId = 1;
     vm.onChangeLimit = function (limitList) {
       vm.limit = limitList || 10;
@@ -59,6 +62,21 @@
     vm.onClickExpand = function (lv, id, $event) {
       onClickExpand(lv, id, $event);
     };
+
+    function backCreateSubCate() {
+      if (vm.idV1) {
+        vm.idV1 = 0;
+        vm.nameV1 = '';
+      }
+      if (!vm.idV1) {
+        vm.displaySubCateForm = false;
+      }
+      vm.placeholderSubCateName = '';
+      if (vm.nameV1) {
+        vm.placeholderSubCateName += vm.nameV1;
+      }
+      vm.parentId = vm.idV1;
+    }
 
     function onClickExpand(lv, id, $event) {
       var element = angular.element($event.target).parent();
@@ -101,16 +119,19 @@
     function onClickEdit(id) {
       vm.displaySubCateForm = false;
       cateId = id;
-      angular.element('#pic-icon').removeClass('ng-hide');
       var element = '#btn-edit-' + id;
       var name = angular.element(element).data('name');
       var imageId = angular.element(element).data('image_id');
       var image = angular.element(element).data('image');
       if (name) {
-        vm.categoryName = angular.element(element).data('name');
+        vm.categoryName = name;
       }
       if (imageId) {
-        vm.imageProfile = angular.element(element).data('image');
+        vm.imageProfile = image;
+        angular.element('#pic-icon').addClass('ng-hide');
+      } else {
+        vm.imageProfile = null;
+        angular.element('#pic-icon').removeClass('ng-hide');
       }
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');

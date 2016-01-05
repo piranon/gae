@@ -283,6 +283,17 @@ body {
     line-height: 21px;
 }
 
+.create-category .create-category-parent-name {
+    height: 22px;
+    color: #333;
+    font-family: Thonburi;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    width: 600px!important;
+    margin-bottom: 9px;
+}
+
 .create-category > div:first-child {
     float: left;
     margin-left: 80px;
@@ -352,6 +363,10 @@ body {
     margin-left: 52px;
 }
 
+.create-sub-category {
+    min-height: 160px;
+}
+
 .create-sub-category > div:first-child {
     width: 798px;
 }
@@ -369,7 +384,7 @@ body {
 
 .extra-btn {
     position: relative;
-    top: -80px;
+    top: -113px;
     left: -57px;
 }
 

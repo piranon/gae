@@ -100,9 +100,12 @@
                     <div class="create-category-desc">
                         ชื่อหมวดสินค้า
                     </div>
+                    <div class="create-category-parent-name">
+                        <strong>{{list.placeholderSubCateName}}</strong>
+                    </div>
                     <div class="form-group">
                         <input type="text" class="form-control" ng-model="list.subCategoryName" id="sub_category_name"
-                               ng-keydown="list.keyDownRequired($event)" placeholder="{{list.placeholderSubCateName}}">
+                               ng-keydown="list.keyDownRequired($event)">
 
                         <div class="add-warning hide" ng-hide='list.subCategoryName'></div>
                     </div>

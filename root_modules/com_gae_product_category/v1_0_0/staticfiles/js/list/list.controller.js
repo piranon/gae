@@ -150,7 +150,6 @@
     function onClickEdit(id) {
       vm.displaySubCateForm = false;
       cateId = id;
-      angular.element('#pic-icon').removeClass('ng-hide');
       angular.element('#colorPicker .colorInner').removeAttr("style");
       angular.element('#colorPicker2 .colorInner').removeAttr("style");
       var element = '#btn-edit-' + id;
@@ -160,10 +159,14 @@
       var label = angular.element(element).data('label');
       var font = angular.element(element).data('font');
       if (name) {
-        vm.categoryName = angular.element(element).data('name');
+        vm.categoryName = name;
       }
       if (imageId) {
-        vm.imageProfile = angular.element(element).data('image');
+        vm.imageProfile = image;
+        angular.element('#pic-icon').addClass('ng-hide');
+      } else {
+        vm.imageProfile = null;
+        angular.element('#pic-icon').removeClass('ng-hide');
       }
       if (label !== '#eee') {
         angular.element('#colorPicker .colorInner').css('background', label);
