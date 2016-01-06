@@ -1,9 +1,0 @@
-.article_ele{ border: 1px solid #FF8800; padding: 20px; margin: 20px; }
-	.article_ele .description{ border: 1px solid #f5f5f5; padding: 20px; margin: 20px; font-size: 16px; text-align: left; }
-	.article_ele .example_data{ border: 1px solid #f5f5f5; padding: 20px; margin: 20px; font-size: 16px; }
-	.article_ele .example_data .label{ color: #888; font-size: 14px; }
-	.article_ele .example_data .value{ color: #222; font-size: 14px; }
-	.article_ele .example_data .hint{ font-size: 16px; color: #00aa22; }
-
-	.menu_link_div{ text-align: center;}
-	.menu_link_div .menu_btn{ margin:10px; font-size: 18px; }
