@@ -79,7 +79,7 @@ class Start extends base_module_controller
         $dbData['parent_id'] = $category_parent_id;
         $dbData['name'] = $category_category_name;
         $dbData['status'] = self::STATUS_ACTIVE;
-        $dbData['create_time'] = time();
+        $dbData['update_time'] = time();
 
         $this->mLoadModel('referral_model');
         $this->mLoadModel('referral_type_model');

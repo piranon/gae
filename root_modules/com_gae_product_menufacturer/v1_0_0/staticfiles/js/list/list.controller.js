@@ -51,7 +51,6 @@
 
     function onClickEdit(id) {
       cateId = id;
-      angular.element('#pic-icon').removeClass('ng-hide');
       var element = '#btn-edit-' + id;
       var name = angular.element(element).data('name');
       var imageId = angular.element(element).data('image_id');
@@ -60,7 +59,11 @@
         vm.categoryName = angular.element(element).data('name');
       }
       if (imageId) {
-        vm.imageProfile = angular.element(element).data('image');
+        vm.imageProfile = image;
+        angular.element('#pic-icon').addClass('ng-hide');
+      } else {
+        vm.imageProfile = null;
+        angular.element('#pic-icon').removeClass('ng-hide');
       }
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');

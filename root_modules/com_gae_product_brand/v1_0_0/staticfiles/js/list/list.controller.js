@@ -51,16 +51,19 @@
 
     function onClickEdit(id) {
       cateId = id;
-      angular.element('#pic-icon').removeClass('ng-hide');
       var element = '#btn-edit-' + id;
       var name = angular.element(element).data('name');
       var imageId = angular.element(element).data('image_id');
       var image = angular.element(element).data('image');
       if (name) {
-        vm.categoryName = angular.element(element).data('name');
+        vm.categoryName = name;
       }
       if (imageId) {
-        vm.imageProfile = angular.element(element).data('image');
+        vm.imageProfile = image;
+        angular.element('#pic-icon').addClass('ng-hide');
+      } else {
+        vm.imageProfile = null;
+        angular.element('#pic-icon').removeClass('ng-hide');
       }
       angular.element('.btn-add').addClass('btn-save');
       angular.element('.btn-add').removeClass('btn-add');
@@ -218,11 +221,7 @@
         var dataSend = {
           "id": cateId || '',
           "category_name": vm.categoryName || '',
-          "parent_id": vm.parentId || '',
-          "sort_index": vm.sortIndex || '',
-          "profile_pic": vm.fileModel,
-          "label_color": angular.element('#labelColor').val() || '',
-          "font_color": angular.element('#fontColor').val() || ''
+          "profile_pic": vm.fileModel
         };
       }
       CUR_MODULE.apiPost(apiUrl, dataSend).then(function (res) {

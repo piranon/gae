@@ -69,7 +69,7 @@ class Start extends base_module_controller
         $dbData['parent_id'] = $attribute_parent_id;
         $dbData['name'] = $attribute_category_name;
         $dbData['attribute_type_id'] = $attribute_type_id;
-        $dbData['create_time'] = time();
+        $dbData['update_time'] = time();
 
         $this->mLoadModel('attribute_model');
         $this->mLoadModel('attribute_type_model');
