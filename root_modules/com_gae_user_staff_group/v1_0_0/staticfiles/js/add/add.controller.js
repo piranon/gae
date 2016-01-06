@@ -65,3 +65,8 @@
   }
 
 })();
+$( document ).ready(function() {
+  $("#submit-save-header").click(function() {
+    $( "#submit-save" ).trigger( "click" );
+  });
+});

@@ -13,3 +13,8 @@ $('.date').datepicker({
   autoclose: true,
   todayHighlight: true
 });
+$( document ).ready(function() {
+  $("#submit-save-header").click(function() {
+    $( "#submit-save" ).trigger( "click" );
+  });
+});

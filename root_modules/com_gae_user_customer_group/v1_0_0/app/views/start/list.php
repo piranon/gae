@@ -2,6 +2,17 @@
 
 <div ng-app="customerGroup" ng-controller="ListController as list">
 
+    <!-- ADD MODULE HTML BY AUTO LAYOUT -->
+    <div class="gae_manager_view-module_bar-left">
+        <div id="gae_module_bar_btn__1">
+            <a class="btn-add" href="<?php echo $curModule->app_url; ?>start/add">Create Customer Group</a>
+        </div>
+    </div>
+
+    <div class="gae_manager_view-module_bar-right">
+        <div id="gae_module_bar_btn__1"></div>
+    </div>
+
     <div class="gae_manager_view-header">
         <div class="box-search">
             <div class="module-container">

@@ -1,12 +1,20 @@
+<div class="gae_manager_view-footer"></div><!--gae_manager_view-header-->
+
 <div ng-app="customerGroup" ng-controller="DetailController as detail">
-    <div class="top-navigation">
-        <div class="row module-container">
-            <div class="col-md-4">
-                <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Back</a>
-            </div>
-            <div class="col-md-4 topic-page">Customer Group Detail</div>
+
+    <!-- ADD MODULE HTML BY AUTO LAYOUT -->
+    <div class="gae_manager_view-module_bar-left">
+        <div id="gae_module_bar_btn__1">
+            <a class="btn-cancle" href="<?php echo $curModule->app_url; ?>start">Back</a>
         </div>
     </div>
+
+    <div class="gae_manager_view-module_bar-right">
+        <div id="gae_module_bar_btn__1"></div>
+    </div>
+
+    <div class="gae_manager_view-header"></div><!--gae_manager_view-header-->
+
     <div class="row customer-list">
         <div class="module-container">
             <div class="row group-info">
