@@ -1,43 +1,43 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class test_dec2 extends base_controller {
+class product_model extends base_controller {
 
-	public function index()
-	{
-		echo "TEST DEC2";
+	//// Product EXample start ///////////
+	public function add($data){
+
+		$product_id = $this->insertToTable("product",$data);
+		if($product_id){
+			$product_detail_id = $this->registerDetailByProduct($product_id);
+		}
+		return $product_id;
 	}
 
-	public function stock(){
+	public function registerDetailByProduct($product_id){
 
-		$product_id = 222;
+		$this->getExistsDetailIdByProduct($product_id);
+	}
+
+	public function getExistsDetailIdByProduct($product_id){
+
+		$product_detail_id= $this->checkExistsDetailIdByProduct($product_id);
+		if(!$product_detail_id){
+			 $product_detail_id = $this->insertToTable("product",$data);
+		}	
+		return $product_detail_id;
+	}
+	public function checkExistsDetailIdByProduct($product_id){
+
+		// find exits product SELECT $product_id
+		return $product_detail_id;
+	}
+
+	public function enableStock($product_id){
+
 		$this->load->model("root_stock_model");
-		$enable_result = $this->root_stock_model->enableForProduct($product_id);
-
-		$this->root_stock_model->addStockForProduct($product_id,10);
-		$total_number = $this->root_stock_model->getTotalStockNumberForProduct($product_id);
-
-		$dataSend = array();
-		$dataSend["enable_result"] = $enable_result;
-		$dataSend["total_number"] = $total_number;
-		resOk($dataSend);
-	}
-
-	public function time(){
-
-		$product_id = 222;
-		$this->load->model("root_product_time_model");
-		$enable_result = $this->root_product_time_model->enableForProduct($product_id);
-		//$enable_result = $this->root_product_time_model->disableForProduct($product_id);
-
-		$timeData = $this->root_product_time_model->setTimeForProduct($product_id,time(),time()+3600);
-		$timeData = $this->root_product_time_model->getTimeDictForProduct($product_id);
-
-		$dataSend = array();
-		$dataSend["enable_result"] = $enable_result;
-		$dataSend["timeData"] = $timeData;
-		resOk($dataSend);
+		return $this->root_stock_model->enableForProduct($product_id);
 
 	}
+
 }
 
 ?>

@@ -180,7 +180,7 @@ class root_model extends CI_Model {
             }
         }
        
-        if($haveParam==true){
+        if(is_array($param_ar)&&(sizeof($param_ar)>0)){
             $result = $this->db->query($sql,$param_ar);
         }else{
             $result = $this->db->query($sql);
@@ -206,7 +206,7 @@ class root_model extends CI_Model {
         }
        
         
-        if($haveParam==true){
+        if(is_array($param_ar)&&(sizeof($param_ar)>0)){
             $result = $this->db->query($sql,$param_ar);
         }else{
             $result = $this->db->query($sql);
@@ -235,7 +235,7 @@ class root_model extends CI_Model {
         }
        
        
-        if($haveParam==true){
+        if(is_array($param_ar)&&(sizeof($param_ar)>0)){
              $result = $this->db->query($sql,$param_ar);
         }else{
              $result = $this->db->query($sql);
@@ -315,7 +315,7 @@ class root_model extends CI_Model {
         }
         
             
-        if($haveParam==true){
+        if(is_array($param_ar)&&(sizeof($param_ar)>0)){
              $result = $this->db->query($sql,$param_ar);
         }else{
              $result = $this->db->query($sql);
@@ -359,7 +359,7 @@ class root_model extends CI_Model {
             }
         }
         
-        if($haveParam==true){
+        if(is_array($param_ar)&&(sizeof($param_ar)>0)){
              $result = $this->db->query($sql,$param_ar);
         }else{
              $result = $this->db->query($sql);
@@ -401,16 +401,36 @@ class root_model extends CI_Model {
         */
         
        if(!$this->db->insert($this->collection_name, $insert_ar)){
-         return false;   
+         return false;
        }
-       return $this->db->insert_id(); 
+       return $this->db->insert_id();
         
     }
     
+    protected function checkValidFieldForTable($tableName,$input_dbData){
+        $errorField_ar = array();
+        $fr_ar = $this->getFields($tableName);
+        foreach ($input_dbData as $input_key => $input_value) {
+            $allowToAdd = false;
+            foreach ($fr_ar as $key => $value) {
+                if($key==$input_key){
+                    $allowToAdd = true;
+                }
+            }
+            if(!$allowToAdd){
+                $errorField_ar[$input_key] = "unknown";
+            }
+        }
+
+        if(is_array($errorField_ar)&&(sizeof($errorField_ar)>0)){
+            resDie($errorField_ar,"error-db-field for table : ".$tableName);
+        }
+    }
+
     public function insertToTable($tableName,$insert_ar,$default_value=""){ 
         
+        $this->checkValidFieldForTable($tableName,$insert_ar);
         $fr_ar = $this->getFields($tableName);
-      
         $param_insert_ar = array();
         foreach($fr_ar as $key => $value){
             
@@ -419,7 +439,7 @@ class root_model extends CI_Model {
             }else{
                 array_push($param_insert_ar,$insert_ar[$key]);
             }
-        }    
+        }
         
        if(!$this->db->insert($tableName, $insert_ar)){
          return false;   
@@ -456,7 +476,7 @@ class root_model extends CI_Model {
             }
         }
         
-        if($haveParam==true){
+        if(is_array($param_update_ar)&&(sizeof($param_update_ar)>0)){
             $result = $this->db->query($sql,$param_update_ar);
         }else{
             $result = $this->db->query($sql);
@@ -472,6 +492,8 @@ class root_model extends CI_Model {
     
     public function updateToTable($tableName,$update_ar,$where_str="",$param_ar= array()){
         
+        $this->checkValidFieldForTable($tableName,$update_ar);
+
         $sql = " UPDATE ".$tableName." ";
 
         $count = 0;
@@ -497,7 +519,7 @@ class root_model extends CI_Model {
             }
         }
         
-        if($haveParam==true){
+        if(is_array($param_update_ar)&&(sizeof($param_update_ar)>0)){
             $result = $this->db->query($sql,$param_update_ar);
         }else{
             $result = $this->db->query($sql);
@@ -608,6 +630,40 @@ class root_model extends CI_Model {
             }
         }
         return $idArray;
+    }
+
+    // add new
+     public function makeDbDataForDbTable($dbData,$table_name,$deActiveField=array()){
+
+        $errorField_ar = array();
+
+        $resultArray = array();
+        $fr_ar = $this->getFields($table_name);
+        foreach ($fr_ar as $key => $row) {
+            foreach ($dbData as $input_key => $input_value) {
+                if($input_key==$key){
+                    $allowToAdd = true;
+                    foreach ($deActiveField as $deActive_index => $deActive_value) {
+                        if($deActive_value==$input_key){
+                            $allowToAdd = false;
+                        }
+                    }
+                    if($allowToAdd){
+                        $resultArray[$key] = $input_value;
+                    }
+                }else{
+                    $errorField_ar[$input_key] = 1;
+                }
+            }
+        }
+
+        /*
+        if(is_array($errorField_ar)&&(sizeof($errorField_ar)>0)){
+            resDie($errorField_ar);
+        }
+        */
+
+        return $resultArray;
     }
 
 }

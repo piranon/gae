@@ -1,0 +1,86 @@
+/*  Animate  */
+body {
+  margin: 0px;
+  background: #fff;
+  color: #222;
+  /*font-family: 'Lato', 'ThaiSans Neue', sans-serif;*/
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 1.6em;
+  line-height: 1.6em;
+  -webkit-font-smoothing: antialiased;
+  min-width:1440px;
+}
+.clear {
+  clear: both;
+}
+
+
+#pageHeader { color: #222; }
+#pageContent {
+  padding: 0px 0px; margin:0px auto; background: #fff; width:960px;  min-height: 200px; color: #222;
+
+  .gae_manager_view (@boder_size: 0) {
+      position:relative; padding:0px;
+  }
+
+  .gae_manager_view-module_bar-left{ float: left; background: #ff0000; text-align: left; padding:0px; margin:0px; min-height:0px;  overflow:hidden; display:none; }
+  .gae_manager_view-module_bar-right{ float: right; background: #00ff00; text-align: right;  padding:0px; margin:0px; min-height:0px; overflow:hidden; display:none; }
+
+  .gae_manager_view-body{
+    .gae_manager_view();
+    width: 960px; margin:0px auto;
+  }
+  .gae_manager_view-left{
+    .gae_manager_view();
+    min-height:0px; display:none;
+    padding:0px 0px; width:210px; margin:0px 8px; 
+  }
+  .gae_manager_view-right{
+    .gae_manager_view();
+    min-height:0px; display:none;
+    padding:0px 0px; width:210px; margin:0px 8px;
+  }
+  .gae_manager_view-header{
+    .gae_manager_view();
+    display:none; 
+  }
+  .gae_manager_view-footer{
+    .gae_manager_view();
+    display:none; 
+  }
+}
+
+
+
+#pageFooter { color: #222; }
+
+.user-interact-false{
+  -webkit-user-select: none;  
+  -moz-user-select: none;    
+  -ms-user-select: none;      
+  user-select: none; 
+  outline: 0;
+}
+
+.btn{
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none; 
+	outline: 0;
+}
+.btn:focus{
+	 outline: 0;
+}
+.pre-complile{ 
+  visibility: hidden; position: absolute; width: 0px; height: 0px;
+}
+
+.marginH20{ margin: 20px 0px; }
+
+
+#gea_manager_view-header-real_location{ width:100%; padding:0px; margin:0px; min-height:0px; overflow:hidden; }
+#gae_manager_view-left-real_location{ width:225px; float: left; padding:0px; margin:0px; min-height:0px; overflow:hidden; }
+#gae_manager_view-right-real_location{ width:225px; float: right; padding:0px; margin:0px; min-height:0px; overflow:hidden;  }
+#gea_manager_view-footer-real_location{ width:100%; padding:0px; margin:0px; min-height:0px; overflow:hidden; }
+

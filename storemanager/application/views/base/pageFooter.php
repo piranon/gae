@@ -1,4 +1,6 @@
+
     </div><!--pageContent :: END -->
+    <div id="gae_manager_view-footer-real_location"></div>
     <div id="pageFooter"></div>
     <div class="clear"></div>
 

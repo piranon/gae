@@ -460,3 +460,9 @@ ol.linenums {
     margin-left: 0 !important;
     }
   }
+
+
+  /* added */
+
+.container{ position: relative; width: inherit; position: relative;  margin: 0px auto; padding: 20px 0px; }
+.demo-row{ position: 10px 0px; margin: 10px auto; } 

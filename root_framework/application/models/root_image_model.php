@@ -7,7 +7,7 @@ class root_image_model extends root_model {
 
     public $protocal = "http://";
 
-	public function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->startByCollection("image");
@@ -113,9 +113,6 @@ class root_image_model extends root_model {
         $result_ar = $this->db->query($sql,$param_ar)->result_array();
         return $result_ar;
     }
-
-
-
 
     public function getSizeUsingArray(){
 
@@ -997,13 +994,13 @@ class root_image_model extends root_model {
         return $uploadData;
     }
 
-    public function addImageToObject($image_id,$object_table_id,$object_id,$type_id="",$index=""){
+    public function addImageToObject($image_id,$object_table_id,$object_id,$type_id="",$sort_index=""){
 
         $insertData = array(
                 "image_id"=>$image_id,
                 "holder_object_table_id"=>$object_table_id,
                 "holder_object_id"=>$object_id,
-                "index"=>$index,
+                "sort_index"=>$sort_index,
                 "status"=>1,
                 "type_id"=>$type_id,
                 "create_time"=>time(),
@@ -1016,6 +1013,16 @@ class root_image_model extends root_model {
             return false;
         }
         return $newRelation_id;
+    }
+
+    public function deleteImageToObject($object_table_id,$object_id,$image_id)
+    {
+        $deleteImageId = array(
+            'holder_object_table_id'=> $object_table_id,
+            'holder_object_id'=> $object_id,
+            'image_id' => $image_id
+        ); 
+        return $this->db->delete('image_matchto_object', $deleteImageId);
     }
 
     public function cleanImageRelationByKey($object_table_id,$object_id,$type_id=""){
@@ -1043,7 +1050,7 @@ class root_image_model extends root_model {
         $sql = " 
             SELECT
                 ".fieldArrayToSql($fieldArray).",
-                image_matchto_object.index AS image_index,
+                image_matchto_object.sort_index AS image_sort_index,
                 image_matchto_object.image_matchto_object_id AS relation_id
             FROM 
                 image_matchto_object
@@ -1054,7 +1061,7 @@ class root_image_model extends root_model {
                 AND image_matchto_object.holder_object_id = ?
                 AND image_matchto_object.type_id = ?
             ORDER BY 
-                image_matchto_object.index ASC
+                image_matchto_object.sort_index ASC
             ".$limit_sql_str;
 
         $param_ar = array($object_table_id,$object_id,$type_id);

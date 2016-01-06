@@ -132,15 +132,15 @@
   height: 40px;
 }
 .gae_pageMainmenu .addon_section .menu_btn_addon_div .btn-main_menu-addon .addon_label {
-  -webkit-opacity: 0;
-  -moz-opacity: 0;
-  opacity: 0;
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
   -webkit-transition: 300ms;
   -moz-transition: 300ms;
   -ms-transition: 300ms;
   -o-transition: 300ms;
   font-size: 12px;
-  color: none;
+  color: #fff;
 }
 .gae_pageMainmenu .addon_section .menu_btn_addon_div .btn-main_menu-addon:hover {
   color: #fafafa;

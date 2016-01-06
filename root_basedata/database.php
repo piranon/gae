@@ -13,7 +13,7 @@
     }
 
     function root_db_usedb(){
-        return "gae_console_db";
+        return "gae_store_db";
     }
 
     function root_db_usedb_console(){

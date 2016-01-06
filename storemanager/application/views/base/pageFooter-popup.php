@@ -1,5 +1,5 @@
     </div><!--pageContent :: END -->
-    <div id="pageFooter"></div>
+    <div id="gae_manager_view-footer-real_location"></div>
     <div class="clear"></div>
 
     <script type="text/javascript" src="<?php echo root_sitefiles_url(); ?>js/jquery/jquery-ui.min.js"></script> 

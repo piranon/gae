@@ -78,15 +78,24 @@ class root_file_model extends root_model {
 
     public function getId($item_id,$is_full_data=true){
 
-        $result = $this->getFileDataById($item_id,$is_full_data);
+        $result = $this->getDataById($item_id,true);
         if(!$result){
             resDie(array(),"data-not-foud");
         }   
         return $result;
     }
 
+    public function getShortId(){
 
-    public function getFileDataById($image_id,$is_full_data=true){
+        $result = $this->getDataById($item_id,false);
+        if(!$result){
+            resDie(array(),"data-not-foud");
+        }
+        return $result;
+    }
+
+
+    public function getDataById($file_id,$is_full_data=true){
         $fieldArray = array();
         $fieldArray = array_merge($fieldArray, $this->getSelectFieldArray_short());
         if($is_full_data==true){
@@ -105,7 +114,7 @@ class root_file_model extends root_model {
             LIMIT 
                 0,1
             ";
-        $param_ar = array($image_id);
+        $param_ar = array($file_id);
         $result_ar = $this->db->query($sql,$param_ar)->result_array();
         if(@$result_ar[0]["file_id"]==""){
             return false;
@@ -113,7 +122,7 @@ class root_file_model extends root_model {
         return $result_ar[0];
     }
 
-    public function getImageShortDataById($image_id){
+    public function getShortDataById($image_id){
         $fieldArray = array();
         $fieldArray = array_merge($fieldArray, $this->getSelectFieldArray_short());
 
@@ -351,41 +360,28 @@ class root_file_model extends root_model {
         return $this->update($updateData," WHERE file_id = ? ",array($newFileId));
     }
 
-
     // FILE RELATION
-    public function addFileToObject($file_id,$object_table_id,$object_id,$relation_index="",$relation_key=""){
+    public function addFileToObject($file_id,$object_table_id,$object_id,$type_id="",$sort_index=""){
 
         $insertData = array(
                 "file_id"=>$file_id,
                 "holder_object_table_id"=>$object_table_id,
                 "holder_object_id"=>$object_id,
-                "key"=>$relation_key,
-                "index"=>$relation_index,
+                "type_id"=>$type_id,
+                "sort_index"=>$sort_index,
                 "create_time"=>time(),
                 "update_time"=>time()
             );
 
-        $newRelation_id = $this->insertToTable("file_to_object",$insertData);
+        $newRelation_id = $this->insertToTable("file_matchto_object",$insertData);
         if(!$newRelation_id){
             return false;
         }
         return $newRelation_id;
     }
 
-    public function cleanFileRelationByKey($object_table_id,$object_id,$relation_index="",$relation_key=""){
 
-        $where_str = " 
-        WHERE
-             file_to_object.holder_object_table_id = ? 
-             AND file_to_object.holder_object_id = ?
-             AND file_to_object.key = ?
-             AND file_to_object.index = ?
-        ";
-        $param_ar = array($object_table_id,$object_id,$relation_key,$relation_index);
-        return $this->deleteToTable("file_to_object",$where_str, $param_ar); 
-    }
-
-    public function getImageSvgByHolder($object_table_id,$object_id,$relation_key=""){
+    public function getImageSvgByHolder($object_table_id,$object_id,$type_id=""){
 
         $fieldArray = array();
         $fieldArray = array_merge($fieldArray, $this->getSelectFieldArray_veryShort());
@@ -393,17 +389,17 @@ class root_file_model extends root_model {
         $sql = " 
             SELECT
                 ".fieldArrayToSql($fieldArray).",
-                file_to_object.key AS file_key,
-                file_to_object.index AS file_index
+                file_matchto_object.type_id AS file_type_id,
+                file_matchto_object.sort_index AS file_sort_index
             FROM 
-                file_to_object
-                    INNER JOIN file ON ( file.file_id = file_to_object.file_id )
+                file_matchto_object
+                    INNER JOIN file ON ( file.file_id = file_matchto_object.file_id )
                     INNER JOIN server ON ( server.server_id = file.server_id )
             WHERE
-                file_to_object.holder_object_table_id = ?
-                AND file_to_object.holder_object_id = ?
+                file_matchto_object.holder_object_table_id = ?
+                AND file_matchto_object.holder_object_id = ?
             ORDER BY 
-                file_to_object.index ASC
+                file_matchto_object.sort_index ASC
             ";
         $param_ar = array($object_table_id,$object_id);
         $result_ar = $this->db->query($sql,$param_ar)->result_array();
@@ -411,6 +407,71 @@ class root_file_model extends root_model {
             return array();
         }
         return $result_ar;
+    }
+
+
+    public function getFileByHolder($object_table_id,$object_id,$type_id="",$limit=-1){
+
+        $limit_sql_str = "";
+        if($limit>=0){
+          $limit_sql_str = " LIMIT 0 , ".intval($limit)." ";  
+        }
+        
+        $type_id = intval($type_id);
+        $extend_where_str = "";
+        if($type_id>0){
+            $extend_where_str = " AND file_matchto_object.type_id  = {$type_id}";
+        }
+
+        $fieldArray = array();
+        $fieldArray = array_merge($fieldArray, $this->getSelectFieldArray_veryShort());
+        
+        $sql = " 
+            SELECT
+                ".fieldArrayToSql($fieldArray).",
+                file_matchto_object.type_id AS file_type_id,
+                file_matchto_object.sort_index AS file_sort_index
+            FROM 
+                file_matchto_object
+                    INNER JOIN file ON ( file.file_id = file_matchto_object.file_id )
+                    INNER JOIN server ON ( server.server_id = file.server_id )
+            WHERE
+                file_matchto_object.holder_object_table_id = ?
+                AND file_matchto_object.holder_object_id = ?
+                ".$extend_where_str."
+            ORDER BY 
+                file_matchto_object.sort_index ASC
+            ".$limit_sql_str;
+
+        $param_ar = array($object_table_id,$object_id);
+        $result_ar = $this->db->query($sql,$param_ar)->result_array();
+        if(@$result_ar[0]["file_id"]==""){
+            return array();
+        }
+        return $result_ar;
+    }
+
+
+    public function deleteFileToObject($object_table_id,$object_id,$file_id)
+    {
+        $deleteFileId = array(
+            'holder_object_table_id'=> $object_table_id,
+            'holder_object_id'=> $object_id,
+            'file_id' => $file_id
+        ); 
+        return $this->db->delete('file_matchto_object', $deleteFileId);
+    }
+
+    public function cleanFileRelationByKey($object_table_id,$object_id,$type_id=""){
+
+        $where_str = "
+        WHERE
+             file_matchto_object.holder_object_table_id = ? 
+             AND file_matchto_object.holder_object_id = ? 
+             AND file_matchto_object.type_id = ? 
+        ";
+        $param_ar = array($object_table_id,$object_id,$type_id);
+        return $this->deleteToTable("file_matchto_object",$where_str, $param_ar);
     }
 
 

@@ -15,9 +15,12 @@ class module extends base_controller {
 
 		$this->load->model("module_model");
 		$viewContent = $this->module_model->getModuleViewController($module_id,$controllerName,$functionName);
+		$subModuleArray = $this->module_model->getSubModuleByModule($module_id);
 
+		$viewData["viewType"] = "normal";
 		$viewData["menuData"] = $menuData;
 		$viewData["module_id"]= $module_id;
+		$viewData["subModuleArray"]= $subModuleArray;
 		$viewData["viewContent"] = $viewContent;
 
 		$this->viewStart($viewData);
@@ -35,9 +38,12 @@ class module extends base_controller {
 
 		$this->load->model("module_model");
 		$viewContent = $this->module_model->getModuleViewController($module_id,$controllerName,$functionName);
+		$subModuleArray = $this->module_model->getSubModuleByModule($module_id);
 
+		$viewData["viewType"] = "popup";
 		$viewData["menuData"] = $menuData;
 		$viewData["module_id"]= $module_id;
+		$viewData["subModuleArray"]= $subModuleArray;
 		$viewData["viewContent"] = $viewContent;
 
 		$this->viewPopupStart($viewData);

@@ -1,7 +1,9 @@
- var Gaeui = function(){
+ var GAEUI_CLASS = function(){
 
+ 	function check_isInIFrame(){
+		return window.frameElement && window.frameElement.nodeName == "IFRAME";
+	}
  	function whichTransitionEvent(){
-
   		var t,el = document.createElement("fakeelement");
 		var transitions = {
 		    "transition"      : "transitionend",
@@ -9,13 +11,11 @@
 		    "MozTransition"   : "transitionend",
 		    "WebkitTransition": "webkitTransitionEnd"
 		}
-
 		for (t in transitions){
 		    if (el.style[t] !== undefined){
 		      return transitions[t];
 		    }
 		}
-
 	}
 	var transitionEvent = whichTransitionEvent();
 
@@ -86,10 +86,24 @@
 	 				doneBtn_class:""
 	 			},
 	 			play:function(title,content){
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.alert().play(title,content);
+						}catch(e){}
+						return;
+					}
 	 				var self = this;
 	 				self.playHTML(title,content);
 	 			},
 	 			playHTML:function(title,content){
+
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.alert().playHTML(title,content);
+						}catch(e){}
+						return;
+					}
+
 	 				var self = this;
 	 				if(title){
 						self.sub_ele.title_ele.show();
@@ -139,6 +153,14 @@
 		 			isLoadAnimate:false
 		 		},
 		 		play:function(callback){
+
+		 			if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.pageLoading().play(callback);
+						}catch(e){}
+						return;
+					}
+
 		 			var self = this;
 		 			self.updateProgress(0);
 		 			ele = $(self.data.eleId);
@@ -151,6 +173,14 @@
 		 			});
 		 		},
 		 		updateProgress:function(percent){
+
+		 			if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.pageLoading().updateProgress(percent);
+						}catch(e){}
+						return;
+					}
+
 		 			var self = this;
 		 			self.data.currentProgress = parseInt(percent);
 		 			var ele = $(self.data.eleId+" .pld_body .pld_load_progress");
@@ -164,6 +194,14 @@
 		 			ele.animateNumber({ number: percent });
 		 		},
 		 		stop:function(callback){
+
+		 			if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.pageLoading().stop(callback);
+						}catch(e){}
+						return;
+					}
+
 		 			var self = this;
 		 			$(self.data.eleId).fadeOut(200,function(){
 		 				self.stopLoadLabel();
@@ -171,6 +209,14 @@
 		 			});
 		 		},
 		 		playLoadLabel:function(count){
+
+		 			if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.pageLoading().playLoadLabel(count);
+						}catch(e){}
+						return;
+					}
+
 		 			var self = this;
 		 			if(!self.data.isLoadAnimate){ return; }
 		 			var extendStr = "";
@@ -185,6 +231,14 @@
 					},250); 
 		 		},
 		 		stopLoadLabel:function(){
+
+		 			if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.pageLoading().stopLoadLabel(count);
+						}catch(e){}
+						return;
+					}
+
 		 			var self = this;
 		 			self.data.isLoadAnimate = false;
 		 		}
@@ -234,6 +288,14 @@
 	 				self.playHTML(contentHTML,callback,380,3500);
 	 			},
 	 			playHTML:function(contentHTML,callback,animate_timeMs,show_timeMs){
+
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.notification().playHTML(contentHTML,callback,animate_timeMs,show_timeMs);
+						}catch(e){}
+						return;
+					}
+
 	 				var self = this;
 	 				if(!animate_timeMs){
 	 					animate_timeMs = 500;
@@ -265,6 +327,13 @@
 	 				});
 	 			},
 	 			stop:function(callback){
+
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.notification().stop(callback);
+						}catch(e){}
+						return;
+					}
 
 	 				var self = this;
 	 				var notiEle = $(self.data.notiEleId);
@@ -335,6 +404,13 @@
 	 			},
 	 			playHTML:function(title,content,callback){
 	 				
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.modal(id).playHTML(title,content,callback);
+						}catch(e){}
+						return;
+					}
+
 	 				var self = this;
 	 		
 	 				if(title){
@@ -361,6 +437,14 @@
 
 	 			},
 	 			shake:function(){
+
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.modal(id).shake();
+						}catch(e){}
+						return;
+					}
+
 	 				var self = this;
 	 				// do shake
 	 				parent.doAnimateCss(self.sub_ele.pcb_body,'shake',function(){
@@ -370,6 +454,14 @@
 	 				});
 	 			},
 	 			stop:function(callback){
+
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.modal(id).stop();
+						}catch(e){}
+						return;
+					}
+
 	 				var self = this;
 	 				self.main_ele.finish();
 	 				self.main_ele.clearQueue();
@@ -436,6 +528,13 @@
 	 				self.playHTML(title,content,callback,doneBtn_name);
 	 			},
 	 			playHTML:function(title,content,callback,doneBtn_name){
+
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.confirmBox(id).playHTML(title,content,callback,doneBtn_name);
+						}catch(e){}
+						return;
+					}
 	 				
 	 				var self = this;
 	 		
@@ -478,6 +577,14 @@
 	 				parent.doAnimateCss(self.sub_ele.pcb_body,'jellyBox',function(){});
 	 			},
 	 			shake:function(callback){
+
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.confirmBox(id).shake(callback);
+						}catch(e){}
+						return;
+					}
+
 	 				var self = this;
 	 				// do shake
 	 				parent.doAnimateCss(self.sub_ele.pcb_body,'shake',function(){
@@ -487,6 +594,14 @@
 	 				});
 	 			},
 	 			stop:function(callback){
+
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.confirmBox(id).stop(callback);
+						}catch(e){}
+						return;
+					}
+
 	 				console.log("stop");
 	 				var self = this;
 	 				self.sub_ele.content_ele.html('');
@@ -499,11 +614,26 @@
 	 				
 	 			},
 	 			disableDoneBtn:function(){
+
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.confirmBox(id).disableDoneBtn();
+						}catch(e){}
+						return;
+					}
+
 	 				var self = this;
 	 				self.sub_ele.btn_done.addClass("disabled");
 
 	 			},
 	 			enableDoneBtn:function(){
+	 				if(check_isInIFrame()){
+						try{
+							window.top.parent.GAEUI.confirmBox(id).enableDoneBtn();
+						}catch(e){}
+						return;
+					}
+
 	 				var self = this;
 	 				self.sub_ele.btn_done.removeClass("disabled");
 	 			}
@@ -516,7 +646,7 @@
  	};
  	return GAEUI_OBJ;
  }
-var GAEUI = new Gaeui();
+var GAEUI = new GAEUI_CLASS();
 
 //GAEUI.confirmBox("id1").play();
 //GAEUI.comfirmBox("id2").stop();

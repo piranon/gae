@@ -52,13 +52,16 @@ class root_stock_model extends root_model {
     }
 
     public function enableStockForProduct($product_id){
-    	$this->load->model("root_stock_model");
-    	return $this->root_stock_model->updateSimpleDataById(array("is_stock_enable"=>1),$product_id);
+    	$this->load->model("root_product_model");
+    	return $this->root_product_model->enableStock($product_id);
+
     }
 
     public function disableStockForProduct($product_id){
-    	$this->load->model("root_stock_model");
-    	return $this->root_stock_model->updateSimpleDataById(array("is_stock_enable"=>0),$product_id);
+    	$this->load->model("root_product_model");
+    	return $this->root_product_model->disableStock($product_id);
     }
+
+}
 
 ?>

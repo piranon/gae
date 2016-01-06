@@ -16,15 +16,16 @@ class menu_model extends base_model {
         $addonConfigArray = $this->module_model->getShopActiveModuleConfigData($shop_id);
 
         foreach ($addonConfigArray as $index => $row) {
-            
             $injection = $row["injection"];
             $sub_menu_id = $injection["sub_menu_id"];
-            $menu_display = $row["menu_display"]; 
-            $menu_display["module_id"] = $row["module_id"];
+            $menu_display = $row["menu_display"];
+            $menu_display["module_id"] = $row["module_data"]["module_id"];
+            $menu_display["module_data"] = $row["module_data"];
 
             $menuDataArray = $this->addTempDataToMenu($menuDataArray,$sub_menu_id,"menu_addon",$menu_display);
         }
 
+        //resOk($menuDataArray);
         return $menuDataArray;
     }
 
@@ -43,14 +44,12 @@ class menu_model extends base_model {
                 return $resultData;  
                 break;
             }else{
-                
+
                 $menu_sub = @$row["menu_sub"];
                 if(is_array($menu_sub)&&(sizeof($menu_sub)>0)){
                     $menu_sub = $this->addTempDataToMenu($menu_sub,$menu_id,$keyname,$dataForAdd);
                 }
-
                 $resultData[$index]["menu_sub"] = $menu_sub;
-                 
             }
       
         }

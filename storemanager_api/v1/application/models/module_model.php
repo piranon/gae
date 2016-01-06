@@ -1,17 +1,18 @@
 <?php
 
-class module_model extends base_model {
+class module_model extends base_module_model {
 
 
     public $module_model_history = array();
     public $module_library_history = array();
 
+    //<!-- GET MODULE DATA : START --->
     public function getShopActiveModule($shop_id){
-        return $this->getAllModuleList();
+        return $this->getShopActiveModuleRelation($shop_id,0);
     }
 
     public function getAllModuleList(){
-    	$resultData = array();
+        $resultData = array();
 
             $moduleData = array();
             $moduleData["module_id"] = "1";
@@ -31,6 +32,40 @@ class module_model extends base_model {
             $moduleData["module_version"] = "1.0.0";
             array_push($resultData,$moduleData);
 
+            $moduleData = array();
+            $moduleData["module_id"] = "4";
+            $moduleData["module_bundle_id"] = "com.gae.design.gaeimage";
+            $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
+
+            //SUB MODULE
+            $moduleData = array();
+            $moduleData["module_id"] = "4";
+            $moduleData["module_bundle_id"] = "com.gae.sale.submodule_ex";
+            $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "41";
+            $moduleData["module_bundle_id"] = "com.gae.sale.submodule_ex.example1";
+            $moduleData["module_version"] = "1.0.0";
+            $moduleData["parent_id"] = "4";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "42";
+            $moduleData["module_bundle_id"] = "com.gae.sale.submodule_ex.example2";
+            $moduleData["module_version"] = "1.0.0";
+            $moduleData["parent_id"] = "4";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "43";
+            $moduleData["module_bundle_id"] = "com.gae.sale.submodule_ex.example3";
+            $moduleData["module_version"] = "1.0.0";
+            $moduleData["parent_id"] = "4";
+            array_push($resultData,$moduleData);
+
              //SELL
             $moduleData = array();
             $moduleData["module_id"] = "31";
@@ -38,10 +73,39 @@ class module_model extends base_model {
             $moduleData["module_version"] = "1.0.0";
             array_push($resultData,$moduleData);
 
+            //PAYMENT
             $moduleData = array();
             $moduleData["module_id"] = "32";
             $moduleData["module_bundle_id"] = "com.gae.sell.payment";
             $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "320";
+            $moduleData["module_bundle_id"] = "com.gae.sell.payment.bdp";
+            $moduleData["module_version"] = "1.0.0";
+            $moduleData["module_parent_id"] = "32";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "321";
+            $moduleData["module_bundle_id"] = "com.gae.sell.payment.cod";
+            $moduleData["module_version"] = "1.0.0";
+            $moduleData["module_parent_id"] = "32";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "322";
+            $moduleData["module_bundle_id"] = "com.gae.sell.payment.mnp";
+            $moduleData["module_version"] = "1.0.0";
+            $moduleData["module_parent_id"] = "32";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "323";
+            $moduleData["module_bundle_id"] = "com.gae.sell.payment.pap";
+            $moduleData["module_version"] = "1.0.0";
+            $moduleData["module_parent_id"] = "32";
             array_push($resultData,$moduleData);
 
 
@@ -96,6 +160,15 @@ class module_model extends base_model {
             array_push($resultData,$moduleData);
 
             //USER
+
+            
+
+            $moduleData = array();
+            $moduleData["module_id"] = "11";
+            $moduleData["module_bundle_id"] = "com.gae.user.customer.address.book";
+            $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
+
             $moduleData = array();
             $moduleData["module_id"] = "12";
             $moduleData["module_bundle_id"] = "com.gae.user.staff";
@@ -132,16 +205,100 @@ class module_model extends base_model {
             $moduleData["module_version"] = "1.0.0";
             array_push($resultData,$moduleData);
 
-
             $moduleData = array();
             $moduleData["module_id"] = "18";
             $moduleData["module_bundle_id"] = "com.gae.file.imagegallery";
             $moduleData["module_version"] = "1.0.0";
             array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "19";
+            $moduleData["module_bundle_id"] = "com.gae.promotion.manager";
+            $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "20";
+            $moduleData["module_bundle_id"] = "com.gae.promotion.manager.form101";
+            $moduleData["module_version"] = "1.0.0";
+            $moduleData["module_parent_id"] = "19";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "501";
+            $moduleData["module_bundle_id"] = "com.gae.modulemanager";
+            $moduleData["module_version"] = "1.0.0";
+            array_push($resultData,$moduleData);
+
+            $moduleData = array();
+            $moduleData["module_id"] = "502";
+            $moduleData["module_bundle_id"] = "com.gae.menumanager";
+            $moduleData["module_version"] = "1.0.0";
+            $moduleData["module_parent_id"] = "19";
+            array_push($resultData,$moduleData);
            
 
         return $resultData;
     }
+
+
+    public function getShopActiveModuleRelation($shop_id,$level_num=-1){
+
+        $module_array =  $this->getAllModuleList($shop_id);
+
+        $root_module = array();
+        $sub_module = array();
+
+        foreach ($module_array as $index => $row) {
+            if(intval(@$row["module_parent_id"])==0){
+                array_push($root_module,$row); 
+            }else{
+                array_push($sub_module,$row); 
+            }
+        }
+
+        if($level_num<0){
+            
+            $result_array = array();
+            foreach($root_module as $root_index =>$root_row){
+                $sub_for_root = array();
+                foreach ($sub_module as $sub_index => $sub_row) {
+                    if($sub_row["module_parent_id"]==$root_row["module_id"]){
+                        array_push($sub_for_root,$sub_row);
+                    }
+                }
+                $root_row["sub_module"] = $sub_for_root;
+                array_push($result_array,$root_row);
+            }
+            return $result_array;
+
+        }else if($level_num==0){
+            return $root_module;
+
+        }else if($level_num==1){
+            return $sub_module;
+        }
+
+    }
+
+    public function getSubModuleByModule($module_id){
+
+        $shop_id = $this->currentShopId();
+
+        $module_array = $this->getShopActiveModuleRelation($shop_id,1);
+
+        $result_array = array();
+        foreach ($module_array as $index => $row) {
+            if(intval(@$row["module_parent_id"])==$module_id){
+
+                array_push($result_array,$row);
+            }
+        }
+
+        return $this->getMoudleConfigByModuleArray($result_array);
+    }
+    //<!-- GET MODULE DATA : END --->
+
 
     public function getId($item_id){
 
@@ -153,24 +310,29 @@ class module_model extends base_model {
     }
 
     public function getDataById($module_id){
-    	$module_array = $this->getAllModuleList();
-    	foreach ($module_array as $index => $row) {
-    		if($row["module_id"]==$module_id){
-    			return  $row;
-    			break;
-    		}
-    	}
-    	return false;
+
+        $shop_id = $this->currentShopId();
+
+        $module_array = $this->getAllModuleList($shop_id);
+        foreach ($module_array as $index => $row) {
+            if($row["module_id"]==$module_id){
+                return  $row;
+                break;
+            }
+        }
+        return false;
     }
 
 
     public function getShopActiveModuleConfigData($shop_id){
 
-        $module_array = $this->getShopActiveModule($shop_id);
+        $module_array = $this->getShopActiveModuleRelation($shop_id);
         return $this->getMoudleConfigByModuleArray($module_array);
+
     }
 
     public function getMoudleConfigByModuleArray($module_array){
+
         $resultData = array();
         if((!is_array($module_array))&&(sizeof($module_array)<=0)){
             return $resultData;
@@ -178,7 +340,9 @@ class module_model extends base_model {
         foreach ($module_array as $index => $row) {
             $config_data = $this->getModuleConfigData($row);
             if($config_data){
-                $config_data["module_id"] = $row["module_id"];
+                $sub_module = @$row["sub_module"];
+                $config_data["module_data"] = $row;
+                $config_data["module_data"]["sub_module"] = $this->getMoudleConfigByModuleArray($sub_module);
                 array_push($resultData,$config_data);  
             }
         }
@@ -218,79 +382,84 @@ class module_model extends base_model {
 
         $module_path = $this->getModulePath($moduleData);
         $module_url = $this->getModuleUrl($moduleData);
-        $modult_register_file = $module_path."register.php";
-        if(!file_exists($modult_register_file)){
+        $module_register_file = $module_path."register.php";
+        if(!file_exists($module_register_file)){
             return false;    
         }
 
-        $curModule = new stdClass();
-        $curModule->path = $module_path;
-        $curModule->file_url = $module_url."staticfiles/";
 
+        $curModule = $this->getCurModuleObject($moduleData);
+        $this->startByModule($curModule);
+        
         $config = array();
-        require($modult_register_file);
+        require($module_register_file);
         return $config;
         
     }
 
     public function getModuleViewController($module_id,$controllerName="",$functionName=""){
-    	return $this->getModuleControllerWithType("app",$module_id,$controllerName,$functionName);   
+        return $this->getModuleControllerWithType("app",$module_id,$controllerName,$functionName);   
     }
 
     public function getModuleApiController($module_id,$controllerName="",$functionName=""){
-    	return $this->getModuleControllerWithType("api",$module_id,$controllerName,$functionName);   
+        return $this->getModuleControllerWithType("api",$module_id,$controllerName,$functionName);   
     }
 
     public function getModuleControllerWithType($type,$module_id,$controllerName="",$functionName=""){
 
-    	$moduleData = $this->getId($module_id);
+        $moduleData = $this->getId($module_id);
 
-    	$controllerName = trim(strtolower($controllerName));
-    	if($controllerName==""){
-    		$controllerName = "start";
-    	}
+        $controllerName = trim(strtolower($controllerName));
+        if($controllerName==""){
+            $controllerName = "start";
+        }
 
-    	$functionName = trim(strtolower($functionName));
-    	if($functionName==""){
-    		$functionName = "index";
-    	}
+        $functionName = trim(strtolower($functionName));
+        if($functionName==""){
+            $functionName = "index";
+        }
 
 
-    	$module_path = $this->getModulePath($moduleData);
+        $module_path = $this->getModulePath($moduleData);
         $module_url = $this->getModuleUrl($moduleData);
         $module_run_file = $module_path.$type."/controllers/".$controllerName.".php";
         if(!file_exists($module_run_file)){
-        	echo "module controller file not found !!";
+            echo "module controller file not found !!";
             return false;    
         }
 
-        require_once(root_plugins_path()."modules/cur_module.php");
-        $curModule = new cur_module();
-        $curModule->id = $module_id;
-        $curModule->bundle_id = $moduleData["module_bundle_id"];
-        $curModule->version = $moduleData["module_version"];
-        $curModule->path = $module_path;
-        $curModule->url = $module_url;
-        $curModule->file_url = $module_url."staticfiles/";
-        $curModule->app_url = base_url()."module/app/".$module_id."/";
-        $curModule->app_popup_url = base_url()."module/app_popup/".$module_id."/";
-        $curModule->api_url = base_api_url()."module/api/".$module_id."/";
-        $curModule->init();
-
+        $curModule = $this->getCurModuleObject($moduleData);
         require_once($module_run_file);
 
         $c_controller = new $controllerName();
-    	$c_controller->startByModule($curModule);
+        $c_controller->startByModule($curModule);
         try{
-		  
           if(method_exists($c_controller,$functionName)){
             $c_controller->{$functionName}();
           }else{
             echo "Undefine function from module controller :  ".$controllerName."->".$functionName;
           }
         }catch(MyException $e){}
-		return $c_controller->getMView();    
+        return $c_controller->getMView();    
 
+    }
+
+    public function getCurModuleObject($moduleData){
+
+        $module_id = $moduleData["module_id"];
+        $module_path = $this->getModulePath($moduleData);
+        $module_url = $this->getModuleUrl($moduleData);
+
+        require_once(root_plugins_path()."modules/cur_module.php");
+
+        $curModule = new cur_module();
+        $curModule->id = $module_id;
+        $curModule->bundle_id = $moduleData["module_bundle_id"];
+        $curModule->version = $moduleData["module_version"];
+        $curModule->path = $module_path;
+        $curModule->url = $module_url;
+        $curModule->init();
+        return $curModule;
     }
 
     public function processModuleModel($classPath,$className){
@@ -330,6 +499,7 @@ class module_model extends base_model {
         return $c_class;
     }
 
+   
 }
 
 ?>
